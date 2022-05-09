@@ -41,9 +41,9 @@ services:
       - BASE_URL=http://analytics.jbpixel.xyz
       - SECRET_KEY_BASE=9841
     networks:  
-    nginxpm_default:
-    external: true
-    name: nginxpm_default
+      nginxpm_default:
+        external: true
+        name: nginxpm_default
 
 volumes:
   db-data:
