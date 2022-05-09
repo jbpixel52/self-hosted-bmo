@@ -60,10 +60,10 @@ services:
     image: linuxserver/sonarr:latest
     ipc: private
     labels:
-      #flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/sonarr.png
-      #flame.name: Sonarr
-      #flame.type: app
-      #flame.url: sonarr.jbpixel.xyz
+      flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/sonarr.png
+      flame.name: Sonarr
+      flame.type: app
+      flame.url: sonarr.jbpixel.xyz
     logging:
       driver: json-file
       options: {}

@@ -18,7 +18,7 @@ services:
       - MYSQL_USER=nextcloud
     networks:
       - nginxpm_default
-      
+
   app:
     image: nextcloud
     restart: always
@@ -36,7 +36,11 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=db
-
+    labels:
+      flame.icon: https://github.com/walkxhub/dashboard-icons/blob/master/png/nextcloud.png?raw=true
+      flame.name: Nextcloud
+      flame.type: app
+      flame.url: nextcloud.jbpixel.xyz
 networks:  
   nginxpm_default:
     external: true
