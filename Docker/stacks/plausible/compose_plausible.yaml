@@ -40,7 +40,7 @@ services:
       - ADMIN_USER_NAME=jbpixel
       - ADMIN_USER_PWD=admin
       - BASE_URL=http://analytics.jbpixel.xyz
-      - SECRET_KEY_BASE=9841
+      - SECRET_KEY_BASE=Soylr7ygj9UqOVHs0H5AkU2ggdtVYuLDtG9m7OjaBLsOBZVyNX6mW6UyaPCOAeym
 
 
 volumes:
