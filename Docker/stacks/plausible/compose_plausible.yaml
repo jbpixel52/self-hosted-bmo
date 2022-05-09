@@ -35,6 +35,8 @@ services:
       - mail
     #ports:
       #- 8000:8000
+    networks:
+      - nginxpm_default
     environment:
       - ADMIN_USER_EMAIL=jbrampixel@gmail.com
       - ADMIN_USER_NAME=jbpixel
