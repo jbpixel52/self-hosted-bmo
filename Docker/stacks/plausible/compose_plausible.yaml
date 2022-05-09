@@ -38,7 +38,7 @@ services:
     environment:
       - ADMIN_USER_EMAIL=jbrampixel@gmail.com
       - ADMIN_USER_NAME=jbpixel
-      - ADMIN_USER_PWD=admin
+      - ADMIN_USER_PWD=adminpassword
       - BASE_URL=http://analytics.jbpixel.xyz
       - SECRET_KEY_BASE=Soylr7ygj9UqOVHs0H5AkU2ggdtVYuLDtG9m7OjaBLsOBZVyNX6mW6UyaPCOAeym
 
