@@ -23,7 +23,7 @@ services:
       flame.url: http://umami.jbpixel.xyz
   db:
     image: postgres:12-alpine
-    
+    hostname: umami_db
     environment:
       POSTGRES_DB: umami
       POSTGRES_USER: umami
