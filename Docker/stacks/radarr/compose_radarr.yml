@@ -1,0 +1,28 @@
+version: "3"
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    hostname: radarr_host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+
+    networks:
+      - nginxpm_default
+    labels:
+
+      #flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/radarr.png
+      #flame.type: app
+      #flame.url: http://radarr.jbpixel.xyz
+    volumes:
+      - /home/jbpixel/Docker/radarr:/config
+      - /mnt:/movies #optional
+      - /mnt/ntfs2/TMP:/downloads
+    restart: unless-stopped
+
+networks:  
+  nginxpm_default:
+    external: true
+    name: nginxpm_default
