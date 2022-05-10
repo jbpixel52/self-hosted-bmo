@@ -1,0 +1,58 @@
+.App {
+  text-align: center;
+}
+
+
+body{
+  backdrop-filter: blur(5px);
+  background-image: url('https://images.unsplash.com/photo-1548350896-fafc317d3ceb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');
+  background-size: cover;
+  background-blend-mode: multiply;
+  color: black;
+}
+@font-face {
+  font-family: Antiseptic;
+  src: url(Antiseptic-Rounded.otf);
+}
+.app{
+    /* App Card */
+color: #000000;
+text-decoration: none;
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 1%;
+gap: 1%;
+font-size:1em;
+position: relative;
+width: 20%;
+height: 20%;
+overflow: hidden;
+color:white;
+background-color: rgba(20,20,20, 0.4);
+border: 4px solid #000000;
+box-shadow: 4px 4px 0px #000000;
+border-radius: 12px;
+
+}
+.appTitle{
+  font-family: Antiseptic;
+}
+.apps{
+  /* App Card */
+/* Auto layout */
+display: flex;
+gap: 1%;
+flex-direction: row;
+flex-wrap: wrap;
+align-items:flex-start;
+padding:1%;
+position:relative;
+width: 75%;
+height:80%;
+
+border: 4px solid #000000;
+box-shadow: 4px 4px 0px #000000;
+border-radius: 12px;
+}
