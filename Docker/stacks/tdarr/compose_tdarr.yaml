@@ -23,22 +23,16 @@ services:
       - nodeID=MyInternalNode
       - nodeIP=0.0.0.0
       - nodePort=8267
-      - NVIDIA_DRIVER_CAPABILITIES=all
-      - NVIDIA_VISIBLE_DEVICES=all
+      # - NVIDIA_DRIVER_CAPABILITIES=all
+      # - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - /mnt/nvme/containers/tdarr/server:/app/server
       - /mnt/nvme/containers/tdarr/configs:/app/configs
       - /mnt/nvme/containers/tdarr/tdarr/logs:/app/logs
       - /mnt:/media
       - /mnt/nvme/containers/tdarr/transcode_cache:/temp
-
-  test:
-    image: nvidia/cuda:10.2-base
-    command: nvidia-smi
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - capabilities: [gpu]
