@@ -31,9 +31,14 @@ services:
       - /mnt/nvme/containers/tdarr/tdarr/logs:/app/logs
       - /mnt:/media
       - /mnt/nvme/containers/tdarr/transcode_cache:/temp
-    deploy:
-      resources:
-        reservations:
-          devices:
-          - 'driver': 'nvidia'
-            'capabilities': ['gpu']
+  services:
+    test:
+      image: nvidia/cuda:10.2-base
+      command: nvidia-smi
+      deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: 1
+                capabilities: [gpu]
