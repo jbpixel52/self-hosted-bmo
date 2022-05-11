@@ -11,10 +11,17 @@ function greeting() {
   return (<h1>{generic_greetings[greetingIndex]}, you!</h1>)
 }
 
-export {greeting, getTime}
+export {greeting, date}
 
-function getTime() {
-  var today = new Date();   
-  let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  return(<h1>{time}</h1>)
+
+
+function date() {
+  let currentDate = new Date();
+  let dateOptions = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  };
+  return(<h1>{currentDate.toLocaleDateString("en-GB", dateOptions)}</h1>)
 }

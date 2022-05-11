@@ -1,12 +1,16 @@
-function box(appname, appurl,description) {
-    return(
-        <a href={appurl}>{appname}
-            <div class='app'>
-            <div class='description'>{description}</div>
-            </div>
-        </a>
-    )
+
+
+function box(appname, appurl, description) {
+
+    const appbox =     <a href={appurl} class='app'>
+    <p>{String(appname)}</p>
+    <div>
+      <div class="description">{description}</div>
+    </div>
+  </a>
+    return(appbox)
 }
 
+export { box };
 
-export {box}
+
