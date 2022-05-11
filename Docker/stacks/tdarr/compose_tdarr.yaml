@@ -31,8 +31,8 @@ services:
       - /mnt/nvme/containers/tdarr/tdarr/logs:/app/logs
       - /mnt:/media
       - /mnt/nvme/containers/tdarr/transcode_cache:/temp
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - capabilities: [gpu]
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - capabilities: [gpu]
