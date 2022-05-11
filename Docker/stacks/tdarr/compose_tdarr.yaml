@@ -27,8 +27,7 @@ services:
       - /mnt:/media
       - /mnt/nvme/containers/tdarr/transcode_cache:/temp
 
-
-# node example
+  # node example
   tdarr-node:
     container_name: tdarr-node
     image: ghcr.io/haveagitgat/tdarr_node:latest
@@ -42,6 +41,9 @@ services:
       - nodeID=MainNode
       - serverIP=0.0.0.0
       - serverPort=8266
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+
     volumes:
       - /mnt/nvme/containers/tdarr/configs:/app/configs
       - /mnt/nvme/containers/tdarr/tdarr/logs:/app/logs
