@@ -20,31 +20,10 @@ services:
       - webUIPort=8265
       - internalNode=true
       - nodeID=MyInternalNode
-    volumes:
-      - /mnt/nvme/containers/tdarr/server:/app/server
-      - /mnt/nvme/containers/tdarr/configs:/app/configs
-      - /mnt/nvme/containers/tdarr/tdarr/logs:/app/logs
-      - /mnt:/media
-      - /mnt/nvme/containers/tdarr/transcode_cache:/temp
-
-  # node example
-  tdarr-node:
-    container_name: tdarr-node
-    image: ghcr.io/haveagitgat/tdarr_node:latest
-    restart: unless-stopped
-    network_mode: service:tdarr
-    environment:
-      - TZ=America/Los_Angeles
-      - PUID=1000
-      - PGID=1000
-      - UMASK_SET=002
-      - nodeID=MainNode
-      - serverIP=0.0.0.0
-      - serverPort=8266
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
-
     volumes:
+      - /mnt/nvme/containers/tdarr/server:/app/server
       - /mnt/nvme/containers/tdarr/configs:/app/configs
       - /mnt/nvme/containers/tdarr/tdarr/logs:/app/logs
       - /mnt:/media
@@ -53,6 +32,6 @@ services:
       resources:
         reservations:
           devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
+            - capabilities:
+              - gpu
+ 
