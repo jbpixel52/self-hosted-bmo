@@ -20,6 +20,8 @@ services:
       - webUIPort=8265
       - internalNode=true
       - nodeID=MyInternalNode
+      - nodeIP=0.0.0.0
+      - nodePort=8267
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
