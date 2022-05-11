@@ -13,10 +13,7 @@ function App() {
 
       <div class="boxes" id="boxes">
         {box("Dashboard", "https://dashboard.jbpixel.xyz", "LOREM IPSUM")}
-
         {box("Sonarr", "https://sonarr.jbpixel.xyz", "LOREM IPSUM")}
-
-        {box("Uptime", "https://uptime.jbpixel.xyz", "LOREM IPSUM")}
       </div>
     </div>
   );
