@@ -1,0 +1,42 @@
+version: "3"
+services:
+
+  db:
+    image: postgres:11-alpine
+    hostname: db_host
+    environment:
+      POSTGRES_DB: wiki
+      POSTGRES_PASSWORD: wikijsrocks
+      POSTGRES_USER: wikijs
+    logging:
+      driver: "none"
+    restart: unless-stopped
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+    - nginxpm_default
+  wiki:
+    image: ghcr.io/requarks/wiki:2
+    hostname: wikijs_host
+    depends_on:
+      - db
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: wikijs
+      DB_PASS: wikijsrocks
+      DB_NAME: wiki
+    restart: unless-stopped
+    # ports:
+    #   - "80:3000"
+
+    networks:
+      -nginxpm_default
+volumes:
+  db-data:
+
+networks:  
+  nginxpm_default:
+    external: true
+    name: nginxpm_default

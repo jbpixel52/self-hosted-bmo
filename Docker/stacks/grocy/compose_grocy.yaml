@@ -1,0 +1,21 @@
+---
+version: "3.3"
+services:
+  grocy:
+    image: lscr.io/linuxserver/grocy
+    container_name: grocy
+    hostname: grocy_host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /path/to/data:/config
+    restart: unless-stopped
+    networks:
+      - nginxpm_default
+
+networks:
+  nginxpm_default:
+    attachable: true
+    name: nginxpm_default
