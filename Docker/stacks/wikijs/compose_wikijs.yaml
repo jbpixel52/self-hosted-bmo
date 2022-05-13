@@ -14,7 +14,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
-    - nginxpm_default
+      - nginxpm_default
   wiki:
     image: ghcr.io/requarks/wiki:2
     hostname: wikijs_host
@@ -32,7 +32,7 @@ services:
     #   - "80:3000"
 
     networks:
-      -nginxpm_default
+      - nginxpm_default
 volumes:
   db-data:
 
