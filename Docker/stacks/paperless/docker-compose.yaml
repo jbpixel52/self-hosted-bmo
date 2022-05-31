@@ -16,6 +16,8 @@ services:
     restart: unless-stopped
     volumes:
       - redisdata:/data
+    networks:
+      - nginxpm_default
   db:
     image: postgres:13
     restart: unless-stopped
