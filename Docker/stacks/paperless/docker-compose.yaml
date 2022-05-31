@@ -13,6 +13,7 @@ version: "3.4"
 services:
   broker:
     image: redis:6.0
+    hostname: paperlessbroker_host
     restart: unless-stopped
     volumes:
       - redisdata:/data
@@ -21,6 +22,7 @@ services:
   db:
     image: postgres:13
     restart: unless-stopped
+    hostname: paperlessdb_host
     volumes:
       - ./mnt/nvme/containers/paperless/pgdata:/var/lib/postgresql/data
     environment:
@@ -32,6 +34,7 @@ services:
 
   webserver:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    hostname: paperless_host
     restart: unless-stopped
     depends_on:
       - db
