@@ -2,7 +2,7 @@ version: "3.3"
 services:
   minecraft-mexicrew:
     image: itzg/minecraft-server
-    container_name: minecraft
+    container_name: minecraft-mexicrew
     restart: unless-stopped
     hostname: minecraftmexicrew_host
     networks:
