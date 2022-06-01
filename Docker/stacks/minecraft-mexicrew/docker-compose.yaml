@@ -1,0 +1,39 @@
+version: "3.3"
+services:
+  minecraft:
+    image: itzg/minecraft-server
+    container_name: minecraft
+    restart: unless-stopped
+    hostname: minecraftmexicrew_host
+    networks:
+      - nginxpm_default
+    ports:
+      - 25567:25567
+    volumes:
+      - "/home/jbpixel/Docker/minecraft/redes:/data"
+    tty: true
+    stdin_open: true
+    environment:
+      TYPE: FORGE
+      VERSION: 1.18.2
+      EULA: "TRUE"
+      DIFFICULTY: "normal"
+      MAX_PLAYERS: 30
+      MAX_WORLD_SIZE: 10000
+      ALLOW_NETHER: "true"
+      TZ: "America/Los_Angeles"
+      ANNOUNCE_PLAYER_ACHIEVEMENTS: "true"
+      ENABLE_COMMAND_BLOCK: "true"
+      GENERATE_STRUCTURES: "true"
+      OPS: user
+      MAX_BUILD_HEIGHT: 256
+      SPAWN_PROTECTION: 6
+      MODE: survival
+      MOTD: "verano no significa vacaciones"
+      INIT_MEMORY: 2G
+      MAX_MEMORY: 12G
+      SERVER_PORT: 25567
+networks:
+  nginxpm_default:
+    external: true
+    name: nginxpm_default
