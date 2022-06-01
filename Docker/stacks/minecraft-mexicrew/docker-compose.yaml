@@ -10,7 +10,7 @@ services:
     ports:
       - 25567:25567
     volumes:
-      - "/home/jbpixel/Docker/minecraft/redes:/data"
+      - "/mnt/nvme/containers/Minecraft/mexicrew:/data"
     tty: true
     stdin_open: true
     environment:
@@ -18,8 +18,8 @@ services:
       VERSION: 1.18.2
       EULA: "TRUE"
       DIFFICULTY: "normal"
-      MAX_PLAYERS: 30
-      MAX_WORLD_SIZE: 10000
+      MAX_PLAYERS: 15
+      MAX_WORLD_SIZE: 200000
       ALLOW_NETHER: "true"
       TZ: "America/Los_Angeles"
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "true"
