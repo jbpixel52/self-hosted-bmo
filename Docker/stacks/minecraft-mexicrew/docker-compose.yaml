@@ -1,6 +1,6 @@
 version: "3.3"
 services:
-  minecraft:
+  minecraft-mexicrew:
     image: itzg/minecraft-server
     container_name: minecraft
     restart: unless-stopped
