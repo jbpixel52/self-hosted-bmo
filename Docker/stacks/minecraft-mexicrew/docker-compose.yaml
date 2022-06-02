@@ -17,7 +17,7 @@ services:
       TYPE: FORGE
       VERSION: 1.18.2
       SEED: 219774805124124960
-      PVP: true
+      PVP: "TRUE"
       ALLOW_FLIGHT: TRUE
       EULA: "TRUE"
       DIFFICULTY: "normal"
