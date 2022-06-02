@@ -40,7 +40,6 @@ services:
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
-      ENABLE_AUTOPAUSE: "TRUE"
       SIMULATION_DISTANCE: 5
 
 networks:
