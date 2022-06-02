@@ -10,7 +10,7 @@ services:
       - memcached
     environment:
       SIZE_LIMIT: 512M
-      ALLOW_ADVANCED: true
+      ALLOW_ADVANCED: "true"
     # ports:
     #   - 80:5000
     networks:
