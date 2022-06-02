@@ -16,15 +16,20 @@ services:
     environment:
       TYPE: FORGE
       VERSION: 1.18.2
+      SEED: 219774805124124960
+      PVP: true
+      ALLOW_FLIGHT: TRUE
       EULA: "TRUE"
       DIFFICULTY: "normal"
       MAX_PLAYERS: 15
       MAX_WORLD_SIZE: 200000
+      USE_AIKAR_FLAGS: true
       ALLOW_NETHER: "true"
       TZ: "America/Los_Angeles"
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "true"
       ENABLE_COMMAND_BLOCK: "true"
       GENERATE_STRUCTURES: "true"
+      VIEW_DISTANCE: 14
       OPS: user
       MAX_BUILD_HEIGHT: 256
       SPAWN_PROTECTION: 6
@@ -33,6 +38,11 @@ services:
       INIT_MEMORY: 2G
       MAX_MEMORY: 12G
       SERVER_PORT: 25567
+      CONSOLE: FALSE
+      GUI: FALSE
+      ENABLE_AUTOPAUSE: TRUE
+      SIMULATION_DISTANCE: 5
+
 networks:
   nginxpm_default:
     external: true
