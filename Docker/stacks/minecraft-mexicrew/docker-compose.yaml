@@ -18,12 +18,12 @@ services:
       VERSION: 1.18.2
       SEED: 219774805124124960
       PVP: "TRUE"
-      ALLOW_FLIGHT: TRUE
+      ALLOW_FLIGHT: "TRUE"
       EULA: "TRUE"
       DIFFICULTY: "normal"
       MAX_PLAYERS: 15
       MAX_WORLD_SIZE: 200000
-      USE_AIKAR_FLAGS: true
+      USE_AIKAR_FLAGS: "TRUE"
       ALLOW_NETHER: "true"
       TZ: "America/Los_Angeles"
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "true"
@@ -38,9 +38,9 @@ services:
       INIT_MEMORY: 2G
       MAX_MEMORY: 12G
       SERVER_PORT: 25567
-      CONSOLE: FALSE
-      GUI: FALSE
-      ENABLE_AUTOPAUSE: TRUE
+      CONSOLE: "FALSE"
+      GUI: "FALSE"
+      ENABLE_AUTOPAUSE: "TRUE"
       SIMULATION_DISTANCE: 5
 
 networks:
