@@ -4,6 +4,8 @@ services:
   memcached:
     image: memcached:1-alpine
     entrypoint: memcached -m 1024M -I 256M # Limit to 128 MB Ram, 4M per entry, customize at free will.
+    hostname: cryptgeon
+    container_name: cryptgeon
   app:
     image: cupcakearmy/cryptgeon:latest
     depends_on:
