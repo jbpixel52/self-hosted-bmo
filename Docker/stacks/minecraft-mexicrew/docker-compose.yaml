@@ -16,7 +16,7 @@ services:
       FABRIC_LOADER_VERSION: 0.14.6
       # USE_MODPACK_START_SCRIPT: "FALSE"
       VERSION: 1.18.2
-      SEED: 219774805124124960
+      SEED: -3305530642815709843
       PVP: "TRUE"
       ALLOW_FLIGHT: "TRUE"
       EULA: "TRUE"
@@ -34,10 +34,11 @@ services:
       MAX_BUILD_HEIGHT: 256
       SPAWN_PROTECTION: 6
       MODE: survival
-      MOTD: "verano no significa vacaciones"
+      MOTD: "§c§lFeliz Jueves!... §bOr as I like to call it, §cThursday!"
       INIT_MEMORY: 2G
       MAX_MEMORY: 12G
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
       SIMULATION_DISTANCE: 5
+      ICON: "https://i.redd.it/jbt32ylpcf391.jpg"
