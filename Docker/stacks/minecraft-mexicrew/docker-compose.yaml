@@ -5,8 +5,6 @@ services:
     container_name: minecraft-mexicrew
     restart: unless-stopped
     hostname: minecraftmexicrew_host
-    networks:
-      - nginxpm_default
     ports:
       - 25567:25567
     volumes:
@@ -14,7 +12,7 @@ services:
     tty: true
     stdin_open: true
     environment:
-      TYPE: FORGE
+      TYPE: FABRIC
       VERSION: 1.18.2
       SEED: 219774805124124960
       PVP: "TRUE"
@@ -22,7 +20,7 @@ services:
       EULA: "TRUE"
       DIFFICULTY: "normal"
       MAX_PLAYERS: 15
-      MAX_WORLD_SIZE: 200000
+      MAX_WORLD_SIZE: 300000
       USE_AIKAR_FLAGS: "TRUE"
       ALLOW_NETHER: "TRUE"
       TZ: "America/Los_Angeles"
@@ -41,8 +39,3 @@ services:
       CONSOLE: "FALSE"
       GUI: "FALSE"
       SIMULATION_DISTANCE: 5
-
-networks:
-  nginxpm_default:
-    external: true
-    name: nginxpm_default
