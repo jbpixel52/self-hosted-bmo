@@ -12,7 +12,8 @@ services:
     tty: true
     stdin_open: true
     environment:
-      TYPE: FABRIC
+      TYPE: CURSEFORGE
+      CF_SERVER_MOD: All-of-Fabric-5-Server-1.2.4.zip
       VERSION: 1.18.2
       SEED: 219774805124124960
       PVP: "TRUE"
