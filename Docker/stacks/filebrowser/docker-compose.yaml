@@ -7,12 +7,11 @@ services:
     hostname: filebrowser_host
     networks:
       - nginxpm_default
-    ports:
-      - '8080:80'
+    # ports:
+    #   - '8080:80'
     volumes:
-      - '/path/to/root:/srv'
-      - '/path/filebrowser.db:/database.db'
-      - '/path/.filebrowser.json:/.filebrowser.json'
+      - /mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/filebrowser/data:/data
+      - /mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/filebrowser/config:/config
     restart: unless-stopped  
 networks:  
   nginxpm_default:
