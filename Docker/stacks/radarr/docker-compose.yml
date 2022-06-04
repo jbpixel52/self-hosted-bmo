@@ -11,11 +11,6 @@ services:
 
     networks:
       - nginxpm_default
-    labels:
-
-      #flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/radarr.png
-      #flame.type: app
-      #flame.url: http://radarr.jbpixel.xyz
     volumes:
       - /home/jbpixel/Docker/radarr:/config
       - /mnt:/movies #optional
