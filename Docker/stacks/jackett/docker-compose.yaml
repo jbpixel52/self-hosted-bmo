@@ -17,11 +17,6 @@ services:
     volumes:
       - /home/jbpixel/Docker/jackett:/config
       - /home/jbpixel/Docker/jackett/downloads:/downloads
-    labels:
-      - "flame.type=app"
-      - "flame.icon=https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/jackett.png"
-      - "flame.url=jackett.jbpixel.xyz"
-      - "flame.name=Jackett"
     restart: unless-stopped
     
 networks:  
