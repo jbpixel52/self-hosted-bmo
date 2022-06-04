@@ -13,12 +13,6 @@ services:
     depends_on:
       - db
     restart: always
-
-    labels:
-
-      flame.icon: https://raw.githubusercontent.com/mikecao/umami/master/assets/logo.svg
-      flame.type: app
-      flame.url: http://umami.jbpixel.xyz
   db:
     image: postgres:12-alpine
     hostname: umami_db
