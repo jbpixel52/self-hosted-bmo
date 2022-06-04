@@ -1,7 +1,7 @@
 version: "3"
 services:
     Sonarr:
-    cap_add:
+      cap_add:
       - AUDIT_WRITE
       - CHOWN
       - DAC_OVERRIDE
@@ -16,7 +16,7 @@ services:
       - SETPCAP
       - SETUID
       - SYS_CHROOT
-    cap_drop:
+      cap_drop:
       - AUDIT_CONTROL
       - BLOCK_SUSPEND
       - DAC_READ_SEARCH
@@ -40,39 +40,39 @@ services:
       - SYS_TIME
       - SYS_TTY_CONFIG
       - WAKE_ALARM
-    container_name: Sonarr
-    entrypoint:
-      - /init
-    environment:
-      - PUID=1024
-      - PGID=100
-      - TZ=PST
-      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-      - HOME=/root
-      - LANGUAGE=en_US.UTF-8
-      - LANG=en_US.UTF-8
-      - TERM=xterm
-      - XDG_CONFIG_HOME=/config/xdg
-      - SONARR_BRANCH=main
-    expose:
-      - 8989/tcp
-    hostname: sonarr_host
-    image: linuxserver/sonarr:latest
-    ipc: private
-    labels:
-      flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/sonarr.png
-      flame.name: Sonarr
-      flame.type: app
-      flame.url: sonarr.jbpixel.xyz
-    logging:
-      driver: json-file
-      options: {}
-    networks:
-      - nginxpm_default
-    restart: unless-stopped
-    volumes:
-      - /home/jbpixel/Docker/sonarr:/config
-      - /mnt:/data
+      container_name: Sonarr
+      entrypoint:
+        - /init
+      environment:
+        - PUID=1024
+        - PGID=100
+        - TZ=PST
+        - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+        - HOME=/root
+        - LANGUAGE=en_US.UTF-8
+        - LANG=en_US.UTF-8
+        - TERM=xterm
+        - XDG_CONFIG_HOME=/config/xdg
+        - SONARR_BRANCH=main
+      expose:
+        - 8989/tcp
+      hostname: sonarr_host
+      image: linuxserver/sonarr:latest
+      ipc: private
+      labels:
+        flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/sonarr.png
+        flame.name: Sonarr
+        flame.type: app
+        flame.url: sonarr.jbpixel.xyz
+      logging:
+        driver: json-file
+        options: {}
+      networks:
+        - nginxpm_default
+      restart: unless-stopped
+      volumes:
+        - /home/jbpixel/Docker/sonarr:/config
+        - /mnt:/data
 networks:  
   nginxpm_default:
     external: true
