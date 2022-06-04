@@ -1,0 +1,8 @@
+version: "3.3"
+services:
+
+  ddnsgooglejbpixelxyz:
+    image: dragoncube/google-domains-ddns
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /home/jbpixel/Docker/googleddns/configxyz:/config

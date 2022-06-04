@@ -1,0 +1,20 @@
+---
+version: '3'
+#---------------------------------------------------------------------#
+#                Homarr -  A homepage for your server.                #
+#---------------------------------------------------------------------#
+services:
+  homarr:
+    container_name: homarr
+    hostname: homarr_host
+    image: ghcr.io/ajnart/homarr:latest
+    restart: unless-stopped
+    volumes:
+      - ./mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/homarr/configs:/app/data/configs
+      - ./mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/homarr/icons:/app/public/icons
+    # ports:
+    #   - '7575:7575'
+networks:
+  nginxpm_default:
+    attachable: true
+    name: nginxpm_default
