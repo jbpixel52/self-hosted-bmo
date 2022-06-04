@@ -1,0 +1,14 @@
+# docker-compose.yml
+version: '3.7'
+services:
+  tachidesk:
+    image: ghcr.io/suwayomi/tachidesk
+    hostname: tachidesk_host
+    container_name: tachidesk
+    networks:
+      - nginxpm_default
+
+networks:
+  nginxpm_default:
+    attachable: true
+    name: nginxpm_default
