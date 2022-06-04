@@ -1,0 +1,28 @@
+# docker-compose.yml
+version: '3.7'
+services:
+  memcached:
+    image: memcached:1-alpine
+    entrypoint: memcached -m 1024M -I 256M # Limit to 128 MB Ram, 4M per entry, customize at free will.
+    hostname: cryptgeonmemcached_host
+    container_name: cryptgeoncache
+    networks:
+      - nginxpm_default
+  app:
+    image: cupcakearmy/cryptgeon:latest
+    hostname: cryptgeon_host
+    container_name: cryptgeon_frontend
+    depends_on:
+      - memcached
+    environment:
+      SIZE_LIMIT: 512M
+      ALLOW_ADVANCED: "true"
+    # ports:
+    #   - 80:5000
+    networks:
+      - nginxpm_default
+
+networks:
+  nginxpm_default:
+    attachable: true
+    name: nginxpm_default
