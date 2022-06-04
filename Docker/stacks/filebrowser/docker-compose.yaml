@@ -1,29 +1,19 @@
 ---
-version: "2.1"
+version: "3.3"
 services:
-  jackett:
-    image: lscr.io/linuxserver/jackett:latest
-    container_name: jackett
-    hostname: jackett_host
-    networks:  
+  filebrowser:
+    image: filebrowser/filebrowser
+    container_name: filebrowser
+    hostname: filebrowser_host
+    networks:
       - nginxpm_default
-
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Los_Angeles
-      - AUTO_UPDATE=true #optional
-      - RUN_OPTS=<run options here> #optional
+    ports:
+      - '8080:80'
     volumes:
-      - /home/jbpixel/Docker/jackett:/config
-      - /home/jbpixel/Docker/jackett/downloads:/downloads
-    labels:
-      - "flame.type=app"
-      - "flame.icon=https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/jackett.png"
-      - "flame.url=jackett.jbpixel.xyz"
-      - "flame.name=Jackett"
-    restart: unless-stopped
-    
+      - '/path/to/root:/srv'
+      - '/path/filebrowser.db:/database.db'
+      - '/path/.filebrowser.json:/.filebrowser.json'
+    restart: unless-stopped  
 networks:  
   nginxpm_default:
     external: true
