@@ -2,6 +2,8 @@ version: "3.3"
 services:
     app:
       image: 'jc21/nginx-proxy-manager:latest'
+      container_name: nginx_proxy
+      hostname: proxy_host
       restart: unless-stopped
       ports:
         - '82:80' #HTTP TRAFFIC
