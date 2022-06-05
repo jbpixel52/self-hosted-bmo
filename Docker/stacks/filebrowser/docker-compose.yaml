@@ -10,7 +10,7 @@ services:
     # ports:
     #   - '8080:80'
     volumes:
-      - ./:/data
+      - /:/data
       - /mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/filebrowser/config:/config
     restart: unless-stopped  
 networks:  
