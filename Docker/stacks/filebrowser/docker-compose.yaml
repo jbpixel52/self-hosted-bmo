@@ -11,8 +11,6 @@ services:
       - PUID=1024
       - PGID=100
     volumes:
-      - /:/data
-      - /mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/filebrowser/config:/config
       - '/:/srv'
       - '/mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/filebrowser/config/filebrowser.db:/database/filebrowser.db'
       - '/mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/filebrowser/config/settings.json:/config/settings.json'
