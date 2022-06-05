@@ -2,18 +2,22 @@
 version: "3.3"
 services:
   filebrowser:
-    image: filebrowser/filebrowser
+    image: 'filebrowser/filebrowser:s6'
     container_name: filebrowser
     hostname: filebrowser_host
     networks:
       - nginxpm_default
-    # ports:
-    #   - '8080:80'
+    environment:
+      - PUID=1024
+      - PGID=100
     volumes:
       - /:/data
       - /mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/filebrowser/config:/config
-    restart: unless-stopped  
-networks:  
+      - '/:/srv'
+      - '/mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/filebrowser/config/filebrowser.db:/database/filebrowser.db'
+      - '/mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/filebrowser/config/settings.json:/config/settings.json'
+    restart: unless-stopped
+networks:
   nginxpm_default:
     external: true
     name: nginxpm_default
