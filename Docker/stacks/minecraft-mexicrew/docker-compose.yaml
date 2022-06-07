@@ -8,7 +8,7 @@ services:
     ports:
       - 25567:25567
     volumes:
-      - "/mnt/nvme/ssddrives/mexicrew:/data"
+      - "/mnt/ssddrives/mexicrew:/data"
     tty: true
     stdin_open: true
     environment:
@@ -16,7 +16,7 @@ services:
       FABRIC_LOADER_VERSION: 0.14.6
       # USE_MODPACK_START_SCRIPT: "FALSE"
       VERSION: 1.18.2
-      SEED: -96994207546123
+      SEED: -6643636733
       PVP: "TRUE"
       ALLOW_FLIGHT: "TRUE"
       EULA: "TRUE"
