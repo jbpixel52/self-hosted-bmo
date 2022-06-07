@@ -8,7 +8,7 @@ services:
     ports:
       - 25567:25567
     volumes:
-      - "/mnt/nvme/containers/Minecraft/mexicrew:/data"
+      - "/mnt/nvme/ssdrives/mexicrew:/data"
     tty: true
     stdin_open: true
     environment:
@@ -16,7 +16,7 @@ services:
       FABRIC_LOADER_VERSION: 0.14.6
       # USE_MODPACK_START_SCRIPT: "FALSE"
       VERSION: 1.18.2
-      SEED: -69696969696969420
+      SEED: -96994207546123
       PVP: "TRUE"
       ALLOW_FLIGHT: "TRUE"
       EULA: "TRUE"
@@ -29,16 +29,16 @@ services:
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
       ENABLE_COMMAND_BLOCK: "TRUE"
       GENERATE_STRUCTURES: "TRUE"
-      VIEW_DISTANCE: 14
+      VIEW_DISTANCE: 20
       OPS: user
       MAX_BUILD_HEIGHT: 256
       SPAWN_PROTECTION: 6
       MODE: survival
       MOTD: "§c§lFeliz Jueves!... §bOr as I like to call it, §cThursday!"
       INIT_MEMORY: 2G
-      MAX_MEMORY: 12G
+      MAX_MEMORY: 10G
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
-      SIMULATION_DISTANCE: 5
+      SIMULATION_DISTANCE: 6
       ICON: "https://i.redd.it/jbt32ylpcf391.jpg"
