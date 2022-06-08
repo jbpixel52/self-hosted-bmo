@@ -1,0 +1,17 @@
+services:
+  duplicati:
+    image: lscr.io/linuxserver/duplicati:latest
+    container_name: duplicati
+    hostname: duplicati_host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+      #- CLI_ARGS= #optional
+    volumes:
+      - /home/jbpixel/Docker/duplicati/config/:/config
+      - /mnt/ntfs1/BACKUPS:/backups
+      - /:/source
+    ports:
+      - 8200:8200
+    restart: unless-stopped
