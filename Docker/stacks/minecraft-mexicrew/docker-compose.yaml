@@ -7,8 +7,10 @@ services:
     hostname: minecraftmexicrew_host
     ports:
       - 25567:25567
+    networks:
+      - nginxpm_default
     volumes:
-      - "/mnt/nvme/ssddrives/mexicrew:/data"
+      - "/mnt/ssddrives/mexicrew:/data"
     tty: true
     stdin_open: true
     environment:
@@ -16,12 +18,12 @@ services:
       FABRIC_LOADER_VERSION: 0.14.6
       # USE_MODPACK_START_SCRIPT: "FALSE"
       VERSION: 1.18.2
-      SEED: -96994207546123
+      SEED: -6643636733
       PVP: "TRUE"
       ALLOW_FLIGHT: "TRUE"
       EULA: "TRUE"
       DIFFICULTY: "normal"
-      MAX_PLAYERS: 15
+      MAX_PLAYERS: 18
       MAX_WORLD_SIZE: 300000
       USE_AIKAR_FLAGS: "TRUE"
       ALLOW_NETHER: "TRUE"
@@ -42,3 +44,10 @@ services:
       GUI: "FALSE"
       SIMULATION_DISTANCE: 6
       ICON: "https://i.redd.it/jbt32ylpcf391.jpg"
+
+
+
+networks:
+  nginxpm_default:
+    external: true
+    name: nginxpm_default
