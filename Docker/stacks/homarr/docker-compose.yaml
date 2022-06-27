@@ -9,6 +9,8 @@ services:
     hostname: homarr_host
     image: ghcr.io/ajnart/homarr:latest
     restart: unless-stopped
+    networks:
+      - nginxpm_default
     volumes:
       - ./mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/homarr/configs:/app/data/configs
       - ./mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/homarr/icons:/app/public/icons
