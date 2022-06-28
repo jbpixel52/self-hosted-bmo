@@ -1,0 +1,24 @@
+services:
+  magma:
+    container_name: magma
+    image: help14/magma
+    hostname: magma_host
+    restart: unless-stopped
+    volumes:
+      - /mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/magma/:/app/data
+    # ports:
+    #   - '7001:7001'
+    networks:
+      - nginxpm_default
+  watchtower:
+    image: containrrr/watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/.docker/config.json:/config.json
+    command: --interval 30
+
+networks:
+  nginxpm_default:
+    attachable: true
+    name: nginxpm_default
