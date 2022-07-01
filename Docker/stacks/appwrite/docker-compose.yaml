@@ -5,8 +5,6 @@ services:
     restart: unless-stopped
     networks:
       - nginxpm_default
-    volumes:
-        - '$(pwd)/appwrite:/usr/src/code/appwrite:rw'
     entrypoint:
         - install
     image: 'appwrite/appwrite:0.15.1'
