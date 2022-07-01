@@ -6,16 +6,18 @@ services:
     entrypoint: memcached -m 1024M -I 256M # Limit to 128 MB Ram, 4M per entry, customize at free will.
     hostname: cryptgeonmemcached_host
     container_name: cryptgeoncache
+    restart: unless-stopped
     networks:
       - nginxpm_default
   app:
     image: cupcakearmy/cryptgeon:latest
     hostname: cryptgeon_host
     container_name: cryptgeon_frontend
+    restart: unless-stopped
     depends_on:
       - memcached
     environment:
-      SIZE_LIMIT: 512M
+      SIZE_LIMIT: 1024M
       ALLOW_ADVANCED: "true"
     # ports:
     #   - 80:5000
