@@ -6,12 +6,11 @@ services:
     networks:
       - nginxpm_default
     volumes:
-        - '/var/run/docker.sock:/var/run/docker.sock'
         - '$(pwd)/appwrite:/usr/src/code/appwrite:rw'
     entrypoint:
         - install
     image: 'appwrite/appwrite:0.15.1'
-  
+
 networks:
   nginxpm_default:
     attachable: true
