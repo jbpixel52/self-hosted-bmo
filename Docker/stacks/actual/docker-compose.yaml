@@ -3,9 +3,15 @@ services:
   actual_server:
     container_name: actual_server
     image: jlongster/actual-server
-
-    ports:
-      - "5006:5006"
+    hostname: actual_host
+    networks:
+      - nginxpm_default
+    # ports:
+    #   - "5006:5006"
     volumes:
       - '/home/jbpixel/Docker/actual/data:/data'
     restart: unless-stopped
+networks:  
+  nginxpm_default:
+    external: true
+    name: nginxpm_default
