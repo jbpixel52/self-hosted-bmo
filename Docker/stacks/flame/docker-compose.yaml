@@ -1,0 +1,23 @@
+version: '3.6'
+
+services:
+  flame:
+    image: pawelmalak/flame
+    container_name: flame
+    hostname: flame_host
+    volumes:
+      - /home/jbpixel/Docker/flame:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock # optional but required for Docker integration
+    # ports:
+    #   - 5005:5005
+    environment:
+      - PASSWORD=1800secret
+    restart: unless-stopped
+    networks:
+      - nginxpm_default
+
+
+networks:  
+  nginxpm_default:
+    external: true
+    name: nginxpm_default
