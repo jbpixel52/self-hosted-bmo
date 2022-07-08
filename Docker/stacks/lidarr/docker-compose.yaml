@@ -1,0 +1,22 @@
+services:
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    hostname: lidarr_host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /home/jbpixel/Docker/lidarr:/config
+      - /mnt/ntfs2/MUSIC:/music #optional
+      - /mnt/ssddrives/lidarr_downloads:/downloads #optional
+    # ports:
+    #   - 8686:8686
+    restart: unless-stopped
+    networks:
+      - nginxpm_default
+networks:  
+  nginxpm_default:
+    external: true
+    name: nginxpm_default
