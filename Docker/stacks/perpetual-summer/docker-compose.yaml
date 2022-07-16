@@ -9,7 +9,7 @@ services:
     networks:
       - nginxpm_default
     volumes:
-      - "/mnt/ssddrives/mexicrew:/data"
+      - "/mnt/ssddrives/minecraftsummer:/data"
     tty: true
     stdin_open: true
     environment:
