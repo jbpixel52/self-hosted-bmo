@@ -48,13 +48,6 @@ services:
       SIMULATION_DISTANCE: 6
       ICON: "https://media.forgecdn.net/avatars/556/541/637901678731763596.png"
 
-
-  ddnsgooglejbpixelxyz:
-    image: dragoncube/google-domains-ddns
-    volumes:
-      - /etc/localtime:/etc/localtime
-      - /home/jbpixel/Docker/googleddns/configminecraft:/config
-
 networks:
   nginxpm_default:
     external: true
