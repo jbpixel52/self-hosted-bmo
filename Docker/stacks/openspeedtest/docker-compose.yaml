@@ -8,6 +8,11 @@ services:
         image: openspeedtest/latest
         networks:
           - nginxpm_default
+        labels:
+          flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/openspeedtest.png
+          flame.name: Open Speed Test
+          flame.type: app
+          flame.url: ost.jbpixel.xyz
 
 networks:
   nginxpm_default:
