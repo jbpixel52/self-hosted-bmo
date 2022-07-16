@@ -1,0 +1,15 @@
+services:
+    openspeedtest:
+        restart: unless-stopped
+        container_name: openspeedtest
+        hostname: openspeedtest_host
+        # ports:
+        #     - '3000:3000'
+        image: openspeedtest/latest
+        networks:
+          - nginxpm_default
+
+networks:
+  nginxpm_default:
+    external: true
+    name: nginxpm_default
