@@ -12,7 +12,11 @@ services:
     restart: unless-stopped
     networks:
       - nginxpm_default
-
+      labels:
+        flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/uptime-kuma.png
+        flame.name: Uptime Kuma
+        flame.type: app
+        flame.url: uptime.jbpixel.xyz
 networks:
   nginxpm_default:
     attachable: true

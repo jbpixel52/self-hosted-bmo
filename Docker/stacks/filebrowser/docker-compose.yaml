@@ -7,6 +7,11 @@ services:
     hostname: filebrowser_host
     networks:
       - nginxpm_default
+    labels:
+        flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/filebrowser.png
+        flame.name: File Browser
+        flame.type: app
+        flame.url: files.jbpixel.xyz
     environment:
       - PUID=1000
       - PGID=1000

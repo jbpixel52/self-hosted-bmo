@@ -21,6 +21,11 @@ services:
       ALLOW_ADVANCED: "true"
     # ports:
     #   - 80:5000
+    labels:
+        flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/cryptgeon.png
+        flame.name: Cryptgeon
+        flame.type: app
+        flame.url: pigeon.jbpixel.xyz
     networks:
       - nginxpm_default
 

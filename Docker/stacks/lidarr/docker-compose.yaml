@@ -7,6 +7,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Los_Angeles
+
     volumes:
       - /home/jbpixel/Docker/lidarr:/config
       - /mnt/ntfs2/MUSIC:/music #optional
@@ -14,6 +15,11 @@ services:
     # ports:
     #   - 8686:8686
     restart: unless-stopped
+    labels:
+        flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/lidarr.png
+        flame.name: Lidarr
+        flame.type: app
+        flame.url: lidarr.jbpixel.xyz
     networks:
       - nginxpm_default
 networks:  

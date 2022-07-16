@@ -16,6 +16,11 @@ services:
       - /mnt:/movies #optional
       - /mnt/ntfs2/TMP:/downloads
     restart: unless-stopped
+    labels:
+        flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/radarr.png
+        flame.name: Radarr
+        flame.type: app
+        flame.url: radarr.jbpixel.xyz
 
 networks:  
   nginxpm_default:

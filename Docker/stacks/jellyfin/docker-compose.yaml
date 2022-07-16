@@ -8,6 +8,12 @@ services:
       - PGID=1000
       - TZ=America/Los_Angeles
       # - JELLYFIN_PublishedServerUrl=192.168.0.5 #optional
+    labels:
+        flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/jellyfin.png
+        flame.name: Jellyfin
+        flame.type: app
+        flame.url: jellyfin.jbpixel.xyz
+    
     volumes:
       - /home/jbpixel/Docker/jellyfin:/config
       - /mnt:/media
