@@ -20,10 +20,6 @@ services:
       - $HOME/Docker/filebrowser/filebrowser.db:/database/filebrowser.db
       - $HOME/Docker/filebrowser//filebrowser/config/settings.json:/config/settings.json
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "/bin/check-health"]
-      interval: 10s
-      timeout: 3s
 networks:
   nginxpm_default:
     external: true
