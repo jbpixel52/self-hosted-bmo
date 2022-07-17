@@ -18,7 +18,10 @@ services:
       - /home/jbpixel/Docker/jackett:/config
       - /home/jbpixel/Docker/jackett/downloads:/downloads
     restart: unless-stopped
-    
+    healthcheck:
+      test: ["CMD", "/bin/check-health"]
+      interval: 10s
+      timeout: 3s 
 networks:  
   nginxpm_default:
     external: true
