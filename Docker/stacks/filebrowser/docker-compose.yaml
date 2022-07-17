@@ -17,8 +17,8 @@ services:
       - PGID=1000
     volumes:
       - '/:/srv'
-      - $HOME/Docker/filebrowser/filebrowser.db:/database/filebrowser.db
-      - $HOME/Docker/filebrowser//filebrowser/config/settings.json:/config/settings.json
+      - /home/jbpixel/Docker/Docker/filebrowser/filebrowser.db:/database/filebrowser.db
+      - /home/jbpixel/Docker/Docker/filebrowser//filebrowser/config/settings.json:/config/settings.json
     restart: unless-stopped
 networks:
   nginxpm_default:
