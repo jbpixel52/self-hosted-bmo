@@ -6,8 +6,8 @@ services:
     hostname: minecraftsummer_host
     ports:
       - 25600:25600
-    networks:
-      - nginxpm_default
+    # networks:
+    #   - nginxpm_default
     volumes:
       - "/mnt/ssddrives/minecraftsummer:/data"
     tty: true
