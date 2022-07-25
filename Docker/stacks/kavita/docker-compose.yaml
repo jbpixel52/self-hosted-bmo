@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+    kavita:
+        image: kizaing/kavita:latest
+        volumes:
+            - /mnt/ntfs1/COMICS:/COMICS
+            - /home/jbpixel/Docker/kavita:/kavita/config
+        environment:
+            - TZ=America/Los_Angeles
+        # ports:
+        #     - "5000:5000"
+        restart: unless-stopped
+        networks:
+          - nginxpm_default
+networks:
+  nginxpm_default:
+    external: true
+    name: nginxpm_default
