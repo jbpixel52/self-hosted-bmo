@@ -6,6 +6,8 @@ services:
         hostname: kavita_host
         volumes:
             - /mnt/ntfs1/COMICS:/COMICS
+            - /mnt/ssddrives/books:/books
+
             - /home/jbpixel/Docker/kavita:/kavita/config
         environment:
             - TZ=America/Los_Angeles
