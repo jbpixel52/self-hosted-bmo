@@ -1,0 +1,33 @@
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    hostname: jellyfin_host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+      # - JELLYFIN_PublishedServerUrl=192.168.0.5 #optional
+    labels:
+        flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/jellyfin.png
+        flame.name: Jellyfin
+        flame.type: app
+        flame.url: jellyfin.jbpixel.xyz
+    healthcheck:
+      test: ["CMD", "/bin/check-health"]
+      interval: 10s
+      timeout: 3s
+    volumes:
+      - /home/jbpixel/Docker/jellyfin:/config
+      - /mnt:/media
+    ports:
+      - 8096:8096
+      # - 8920:8920 #optional
+      # - 7359:7359/udp #optional
+      # - 1900:1900/udp #optional
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]

@@ -7,13 +7,18 @@ services:
     hostname: filebrowser_host
     networks:
       - nginxpm_default
+    labels:
+        flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/filebrowser.png
+        flame.name: File Browser
+        flame.type: app
+        flame.url: files.jbpixel.xyz
     environment:
       - PUID=1000
       - PGID=1000
     volumes:
       - '/:/srv'
-      - '/mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/filebrowser/config/filebrowser.db:/database/filebrowser.db'
-      - '/mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/filebrowser/config/settings.json:/config/settings.json'
+      - /home/jbpixel/Docker/Docker/filebrowser/filebrowser.db:/database/filebrowser.db
+      - /home/jbpixel/Docker/Docker/filebrowser//filebrowser/config/settings.json:/config/settings.json
     restart: unless-stopped
 networks:
   nginxpm_default:

@@ -6,3 +6,8 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime
       - /home/jbpixel/Docker/googleddns/configxyz:/config
+  
+    healthcheck:
+      test: ["CMD", "/bin/check-health"]
+      interval: 10s
+      timeout: 3s

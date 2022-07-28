@@ -5,7 +5,10 @@ services:
     container_name: tachidesk
     networks:
       - nginxpm_default
-
+    healthcheck:
+      test: ["CMD", "/bin/check-health"]
+      interval: 10s
+      timeout: 3s
 networks:
   nginxpm_default:
     attachable: true

@@ -12,6 +12,11 @@ services:
       volumes:
         - /home/jbpixel/Docker/nginxpm/data:/data
         - /home/jbpixel/Docker/nginxpm/letsencrypt:/etc/letsencrypt
+      labels:
+        flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/nginxproxymanager.png
+        flame.name: Nginx Proxy Manager
+        flame.type: app
+        flame.url: proxym.jbpixel.xyz
       healthcheck:
         test: ["CMD", "/bin/check-health"]
         interval: 10s
