@@ -17,6 +17,7 @@ services:
       - "flame.url=http://wireguard.jbpixel.xyz"
       - "flame.name= Easy Wireguard"
     image: weejewel/wg-easy
+    hostname: wireguard_host
     container_name: wg-easy
     volumes:
       - .:/etc/wireguard
