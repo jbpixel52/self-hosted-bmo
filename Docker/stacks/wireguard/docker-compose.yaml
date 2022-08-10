@@ -5,7 +5,7 @@ services:
       # Change this to your host's public address
       - WG_HOST=jbpixel.xyz
       # Optional:
-      - PASSWORD= ${PASSWORD}
+      - PASSWORD= "${PASSWORD}"
       - WG_PORT=51820
       # - WG_DEFAULT_ADDRESS=10.8.0.x
       - WG_DEFAULT_DNS=1.1.1.1
@@ -15,7 +15,7 @@ services:
       - "flame.type=app"
       - "flame.icon=https://github.com/walkxhub/dashboard-icons/blob/master/png/wireguard.png?raw=true"
       - "flame.url=http://wireguard.jbpixel.xyz"
-      - "flame.name=wireguard (local)"
+      - "flame.name= Easy Wireguard"
     image: weejewel/wg-easy
     container_name: wg-easy
     volumes:
@@ -23,7 +23,6 @@ services:
     ports:
       - "51820:51820/udp"
       - "51821:51821/tcp"
-            
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
