@@ -12,8 +12,8 @@ services:
     networks:
       - nginxpm_default
     volumes:
-      - ./mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/homarr/configs:/app/data/configs
-      - ./mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/homarr/icons:/app/public/icons
+      - /home/jbpixel/Docker/homarr/config:/app/data/configs
+      - /home/jbpixel/Docker/homarr/icons:/app/public/icons
     # ports:
     #   - '7575:7575'
 networks:
