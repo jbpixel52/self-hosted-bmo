@@ -8,9 +8,9 @@ services:
       - PASSWORD=${PASSWORD}
       - WG_PORT=51820
       # - WG_DEFAULT_ADDRESS=10.8.0.x
-      - WG_DEFAULT_DNS=1.1.1.1
+      - WG_DEFAULT_DNS=9.9.9.9
       # - WG_MTU=1420
-      - WG_ALLOWED_IPS=192.168.0.0/24, 10.0.1.0/24
+      - WG_ALLOWED_IPS=192.168.0.0/24, 10.0.1.0/24, 192.168.1.0/24
     labels:
       - "flame.type=app"
       - "flame.icon=https://github.com/walkxhub/dashboard-icons/blob/master/png/wireguard.png?raw=true"
