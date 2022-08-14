@@ -11,11 +11,6 @@ services:
     volumes:
       - '/home/jbpixel/Docker/actual/data:/data'
 
-
-    healthcheck:
-      test: ["CMD", "/bin/check-health"]
-      interval: 10s
-      timeout: 3s
     restart: unless-stopped
 networks:  
   nginxpm_default:
