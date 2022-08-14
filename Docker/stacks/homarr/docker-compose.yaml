@@ -1,6 +1,6 @@
 services:
   homarr:
-    container_name: homarr
+    container_name: homarr-dashboard
     hostname: homarr_host
     image: ghcr.io/ajnart/homarr:latest
     restart: unless-stopped
@@ -9,9 +9,18 @@ services:
     volumes:
       - /home/jbpixel/Docker/homarr/config:/app/data/configs
       - /home/jbpixel/Docker/homarr/icons:/app/public/icons
-    ports:
-      - '7575:7575'
-networks:  
+    # ports:
+    #   - '7575:7575'
+    environment:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - BASE_URL=homarr.jbpixel.xyz
+      - PASSWORD=5252
+      - PORT=7575
+      - TZ=America/Los_Angeles
+      - PUID=1000
+      - PGID=1000
+
+networks:
   nginxpm_default:
     external: true
     name: nginxpm_default
