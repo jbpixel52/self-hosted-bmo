@@ -1,23 +1,14 @@
-version: "3.3"
 services:
     app:
       image: 'jc21/nginx-proxy-manager:latest'
-      container_name: nginx_proxy
-      hostname: proxy_host
+      container_name: nginxpm
+      hostname: nginxpm_host
       restart: unless-stopped
       ports:
         - '82:80' #HTTP TRAFFIC
         - '81:81' #DASHBOARD
         - '443:443' #HTTPS TRAFFIC
       volumes:
-        - /home/jbpixel/Docker/nginxpm/data:/data
-        - /home/jbpixel/Docker/nginxpm/letsencrypt:/etc/letsencrypt
-      labels:
-        flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/nginxproxymanager.png
-        flame.name: Nginx Proxy Manager
-        flame.type: app
-        flame.url: proxym.jbpixel.xyz
-      healthcheck:
-        test: ["CMD", "/bin/check-health"]
-        interval: 10s
-        timeout: 3s
+        - /mnt/disk2/appdata/nginxpm:/data
+        - /mnt/disk2/appdata/nginxpm/letsencrypt:/etc/letsencrypt
+
