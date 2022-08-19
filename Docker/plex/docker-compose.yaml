@@ -12,6 +12,7 @@ services:
     volumes:
       - /mnt/disk2/appdata/plex:/config
       - /mnt/disk1/media:/media
+      - /mnt/cache/appdata/Plex/transcode:/cachetranscode
     restart: unless-stopped
     deploy:
       resources:
