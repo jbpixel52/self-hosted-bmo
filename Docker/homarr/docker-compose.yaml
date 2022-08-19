@@ -5,12 +5,12 @@ services:
     image: ghcr.io/ajnart/homarr:latest
     restart: unless-stopped
     networks:
-      - nginxpm_default
+      - nginxpm-stack_default
     volumes:
-      - /home/jbpixel/Docker/homarr/config:/app/data/configs
+      - /mnt/disk2/appdata/homarr/config:/app/data/configs
       - /home/jbpixel/Docker/homarr/icons:/app/public/icons
-    # ports:
-    #   - '7575:7575'
+    ports:
+      - 7575:7575
     environment:
       - /var/run/docker.sock:/var/run/docker.sock
       - BASE_URL=homarr.jbpixel.xyz
@@ -19,8 +19,7 @@ services:
       - TZ=America/Los_Angeles
       - PUID=1000
       - PGID=1000
-
 networks:
-  nginxpm_default:
+  nginxpm-stack_default:
     external: true
-    name: nginxpm_default
+    name: nginxpm-stack_default
