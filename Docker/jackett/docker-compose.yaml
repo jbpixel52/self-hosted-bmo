@@ -5,9 +5,10 @@ services:
     image: lscr.io/linuxserver/jackett:latest
     container_name: jackett
     hostname: jackett_host
-    networks:  
+    networks:
       - nginxpm-stack_default
-
+    ports:
+      - 9117:9117
     environment:
       - PUID=1000
       - PGID=1000
