@@ -6,7 +6,7 @@ services:
     container_name: jackett
     hostname: jackett_host
     networks:  
-      - nginxpm_default
+      - nginxpm-stack_default
 
     environment:
       - PUID=1000
@@ -15,14 +15,10 @@ services:
       - AUTO_UPDATE=true #optional
       - RUN_OPTS=<run options here> #optional
     volumes:
-      - /home/jbpixel/Docker/jackett:/config
-      - /home/jbpixel/Docker/jackett/downloads:/downloads
+      - /mnt/disk2/appdata/jackett:/config
+      - /mnt/disk2/appdata/jackett/downloads:/downloads
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "/bin/check-health"]
-      interval: 10s
-      timeout: 3s 
-networks:  
-  nginxpm_default:
+networks:
+  nginxpm-stack_default:
     external: true
-    name: nginxpm_default
+    name: nginxpm-stack_default
