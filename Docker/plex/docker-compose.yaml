@@ -8,7 +8,6 @@ services:
       - PUID=1000
       - PGID=1000
       - VERSION=docker
-      - PLEX_CLAIM=claim-jaY8Mk4qK6bZYLiYLK1d
     volumes:
       - /mnt/disk2/appdata/plex:/config
       - /mnt/disk1/media:/media
