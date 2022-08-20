@@ -7,8 +7,7 @@ services:
         volumes:
             - /mnt/disk1/media/COMICS:/COMICS
             - /mnt/disk1/media/BOOKS:/BOOKS
-
-            - /home/disk2/appdata/kavita:/kavita
+            - /mnt/disk2/appdata/kavita:/kavita/config
         environment:
             - TZ=America/Los_Angeles
         # ports:
