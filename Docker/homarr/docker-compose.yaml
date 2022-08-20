@@ -4,13 +4,13 @@ services:
     hostname: homarr_host
     image: ghcr.io/ajnart/homarr:latest
     restart: unless-stopped
-    networks:
-      - nginxpm-stack_default
+    # networks:
+    #   - nginxpm-stack_default
     volumes:
       - /mnt/disk2/appdata/homarr/config:/app/data/configs
       - /home/jbpixel/Docker/homarr/icons:/app/public/icons
-    ports:
-      - 7575:7575
+    # ports:
+    #   - 7575:7575
     environment:
       - /var/run/docker.sock:/var/run/docker.sock
       - BASE_URL=homarr.jbpixel.xyz
@@ -19,7 +19,14 @@ services:
       - TZ=America/Los_Angeles
       - PUID=1000
       - PGID=1000
-networks:
-  nginxpm-stack_default:
-    external: true
-    name: nginxpm-stack_default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`dashboard.jbpixel.xyz`)"
+      - "traefik.http.routers.whoami.entrypoints=websecure"
+      - "traefik.http.routers.whoami.tls.certresolver=myresolver"
+      - "traefik.http.services.homarr.loadbalancer.server.port=7575"
+
+# networks:
+#   nginxpm-stack_default:
+#     external: true
+#     name: nginxpm-stack_default
