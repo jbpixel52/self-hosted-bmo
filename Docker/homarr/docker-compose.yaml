@@ -11,6 +11,8 @@ services:
       - /home/jbpixel/Docker/homarr/icons:/app/public/icons
     # ports:
     #   - 7575:7575
+    networks:
+      - traefik
     environment:
       - /var/run/docker.sock:/var/run/docker.sock
       - BASE_URL=homarr.jbpixel.xyz
@@ -30,3 +32,6 @@ services:
 #   nginxpm-stack_default:
 #     external: true
 #     name: nginxpm-stack_default
+networks:
+  traefik:
+    external: true
