@@ -12,7 +12,7 @@ services:
     # ports:
     #   - 7575:7575
     networks:
-      - traefik-stack_default
+      - traefik_default
     environment:
       - /var/run/docker.sock:/var/run/docker.sock
       - BASE_URL=homarr.jbpixel.xyz
@@ -33,6 +33,6 @@ services:
 #     external: true
 #     name: nginxpm-stack_default
 networks:
-  traefik-stack_default:
+  traefik_default:
     external: true
-    name: traefik-stack_default
+    name: traefik_default
