@@ -33,5 +33,6 @@ services:
 #     external: true
 #     name: nginxpm-stack_default
 networks:
-  traefik:
+  traefik-stack_default:
     external: true
+    name: traefik-stack-stack_default
