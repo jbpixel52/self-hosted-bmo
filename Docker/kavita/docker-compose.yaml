@@ -2,21 +2,33 @@ version: '3.9'
 services:
     kavita:
         image: kizaing/kavita:latest
-        container_name: kavita-comics
+        container_name: kavita
         hostname: kavita_host
         volumes:
-            - /mnt/ntfs1/COMICS:/COMICS
-            - /mnt/ssddrives/books:/books
+            - /mnt/disk1/media/COMICS:/COMICS
+            - /mnt/disk1/media/BOOKS:/BOOKS
 
-            - /home/jbpixel/Docker/kavita:/kavita/config
+            - /home/disk2/appdata/kavita:/kavita
         environment:
             - TZ=America/Los_Angeles
         # ports:
         #     - "5000:5000"
         restart: unless-stopped
+
         networks:
-          - nginxpm_default
+          - traefik_default
+        labels:
+          - "traefik.enable=true"
+          - "traefik.http.routers.kavita.rule=Host(`kavita.jbpixel.xyz`)"
+          - "traefik.http.routers.kavita.entrypoints=websecure"
+          - "traefik.http.routers.kavita.tls.certresolver=myresolver"
+          - "traefik.http.services.kavita.loadbalancer.server.port=5000"
+
+# networks:
+#   nginxpm-stack_default:
+#     external: true
+#     name: nginxpm-stack_default
 networks:
-  nginxpm_default:
+  traefik_default:
     external: true
-    name: nginxpm_default
+    name: traefik_default

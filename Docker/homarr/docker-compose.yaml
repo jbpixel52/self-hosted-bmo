@@ -11,8 +11,6 @@ services:
       - /home/jbpixel/Docker/homarr/icons:/app/public/icons
     # ports:
     #   - 7575:7575
-    networks:
-      - traefik_default
     environment:
       - /var/run/docker.sock:/var/run/docker.sock
       - BASE_URL=homarr.jbpixel.xyz
@@ -21,6 +19,8 @@ services:
       - TZ=America/Los_Angeles
       - PUID=1000
       - PGID=1000
+    networks:
+      - traefik_default
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.homarr.rule=Host(`dashboard.jbpixel.xyz`)"

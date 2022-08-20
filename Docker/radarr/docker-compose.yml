@@ -11,11 +11,22 @@ services:
       - /mnt/disk2/appdata/radarr:/config
       - /mnt/disk1/media/:/media
     restart: unless-stopped
+    # ports:
+    #   - 7878:7878
     networks:
-      - nginxpm-stack_default
-    ports:
-      - 7878:7878
+      - traefik_default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.radarr.rule=Host(`radarr.jbpixel.xyz`)"
+      - "traefik.http.routers.radarr.entrypoints=websecure"
+      - "traefik.http.routers.radarr.tls.certresolver=myresolver"
+      - "traefik.http.services.radarr.loadbalancer.server.port=7878"
+
+# networks:
+#   nginxpm-stack_default:
+#     external: true
+#     name: nginxpm-stack_default
 networks:
-  nginxpm-stack_default:
+  traefik_default:
     external: true
-    name: nginxpm-stack_default
+    name: traefik_default
