@@ -5,22 +5,23 @@ services:
     image: 'filebrowser/filebrowser:latest'
     container_name: filebrowser
     hostname: filebrowser_host
-    networks:
-      - nginxpm_default
-    labels:
-        flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/filebrowser.png
-        flame.name: File Browser
-        flame.type: app
-        flame.url: files.jbpixel.xyz
     environment:
       - PUID=1000
       - PGID=1000
     volumes:
-      - '/:/srv'
-      - /home/jbpixel/Docker/Docker/filebrowser/filebrowser.db:/database/filebrowser.db
-      - /home/jbpixel/Docker/Docker/filebrowser//filebrowser/config/settings.json:/config/settings.json
+      - '/mnt/disk1/media:/srv'
+      - /mnt/disk2/appdata/filebrowser/filebrowser.db:/database/filebrowser.db
+      - /mnt/disk2/appdata/filebrowser/config/settings.json:/config/settings.json
     restart: unless-stopped
+    networks:
+      - traefik_default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.filebrowser.rule=Host(`files.jbpixel.xyz`)"
+      - "traefik.http.routers.filebrowser.entrypoints=websecure"
+      - "traefik.http.routers.filebrowser.tls.certresolver=myresolver"
+      - "traefik.http.services.filebrowser.loadbalancer.server.port=80"
 networks:
-  nginxpm_default:
+ traefik_default:
     external: true
-    name: nginxpm_default
+    name: traefik_default

@@ -2,11 +2,31 @@ version: '3'
 services:
   homeassistant:
     container_name: homeassistant
+    hostname: homeassistant_host
     image: "ghcr.io/home-assistant/home-assistant:stable"
     volumes:
-      - /home/jbpixel/Docker/homeassistant:/config
-      - /mnt:/drives
+      - /mnt/disk2/appdata/homeassistant:/config
+      # - /mnt:/drives
       - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8123:8123
     restart: unless-stopped
     privileged: true
     network_mode: host
+    networks:
+      - traefik_default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homeassistant.rule=Host(`home.jbpixel.xyz`)"
+      - "traefik.http.routers.homeassistant.entrypoints=websecure"
+      - "traefik.http.routers.homeassistant.tls.certresolver=myresolver"
+      - "traefik.http.services.homeassistant.loadbalancer.server.port=8123"
+
+# networks:
+#   nginxpm-stack_default:
+#     external: true
+#     name: nginxpm-stack_default
+networks:
+  traefik_default:
+    external: true
+    name: traefik_default
