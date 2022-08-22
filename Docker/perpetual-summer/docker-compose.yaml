@@ -6,10 +6,8 @@ services:
     hostname: minecraftsummer_host
     ports:
       - 25600:25600
-    # networks:
-    #   - nginxpm_default
     volumes:
-      - "/mnt/ssddrives/minecraftsummer:/data"
+      - "/mnt/disk2/appdata/summer:/data"
     tty: true
     stdin_open: true
     environment:
@@ -47,7 +45,14 @@ services:
       GUI: "FALSE"
       SIMULATION_DISTANCE: 6
       ICON: "https://media.forgecdn.net/avatars/556/541/637901678731763596.png"
-# networks:
-#   nginxpm_default:
-#     external: true
-#     name: nginxpm_default
+    networks:
+      - traefik_default
+    labels:
+      - "traefik.udp.routers.bedrock.entrypoints=bedrock"
+      - "traefik.udp.routers.bedrock.service=bedrock"
+      - "traefik.udp.services.bedrock.loadbalancer.server.port=25600"
+
+networks:
+  traefik_default:
+    external: true
+    name: traefik_default
