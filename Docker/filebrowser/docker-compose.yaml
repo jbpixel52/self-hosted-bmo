@@ -10,6 +10,7 @@ services:
       - PGID=1000
     volumes:
       - '/mnt/disk1/media:/srv'
+      - '/mnt/disk2/appdata:/disk2'
       - /mnt/disk2/appdata/filebrowser/filebrowser.db:/database/filebrowser.db
       - /mnt/disk2/appdata/filebrowser/config/settings.json:/config/settings.json
     restart: unless-stopped
