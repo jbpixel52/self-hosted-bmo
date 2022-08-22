@@ -13,7 +13,7 @@ services:
         - PUID=1000
         - PGID=1000
         - TZ=America/Los_Angeles
-      # ports:
+      # ports:  
       #   - 8989:8989
       networks:
         - traefik_default
