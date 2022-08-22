@@ -48,9 +48,12 @@ services:
     networks:
       - traefik_default
     labels:
+      - "traefik.enable: true"
       - "traefik.udp.routers.bedrock.entrypoints=bedrock"
       - "traefik.udp.routers.bedrock.service=bedrock"
       - "traefik.udp.services.bedrock.loadbalancer.server.port=25600"
+      - "traefik.udp.routers.bedrock.rule=Host(`summer.jbpixel.xyz`)"
+
 
 networks:
   traefik_default:
