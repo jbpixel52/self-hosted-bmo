@@ -23,10 +23,6 @@ services:
           - "traefik.http.routers.kavita.tls.certresolver=myresolver"
           - "traefik.http.services.kavita.loadbalancer.server.port=5000"
 
-# networks:
-#   nginxpm-stack_default:
-#     external: true
-#     name: nginxpm-stack_default
 networks:
   traefik_default:
     external: true

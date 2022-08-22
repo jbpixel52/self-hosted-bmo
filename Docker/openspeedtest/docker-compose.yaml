@@ -1,23 +1,22 @@
 services:
-    openspeedtest:
-        restart: unless-stopped
-        container_name: openspeedtest
-        hostname: openspeedtest_host
-        # ports:
-        #     - '3000:3000'
-        image: openspeedtest/latest
-        networks:
-          - nginxpm_default
-        labels:
-          flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/openspeedtest.png
-          flame.name: Open Speed Test
-          flame.type: app
-          flame.url: ost.jbpixel.xyz
-        healthcheck:
-          test: ["CMD", "/bin/check-health"]
-          interval: 10s
-          timeout: 3s
+  openspeedtest:
+    restart: unless-stopped
+    container_name: openspeedtest
+    hostname: openspeedtest_host
+    # ports:
+    #     - '3000:3000'
+    image: openspeedtest/latest
+
+    networks:
+      - traefik_default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.openspeedtest.rule=Host(`ost.jbpixel.xyz`)"
+      - "traefik.http.routers.openspeedtest.entrypoints=websecure"
+      - "traefik.http.routers.openspeedtest.tls.certresolver=myresolver"
+      - "traefik.http.services.openspeedtest.loadbalancer.server.port=3000"
+
 networks:
-  nginxpm_default:
+  traefik_default:
     external: true
-    name: nginxpm_default
+    name: traefik_default
