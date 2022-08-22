@@ -9,6 +9,8 @@ services:
         - /mnt/disk2/appdata/sonarr:/config
         - /mnt/disk1/media/SHOWS:/SHOWS
         - /mnt/disk1/media/ANIME:/ANIME
+        - /mnt/disk2/appdata/qbittorrent/downloads:/downloads
+
       environment:
         - PUID=1000
         - PGID=1000
