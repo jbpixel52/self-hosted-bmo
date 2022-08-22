@@ -45,17 +45,3 @@ services:
       GUI: "FALSE"
       SIMULATION_DISTANCE: 6
       ICON: "https://media.forgecdn.net/avatars/556/541/637901678731763596.png"
-    networks:
-      - traefik_default
-    labels:
-      - "traefik.enable: true"
-      - "traefik.udp.routers.bedrock.entrypoints=bedrock"
-      - "traefik.udp.routers.bedrock.service=bedrock"
-      - "traefik.udp.services.bedrock.loadbalancer.server.port=25600"
-      - "traefik.udp.routers.bedrock.rule=Host(`summer.jbpixel.xyz`)"
-
-
-networks:
-  traefik_default:
-    external: true
-    name: traefik_default
