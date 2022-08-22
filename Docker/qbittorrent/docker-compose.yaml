@@ -14,7 +14,7 @@ services:
       - 8888:8888
       - 6881:6881
       - 6881:6881/udp
-    restart: unless-stoppedw
+    restart: unless-stopped
     networks:
       - traefik_default
     labels:
