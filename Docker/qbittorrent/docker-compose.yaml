@@ -10,7 +10,7 @@ services:
     volumes:
       - /mnt/disk2/appdata/qbittorrent/config:/config
       - /mnt/disk2/appdata/qbittorrent/downloads:/downloads
-      - mnt/disk1/media/:/media
+      - /mnt/disk1/media/:/media
 
     ports:
       - 8888:8888
