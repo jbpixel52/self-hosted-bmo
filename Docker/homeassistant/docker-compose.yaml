@@ -13,15 +13,13 @@ services:
     restart: unless-stopped
     privileged: true
     network_mode: host
-    # networks:
-    #   - traefik_default
+    networks:
+      - traefik_default
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.homeassistant.rule=Host(`home.jbpixel.xyz`)"
-
       - "traefik.http.routers.homeassistant.entrypoints=websecure"
       - "traefik.http.routers.homeassistant.tls.certresolver=myresolver"
-      - "traefik.http.services.homeassistant.loadbalancer.server.scheme: http"
       - "traefik.http.services.homeassistant.loadbalancer.server.port=8123"
 
 # networks:
