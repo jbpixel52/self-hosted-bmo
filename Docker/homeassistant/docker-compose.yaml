@@ -12,9 +12,9 @@ services:
       - 8123:8123
     restart: unless-stopped
     privileged: true
-    network_mode: host
-    # networks:
-    #   - traefik_default
+    # network_mode: host
+    networks:
+      - traefik_default
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.homeassistant.rule=Host(`home.jbpixel.xyz`)"
