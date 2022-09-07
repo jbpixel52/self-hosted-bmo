@@ -15,9 +15,14 @@ services:
     # ports:
     #   - 8686:8686
     restart: unless-stopped
+<<<<<<< HEAD
     networks:
       - traefik_default
 networks:
   traefik_default:
+=======
+networks:
+ traefik_default:
+>>>>>>> ededd31d26a6d3fc872a64570b02b35c46f2092e
     external: true
     name: traefik_default
