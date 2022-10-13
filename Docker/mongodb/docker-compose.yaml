@@ -5,8 +5,7 @@ services:
     image: mongo
     container_name : mongodbcat
     hostname: mongo_host
-    volumes:
-      - '/mnt/disk2/appdata/mongodb/cat/: /'
+
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
