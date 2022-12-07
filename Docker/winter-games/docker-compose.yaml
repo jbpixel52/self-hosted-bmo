@@ -1,6 +1,6 @@
 services:
   minecraftsummer:
-    image: itzg/minecraft-server
+    image: itzg/minecraft-server:java17-jdk
     container_name: wintergames
     restart: unless-stopped
     hostname: wintergames_host
