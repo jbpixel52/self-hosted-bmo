@@ -7,7 +7,7 @@ services:
     ports:
       - 25600:25600
     volumes:
-      - "/mnt/disk2/appdata/winter:/data"
+      - "/mnt/disk2/appdata/wintergames:/data"
     tty: true
     stdin_open: true
     environment:
