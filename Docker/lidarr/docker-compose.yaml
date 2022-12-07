@@ -7,15 +7,23 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Los_Angeles
-
     volumes:
-      - /home/jbpixel/Docker/lidarr:/config
-      - /mnt/ntfs2/MUSIC:/music #optional
-      - /mnt/ssddrives/lidarr_downloads:/downloads #optional
-    # ports:
-    #   - 8686:8686
+      - /mnt/disk2/appdata/lidarr:/config
+      - /mnt/disk1/media/MUSIC:/music
+      - /mnt/disk1/media2/MUSIC:/old_music
+      - /mnt/disk2/appdata/lidarr/downloads:/downloads
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.lidarr.rule=Host(`lidarr.jbpixel.xyz`)"
+      - "traefik.http.routers.lidarr.entrypoints=websecure"
+      - "traefik.http.routers.lidarr.tls.certresolver=myresolver"
+      - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
+    ports:
+      - 8686:8686
     restart: unless-stopped
+    networks:
+      - traefik_default
 networks:
- traefik_default:
+  traefik_default:
     external: true
     name: traefik_default

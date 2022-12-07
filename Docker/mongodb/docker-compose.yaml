@@ -1,0 +1,41 @@
+version: '3.9'
+services:
+
+  mongo:
+    image: mongo
+    container_name : mongodbcat
+    hostname: mongo_host
+
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+          - traefik_default
+
+
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    # ports:
+    #   - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+      restart: unless-stopped
+
+    networks:
+          - traefik_default
+    labels:
+          - "traefik.enable=true"
+          - "traefik.http.routers.mongo.rule=Host(`catdb.jbpixel.xyz`)"
+          - "traefik.http.routers.mongo.entrypoints=websecure"
+          - "traefik.http.routers.mongo.tls.certresolver=myresolver"
+          - "traefik.http.services.mongo.loadbalancer.server.port=8081"
+
+networks:
+  traefik_default:
+    external: true
+    name: traefik_default
