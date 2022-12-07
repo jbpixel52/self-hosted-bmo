@@ -1,0 +1,47 @@
+services:
+  minecraftsummer:
+    image: itzg/minecraft-server
+    container_name: wintergames
+    restart: unless-stopped
+    hostname: wintergames_host
+    ports:
+      - 25600:25600
+    volumes:
+      - "/mnt/disk2/appdata/winter:/data"
+    tty: true
+    stdin_open: true
+    environment:
+      TYPE: FORGE
+      FORGEVERSION: 40.1.85
+      MAX_TICK_TIME: -1
+      ENABLE_AUTOPAUSE: "TRUE"
+      AUTOPAUSE_TIMEOUT_INIT: "600"
+      AUTOPAUSE_TIMEOUT_EST: "400"
+      # USE_MODPACK_START_SCRIPT: "FALSE"
+      VERSION: 1.18.2
+      SEED: 6641155181
+      PVP: "TRUE"
+      ALLOW_FLIGHT: "TRUE"
+      EULA: "TRUE"
+      DIFFICULTY: "normal"
+      MAX_PLAYERS: 18
+      MAX_WORLD_SIZE: 300000
+      USE_AIKAR_FLAGS: "TRUE"
+      ALLOW_NETHER: "TRUE"
+      TZ: "America/Los_Angeles"
+      ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
+      ENABLE_COMMAND_BLOCK: "TRUE"
+      GENERATE_STRUCTURES: "TRUE"
+      VIEW_DISTANCE: 16
+      OPS: user
+      MAX_BUILD_HEIGHT: 256
+      SPAWN_PROTECTION: 6
+      MODE: survival
+      MOTD: "§c§lFeliz Navidad! o como yo le digo, JUEVES!"
+      INIT_MEMORY: 2G
+      MAX_MEMORY: 10G
+      SERVER_PORT: 25600
+      CONSOLE: "FALSE"
+      GUI: "FALSE"
+      SIMULATION_DISTANCE: 6
+      ICON: "https://media.forgecdn.net/avatars/556/541/637901678731763596.png"
