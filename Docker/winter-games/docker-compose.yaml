@@ -12,7 +12,7 @@ services:
     stdin_open: true
     environment:
       TYPE: FORGE
-      FORGEVERSION: 40.1.85
+      FORGEVERSION: 40.1.86
       MAX_TICK_TIME: -1
       ENABLE_AUTOPAUSE: "TRUE"
       AUTOPAUSE_TIMEOUT_INIT: "600"
