@@ -11,8 +11,8 @@ services:
     tty: true
     stdin_open: true
     environment:
-      TYPE: FABRIC
-      FABRIC_LOADER_VERSION: 0.14.11
+      TYPE: FORGE
+      FORGE_VERSION: 43.2.0
       MAX_TICK_TIME: -1
       ENABLE_AUTOPAUSE: "TRUE"
       AUTOPAUSE_TIMEOUT_INIT: "600"
@@ -24,7 +24,7 @@ services:
       ALLOW_FLIGHT: "TRUE"
       EULA: "TRUE"
       DIFFICULTY: "normal"
-      MAX_PLAYERS: 18
+      MAX_PLAYERS: 12
       MAX_WORLD_SIZE: 300000
       USE_AIKAR_FLAGS: "TRUE"
       ALLOW_NETHER: "TRUE"
