@@ -19,6 +19,7 @@ services:
     ports:
       - "443:443"
       - "8080:8080"
+      - 7359:7359/udp #optional
     volumes:
       - "/mnt/disk2/appdata/traefik/letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"

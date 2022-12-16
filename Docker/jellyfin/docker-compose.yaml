@@ -7,27 +7,32 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Los_Angeles
-      # - JELLYFIN_PublishedServerUrl=192.168.0.5 #optional
-    labels:
-        flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/jellyfin.png
-        flame.name: Jellyfin
-        flame.type: app
-        flame.url: jellyfin.jbpixel.xyz
-    healthcheck:
-      test: ["CMD", "/bin/check-health"]
-      interval: 10s
-      timeout: 3s
+      - JELLYFIN_PublishedServerUrl="https://jellyfin.jbpixel.xyz" #optional
     volumes:
-      - /home/jbpixel/Docker/jellyfin:/config
-      - /mnt:/media
+      - /mnt/disk2/appdata/jellyfin/config:/config
+      - /mnt/disk1/media:/media
+      - /mnt/cache/appdata/jellyfin/transcode:/transcode
     ports:
       - 8096:8096
       # - 8920:8920 #optional
-      # - 7359:7359/udp #optional
-      # - 1900:1900/udp #optional
     restart: unless-stopped
+    networks:
+      - traefik_default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.jbpixel.xyz`)"
+      - "traefik.http.routers.jellyfin.entrypoints=websecure"
+      - "traefik.http.routers.jellyfin.tls.certresolver=myresolver"
+      - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
+
     deploy:
       resources:
         reservations:
           devices:
-            - capabilities: [gpu]
+          - driver: nvidia
+            count: all
+            capabilities: [gpu]
+networks:
+  traefik_default:
+    external: true
+    name: traefik_default
