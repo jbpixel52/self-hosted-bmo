@@ -11,8 +11,8 @@ services:
     tty: true
     stdin_open: true
     environment:
-      TYPE: FORGE
-      FORGE_VERSION: 43.2.0
+      TYPE: FABRIC
+      FABRIC_LOADER_VERSION: 0.14.11
       MAX_TICK_TIME: -1
       ENABLE_AUTOPAUSE: "TRUE"
       AUTOPAUSE_TIMEOUT_INIT: "600"
