@@ -6,10 +6,11 @@ services:
     environment:
       - PUID=99
       - PGID=100
+      - UMASK=000
       - TZ=America/Los_Angeles
     volumes:
       - /mnt/disk2/appdata/radarr:/config
-      - /user/media/MOVIES/:/movies
+      - /user/media/:/media
       - /mnt/disk2/appdata/qbittorrent/downloads:/downloads
     restart: unless-stopped
     ports:
