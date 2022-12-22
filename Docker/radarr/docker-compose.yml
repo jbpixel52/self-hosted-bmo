@@ -4,9 +4,9 @@ services:
     container_name: radarr
     hostname: radarr_host
     environment:
-      - PUID=99
+      - PUID=1002
       - PGID=100
-      - UMASK=000
+      - UMASK=777 
       - TZ=America/Los_Angeles
     volumes:
       - /mnt/disk2/appdata/radarr:/config
