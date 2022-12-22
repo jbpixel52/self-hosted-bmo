@@ -10,11 +10,10 @@ services:
       - TZ=America/Los_Angeles
     volumes:
       - /mnt/disk2/appdata/radarr:/config
-      - /user/media:/media
+      - /user/media/:/media
+      - /user/media/MOVIES/:/movies
       - /mnt/disk2/appdata/qbittorrent/downloads:/downloads
     restart: unless-stopped
-    ports:
-      - 7878:7878
     networks:
       - traefik_default
     labels:
