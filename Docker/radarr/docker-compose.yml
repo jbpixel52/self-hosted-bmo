@@ -4,12 +4,12 @@ services:
     container_name: radarr
     hostname: radarr_host
     environment:
-      - PUID=0
-      - PGID=0
+      - PUID=99
+      - PGID=100
       - TZ=America/Los_Angeles
     volumes:
       - /mnt/disk2/appdata/radarr:/config
-      - /user/media/MOVIES/:/MOVIES
+      - /user/media/MOVIES/:/movies
       - /mnt/disk2/appdata/qbittorrent/downloads:/downloads
     restart: unless-stopped
     ports:
