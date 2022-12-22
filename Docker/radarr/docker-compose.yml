@@ -10,7 +10,7 @@ services:
       - TZ=America/Los_Angeles
     volumes:
       - /mnt/disk2/appdata/radarr:/config
-      - /user/media/:/media
+      - /user/media:/media
       - /mnt/disk2/appdata/qbittorrent/downloads:/downloads
     restart: unless-stopped
     ports:
