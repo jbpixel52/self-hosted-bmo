@@ -9,8 +9,7 @@ services:
       - TZ=America/Los_Angeles
     volumes:
       - /mnt/disk2/appdata/radarr:/config
-      - /mnt/disk1/media/:/media
-      - /mnt/disk1/media2:/media2
+      - /user/media/MOVIES/:/MOVIES
       - /mnt/disk2/appdata/qbittorrent/downloads:/downloads
     restart: unless-stopped
     ports:
@@ -23,11 +22,6 @@ services:
       - "traefik.http.routers.radarr.entrypoints=websecure"
       - "traefik.http.routers.radarr.tls.certresolver=myresolver"
       - "traefik.http.services.radarr.loadbalancer.server.port=7878"
-
-# networks:
-#   nginxpm-stack_default:
-#     external: true
-#     name: nginxpm-stack_default
 networks:
   traefik_default:
     external: true
