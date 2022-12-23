@@ -4,13 +4,13 @@ services:
     container_name: jellyfin
     hostname: jellyfin_host
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=99
+      - PGID=100
       - TZ=America/Los_Angeles
       - JELLYFIN_PublishedServerUrl="https://jellyfin.jbpixel.xyz" #optional
     volumes:
       - /mnt/disk2/appdata/jellyfin/config:/config
-      - /mnt/disk1/media:/media
+      - /mnt/user/media/:/media
       - /mnt/cache/appdata/jellyfin/transcode:/transcode
     ports:
       - 8096:8096
