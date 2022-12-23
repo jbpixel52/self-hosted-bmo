@@ -9,7 +9,7 @@ services:
       - TZ=America/Los_Angeles
       - JELLYFIN_PublishedServerUrl="https://jellyfin.jbpixel.xyz" #optional
     volumes:
-      - /mnt/disk2/appdata/jellyfin/config:/config
+      - /mnt/user/appdata/jellyfin/config:/config
       - /mnt/user/media/:/media
       - /mnt/cache/appdata/jellyfin/transcode:/transcode
     ports:
