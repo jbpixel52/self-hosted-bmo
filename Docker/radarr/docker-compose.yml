@@ -6,7 +6,7 @@ services:
     tty:  true
     stdin_open: true
     environment:
-      - PUID=1002
+      - PUID=98
       - PGID=100
       - UMASK=777 
       - TZ=America/Los_Angeles
