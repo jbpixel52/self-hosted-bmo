@@ -12,8 +12,8 @@ services:
       - TZ=America/Los_Angeles
     volumes:
       - /mnt/disk2/appdata/radarr:/config
-      - /user/media/:/media
-      - /user/media/MOVIES/:/movies
+      - /mnt/user/media/:/media
+      - /mnt/user/media/MOVIES/:/movies
       - /mnt/disk2/appdata/qbittorrent/downloads:/downloads
     restart: unless-stopped
     networks:
