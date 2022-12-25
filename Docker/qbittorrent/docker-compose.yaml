@@ -3,14 +3,14 @@ services:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Los_Angeles
+      - PUID=99
+      - PGID=100
+      - TZ=America/Los_Angeles
       - WEBUI_PORT=8888
     volumes:
-      - /mnt/disk2/appdata/qbittorrent/config:/config
-      - /mnt/disk2/appdata/qbittorrent/downloads:/downloads
-      - /mnt/disk1/media/:/media
+      - /mnt/user/appdata/qbittorrent/config:/config
+      - /mnt/user/appdata/qbittorrent/downloads:/downloads
+      - /mnt/user/media/:/media
 
     ports:
       - 8888:8888

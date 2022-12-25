@@ -13,7 +13,7 @@ services:
       - /mnt/user/appdata/radarr:/config
       - /mnt/user/media/:/media
       - /mnt/user/media/MOVIES/:/movies
-      - /mnt/disk2/appdata/qbittorrent/downloads:/downloads
+      - /mnt/user/appdata/qbittorrent/downloads:/downloads
     restart: unless-stopped
     networks:
       - traefik_default

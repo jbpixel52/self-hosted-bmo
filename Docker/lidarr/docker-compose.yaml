@@ -4,8 +4,8 @@ services:
     container_name: lidarr
     hostname: lidarr_host
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=99
+      - PGID=100
       - TZ=America/Los_Angeles
     volumes:
       - /mnt/disk2/appdata/lidarr:/config
