@@ -8,10 +8,9 @@ services:
     environment:
       - PUID=99
       - PGID=100
-      - UMASK=777 
       - TZ=America/Los_Angeles
     volumes:
-      - /mnt/disk2/appdata/radarr:/config
+      - /mnt/user/appdata/radarr:/config
       - /mnt/user/media/:/media
       - /mnt/user/media/MOVIES/:/movies
       - /mnt/disk2/appdata/qbittorrent/downloads:/downloads

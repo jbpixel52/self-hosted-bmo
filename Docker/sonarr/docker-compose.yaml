@@ -7,13 +7,13 @@ services:
       restart: unless-stopped
       volumes:
         - /mnt/disk2/appdata/sonarr:/config
-        - /mnt/disk1/media/SHOWS:/SHOWS
-        - /mnt/disk1/media/ANIME:/ANIME
-        - /mnt/disk2/appdata/qbittorrent/downloads:/downloads
+        - /mnt/user/media/SHOWS:/SHOWS
+        - /mnt/user/media/ANIME:/ANIME
+        - /mnt/user/appdata/qbittorrent/downloads:/downloads
 
       environment:
-        - PUID=1000
-        - PGID=1000
+        - PUID=99
+        - PGID=100
         - TZ=America/Los_Angeles
       ports:  
         - 8990:8989
