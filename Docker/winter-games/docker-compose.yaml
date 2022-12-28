@@ -13,13 +13,13 @@ services:
     stdin_open: true
     environment:
       TYPE: FABRIC
-      FABRIC_LOADER_VERSION: 0.14.9
+      FABRIC_LOADER_VERSION: 0.14.12
       MAX_TICK_TIME: -1
       ENABLE_AUTOPAUSE: "TRUE"
       AUTOPAUSE_TIMEOUT_INIT: "600"
       AUTOPAUSE_TIMEOUT_EST: "400"
       # USE_MODPACK_START_SCRIPT: "FALSE"
-      VERSION: 1.18.2
+      VERSION: 1.19.2
       SEED: 6641155181
       PVP: "TRUE"
       ALLOW_FLIGHT: "TRUE"
