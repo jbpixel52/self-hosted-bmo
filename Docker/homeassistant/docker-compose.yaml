@@ -12,6 +12,12 @@ services:
       - /mnt/user/media:/media
     ports:
       - 8123:8123 #optional
-    devices:
-      - /path/to/device:/path/to/device #optional
+
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.hass.rule=Host(`hass.jbpixel.xyz`)"
+      - "traefik.http.routers.hass.entrypoints=websecure"
+      - "traefik.http.services.hass.loadbalancer.server.port=8123"
+      - "traefik.http.routers.hass.service=hass"
+      - "traefik.http.routers.hass.tls.certresolver=myresolver"

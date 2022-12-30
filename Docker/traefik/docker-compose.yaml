@@ -23,6 +23,8 @@ services:
     volumes:
       - "/mnt/disk2/appdata/traefik/letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    extra_hosts:
+      - host.docker.internal:172.17.0.1
 
   whoami:
     image: "traefik/whoami"
