@@ -4,6 +4,8 @@ services:
   filebrowser:
     image: 'filebrowser/filebrowser:latest'
     container_name: filebrowser
+    ports:
+      - 8777:80
     hostname: filebrowser_host
     environment:
       - PUID=1000
