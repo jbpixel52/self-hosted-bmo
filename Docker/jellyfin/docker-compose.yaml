@@ -16,15 +16,6 @@ services:
       - 8096:8096
       # - 8920:8920 #optional
     restart: unless-stopped
-    networks:
-      - traefik_default
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.jbpixel.xyz`)"
-      - "traefik.http.routers.jellyfin.entrypoints=websecure"
-      - "traefik.http.routers.jellyfin.tls.certresolver=myresolver"
-      - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
-
     deploy:
       resources:
         reservations:
@@ -32,7 +23,3 @@ services:
           - driver: nvidia
             count: all
             capabilities: [gpu]
-networks:
-  traefik_default:
-    external: true
-    name: traefik_default
