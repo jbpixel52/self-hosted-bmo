@@ -3,13 +3,6 @@ services:
     container_name: appwrite
     hostname: appwrite_host
     restart: unless-stopped
-    networks:
-      - nginxpm_default
     volumes:
       - '/home/jbpixel/Docker/appwrite/appwrite:/usr/src/code/appwrite:rw'
     image: 'appwrite/appwrite:0.15.1'
-
-networks:
-  nginxpm_default:
-    attachable: true
-    name: nginxpm_default

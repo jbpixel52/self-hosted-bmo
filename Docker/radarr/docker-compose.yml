@@ -15,15 +15,5 @@ services:
       - /mnt/user/media/MOVIES/:/movies
       - /mnt/user/appdata/qbittorrent/downloads:/downloads
     restart: unless-stopped
-    networks:
-      - traefik_default
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.radarr.rule=Host(`radarr.jbpixel.xyz`)"
-      - "traefik.http.routers.radarr.entrypoints=websecure"
-      - "traefik.http.routers.radarr.tls.certresolver=myresolver"
-      - "traefik.http.services.radarr.loadbalancer.server.port=7878"
-networks:
-  traefik_default:
-    external: true
-    name: traefik_default
+    ports:
+      - 7878:7878

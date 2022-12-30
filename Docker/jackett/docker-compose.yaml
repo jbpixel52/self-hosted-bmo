@@ -5,33 +5,14 @@ services:
     image: lscr.io/linuxserver/jackett:latest
     container_name: jackett
     hostname: jackett_host
-    # ports:
-    #   - 9117:9117
+    ports:
+      - 9117:9117
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Los_Angeles
       - AUTO_UPDATE=true #optional
-      - RUN_OPTS=<run options here> #optional
     volumes:
       - /mnt/disk2/appdata/jackett:/config
       - /mnt/disk2/appdata/jackett/downloads:/downloads
     restart: unless-stopped
-
-    networks:
-      - traefik_default
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.jackett.rule=Host(`jackett.jbpixel.xyz`)"
-      - "traefik.http.routers.jackett.entrypoints=websecure"
-      - "traefik.http.routers.jackett.tls.certresolver=myresolver"
-      - "traefik.http.services.jackett.loadbalancer.server.port=9117"
-
-# networks:
-#   nginxpm-stack_default:
-#     external: true
-#     name: nginxpm-stack_default
-networks:
-  traefik_default:
-    external: true
-    name: traefik_default

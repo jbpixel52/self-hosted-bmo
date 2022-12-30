@@ -8,18 +8,5 @@ services:
     ports:
       - 5055:5055
     volumes:
-      - /mnt/disk2/appdata/overseerr:/app/config
+      - /mnt/user/appdata/overseerr:/app/config
     restart: unless-stopped
-    networks:
-      - traefik_default
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.overseerr.rule=Host(`overseerr.jbpixel.xyz`)"
-      - "traefik.http.routers.overseerr.entrypoints=websecure"
-      - "traefik.http.routers.overseerr.tls.certresolver=myresolver"
-      - "traefik.http.services.overseerr.loadbalancer.server.port=5055"
-
-networks:
-  traefik_default:
-    external: true
-    name: traefik_default

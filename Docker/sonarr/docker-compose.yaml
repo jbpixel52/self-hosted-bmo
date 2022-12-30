@@ -6,31 +6,13 @@ services:
       image: linuxserver/sonarr:latest
       restart: unless-stopped
       volumes:
-        - /mnt/disk2/appdata/sonarr:/config
+        - /mnt/user/appdata/sonarr:/config
         - /mnt/user/media/SHOWS:/SHOWS
         - /mnt/user/media/ANIME:/ANIME
         - /mnt/user/appdata/qbittorrent/downloads:/downloads
-
       environment:
         - PUID=99
         - PGID=100
         - TZ=America/Los_Angeles
       ports:  
         - 8990:8989
-      networks:
-        - traefik_default
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.sonarr.rule=Host(`sonarr.jbpixel.xyz`)"
-        - "traefik.http.routers.sonarr.entrypoints=websecure"
-        - "traefik.http.routers.sonarr.tls.certresolver=myresolver"
-        - "traefik.http.services.sonarr.loadbalancer.server.port=8989"
-
-# networks:
-#   nginxpm-stack_default:
-#     external: true
-#     name: nginxpm-stack_default
-networks:
-  traefik_default:
-    external: true
-    name: traefik_default

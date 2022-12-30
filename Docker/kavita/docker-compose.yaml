@@ -5,25 +5,11 @@ services:
         container_name: kavita
         hostname: kavita_host
         volumes:
-            - /mnt/disk1/media/COMICS:/COMICS
-            - /mnt/disk1/media/BOOKS:/BOOKS
-            - /mnt/disk2/appdata/kavita:/kavita/config
+            - /mnt/user/media/COMICS:/COMICS
+            - /mnt/user/media/BOOKS:/BOOKS
+            - /mnt/user/appdata/kavita:/kavita/config
         environment:
             - TZ=America/Los_Angeles
-        # ports:
-        #     - "5000:5000"
+        ports:
+            - "5000:5000"
         restart: unless-stopped
-
-        networks:
-          - traefik_default
-        labels:
-          - "traefik.enable=true"
-          - "traefik.http.routers.kavita.rule=Host(`kavita.jbpixel.xyz`)"
-          - "traefik.http.routers.kavita.entrypoints=websecure"
-          - "traefik.http.routers.kavita.tls.certresolver=myresolver"
-          - "traefik.http.services.kavita.loadbalancer.server.port=5000"
-
-networks:
-  traefik_default:
-    external: true
-    name: traefik_default

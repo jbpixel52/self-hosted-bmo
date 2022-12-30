@@ -6,22 +6,11 @@ services:
     container_name: uptime-kuma
     hostname: uptimekuma_host
     volumes:
-      - ./mnt/nvme/BeMOre-self-hosted-files/Docker/stacks/uptime-kuma:/app/data
+      - ./mnt/user/appdata/uptimekuma:/app/data
     # ports:
     #   - 3001:3001  # <Host Port>:<Container Port>
     restart: unless-stopped
-    networks:
-      - nginxpm_default
-    labels:
-        flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/uptime-kuma.png
-        flame.name: Uptime Kuma
-        flame.type: app
-        flame.url: uptime.jbpixel.xyz
     healthcheck:
       test: ["CMD", "/bin/check-health"]
       interval: 10s
       timeout: 3s
-networks:
-  nginxpm_default:
-    attachable: true
-    name: nginxpm_default

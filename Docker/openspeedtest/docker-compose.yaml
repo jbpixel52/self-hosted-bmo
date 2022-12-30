@@ -3,20 +3,6 @@ services:
     restart: unless-stopped
     container_name: openspeedtest
     hostname: openspeedtest_host
-    # ports:
-    #     - '3000:3000'
     image: openspeedtest/latest
-
-    networks:
-      - traefik_default
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.openspeedtest.rule=Host(`ost.jbpixel.xyz`)"
-      - "traefik.http.routers.openspeedtest.entrypoints=websecure"
-      - "traefik.http.routers.openspeedtest.tls.certresolver=myresolver"
-      - "traefik.http.services.openspeedtest.loadbalancer.server.port=3000"
-
-networks:
-  traefik_default:
-    external: true
-    name: traefik_default
+    ports:
+      - 3000:3000
