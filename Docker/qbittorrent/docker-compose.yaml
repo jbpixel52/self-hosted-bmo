@@ -11,22 +11,8 @@ services:
       - /mnt/user/appdata/qbittorrent/config:/config
       - /mnt/user/appdata/qbittorrent/downloads:/downloads
       - /mnt/user/media/:/media
-
     ports:
       - 8888:8888
       - 6881:6881
       - 6881:6881/udp
     restart: unless-stopped
-    networks:
-      - traefik_default
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.qbit.rule=Host(`qbit.jbpixel.xyz`)"
-      - "traefik.http.routers.qbit.entrypoints=websecure"
-      - "traefik.http.routers.qbit.tls.certresolver=myresolver"
-      - "traefik.http.services.qbit.loadbalancer.server.port=8888"
-
-networks:
-  traefik_default:
-    external: true
-    name: traefik_default
