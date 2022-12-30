@@ -1,32 +1,17 @@
-version: '3'
 services:
   homeassistant:
+    image: lscr.io/linuxserver/homeassistant:latest
     container_name: homeassistant
-    hostname: homeassistant_host
-    image: "ghcr.io/home-assistant/home-assistant:stable"
+    network_mode: host
+    environment:
+        - PUID=99
+        - PGID=100
+        - TZ=America/Los_Angeles
     volumes:
-      - /mnt/disk2/appdata/homeassistant:/config
-      # - /mnt:/drives
-      - /etc/localtime:/etc/localtime:ro
+      - /mnt/user/appdata/homeassistant:/config
+      - /mnt/user/media:/media
     ports:
-      - 8123:8123
+      - 8123:8123 #optional
+    devices:
+      - /path/to/device:/path/to/device #optional
     restart: unless-stopped
-    privileged: true
-    # network_mode: host
-    networks:
-      - traefik_default
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.homeassistant.rule=Host(`home.jbpixel.xyz`)"
-      - "traefik.http.routers.homeassistant.entrypoints=websecure"
-      - "traefik.http.routers.homeassistant.tls.certresolver=myresolver"
-      - "traefik.http.services.homeassistant.loadbalancer.server.port=8123"
-
-# networks:
-#   nginxpm-stack_default:
-#     external: true
-#     name: nginxpm-stack_default
-networks:
-  traefik_default:
-    external: true
-    name: traefik_default
