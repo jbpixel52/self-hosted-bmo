@@ -8,7 +8,10 @@ services:
         - '88:80' #HTTP TRAFFIC
         - '81:81' #DASHBOARD
         - '443:443' #HTTPS TRAFFIC
+        # Uncomment the next line if you uncomment anything in the section
+      environment:
+        DB_SQLITE_FILE: "/data/database.sqlite"
       volumes:
-        - /mnt/disk2/appdata/nginxpm:/data
-        - /mnt/disk2/appdata/nginxpm/letsencrypt:/etc/letsencrypt
+        - /mnt/user/appdata/nginxpm:/data
+        - /mnt/user/appdata/nginxpm/letsencrypt:/etc/letsencrypt
 

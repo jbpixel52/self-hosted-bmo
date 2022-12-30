@@ -1,0 +1,27 @@
+services:
+  swag:
+    image: lscr.io/linuxserver/swag:latest
+    container_name: swag
+    hostname: "swag_host"
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=99
+      - PGID=100
+      - TZ=America/Los_Angeles
+      - URL=jbpixel.xyz
+      - VALIDATION=http
+      - SUBDOMAINS=wildcard #optional
+      - CERTPROVIDER= #optional
+      - DNSPLUGIN=cloudflare #optional
+      - PROPAGATION= #optional
+      - EMAIL= #optional
+      - ONLY_SUBDOMAINS=false #optional
+      - EXTRA_DOMAINS= #optional
+      - STAGING=true #optional
+    volumes:
+      - /path/to/appdata/config:/config
+    ports:
+      - 443:443
+      - 80:80 #optional
+    restart: unless-stopped
