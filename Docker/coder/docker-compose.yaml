@@ -14,14 +14,17 @@ services:
       # that workspaces can reach. This cannot be localhost
       # or 127.0.0.1 for non-Docker templates!
       CODER_ACCESS_URL: "https://coder.jbpixel.xyz"
+      PUID: 99
+      PGID: 100
+
     # If the coder user does not have write permissions on
     # the docker socket, you can uncomment the following
     # lines and set the group ID to one that has write
     # permissions on the docker socket.
     #group_add:
     #  - "998" # docker group on host
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    # volumes:
+    #   - /var/run/docker.sock:/var/run/docker.
     depends_on:
       database:
         condition: service_healthy
