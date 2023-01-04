@@ -5,7 +5,6 @@ services:
     image: ghcr.io/haveagitgat/tdarr:latest
     restart: unless-stopped
     hostname: tdarr_host
-    network_mode: bridge
     ports:
       - 8265:8265 # webUI port
       - 8266:8266 # server port
@@ -13,9 +12,8 @@ services:
       - 8268:8268 # Example extra node port
     environment:
       - TZ=America/Los_Angeles
-      - PUID=1000
-      - PGID=1000
-      - UMASK_SET=002
+      - PUID=99
+      - PGID=100
       - serverIP=0.0.0.0
       - serverPort=8266
       - webUIPort=8265
@@ -26,13 +24,15 @@ services:
       # - NVIDIA_DRIVER_CAPABILITIES=all
       # - NVIDIA_VISIBLE_DEVICES=all
     volumes:
-      - /mnt/nvme/containers/tdarr/server:/app/server
-      - /mnt/nvme/containers/tdarr/configs:/app/configs
-      - /mnt/nvme/containers/tdarr/tdarr/logs:/app/logs
-      - /mnt:/media
-      - /mnt/nvme/containers/tdarr/transcode_cache:/temp
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - capabilities: [gpu]
+      - /mnt/user/appdata/tdarr/server:/app/server
+      - /mnt/user/appdata/tdarr/configs:/app/configs
+      - /mnt/user/appdata/tdarr/logs:/app/logs
+      - /mnt/user/media:/mnt/media
+      - /mnt/cache:/temp
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: all
+            capabilities: [gpu]
