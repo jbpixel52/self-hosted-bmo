@@ -13,7 +13,7 @@ services:
       - /mnt/user/appdata/radarr:/config
       - /mnt/user/media/:/media
       - /mnt/user/media/MOVIES/:/movies
-      - /mnt/user/appdata/qbittorrent/downloads:/downloads
+      - /mnt/sata_cache/downloads:/downloads
     restart: unless-stopped
     ports:
       - 7878:7878

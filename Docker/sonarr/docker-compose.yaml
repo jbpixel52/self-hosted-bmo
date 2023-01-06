@@ -9,7 +9,9 @@ services:
         - /mnt/user/appdata/sonarr:/config
         - /mnt/user/media/SHOWS:/SHOWS
         - /mnt/user/media/ANIME:/ANIME
-        - /mnt/user/appdata/qbittorrent/downloads:/downloads
+        # - /mnt/user/appdata/qbittorrent/downloads:/downloads
+        - /mnt/user/media_cache/downloads:/downloads
+
       environment:
         - PUID=99
         - PGID=100
