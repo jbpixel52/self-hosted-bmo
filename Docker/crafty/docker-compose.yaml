@@ -11,7 +11,7 @@ services:
         - PGID=100
         - TZ=America/Los_Angeles
     ports:
-        - "8000:8000" # HTTP
+        - "8001:8000" # HTTP
         - "8443:8443" # HTTPS
         - "8124:8123" # DYNMAP
         - "19132:19132/udp" # BEDROCK
