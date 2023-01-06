@@ -9,7 +9,8 @@ services:
       - PUID=99
       - PGID=100
       - TZ=America/Los_Angeles
-      - PROXY_DOMAIN=vscode.jbpixel.xyz #optional
+      - PASSWORD= "${PASSWORD}"
+      - PROXY_DOMAIN= "${PROXY_DOMAIN}" #optional
       - DEFAULT_WORKSPACE=/config/workspace #optional
     volumes:
       - /mnt/user/appdata/code-server/config:/config
