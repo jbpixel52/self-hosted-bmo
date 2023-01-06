@@ -1,0 +1,30 @@
+---
+version: "2.1"
+services:
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    hostname: code-server_host
+    environment:
+      - PUID=99
+      - PGID=100
+      - TZ=America/Los_Angeles
+      - PROXY_DOMAIN=vscode.jbpixel.xyz #optional
+      - DEFAULT_WORKSPACE=/config/workspace #optional
+    volumes:
+      - /mnt/user/appdata/code-server/config:/config
+    ports:
+      - 8543:8443
+    restart: unless-stopped
+  node:
+    image: "node:18-alpine"
+    hostname: node_host
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - /home/user/appdata/node:/home/node/app
+    ports:
+      - "8899:8888"
+    command: "npm start"
