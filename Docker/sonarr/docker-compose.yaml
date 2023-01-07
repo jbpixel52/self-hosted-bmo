@@ -10,7 +10,7 @@ services:
         - /mnt/user/media/SHOWS:/SHOWS
         - /mnt/user/media/ANIME:/ANIME
         # - /mnt/user/appdata/qbittorrent/downloads:/downloads
-        - /mnt/user/media_cache/downloads:/downloads
+        - /mnt/sata_cache/downloads:/downloads
 
       environment:
         - PUID=99
