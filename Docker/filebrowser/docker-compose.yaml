@@ -11,7 +11,7 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - '/mnt:/srv'
-      - /mnt/disk2/appdata/filebrowser/filebrowser.db:/database/filebrowser.db
-      - /mnt/disk2/appdata/filebrowser/config/settings.json:/config/settings.json
+      - '/mnt/user:/srv'
+      - /mnt/user/appdata/filebrowser/filebrowser.db:/database/filebrowser.db
+      - /mnt/user/appdata/filebrowser/config/settings.json:/config/settings.json
     restart: unless-stopped
