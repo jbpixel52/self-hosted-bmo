@@ -2,7 +2,7 @@ services:
   homarr:
     container_name: homarr-dashboard
     hostname: homarr_host
-    image: ghcr.io/ajnart/homarr:latest
+    image: ghci.io/ajnart/homarr:dev
     restart: unless-stopped
     volumes:
       - /mnt/disk2/appdata/homarr/config:/app/data/configs
