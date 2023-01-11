@@ -23,7 +23,7 @@ services:
     group_add:
       - "0" # docker group on host
     volumes:
-      - /var/run/docker.sock:/var/run/docker.
+      - /var/run/docker.sock:/var/run/docker.sock
 
     depends_on:
       database:
