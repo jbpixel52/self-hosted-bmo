@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   coder:
+    container_name: coder
     hostname: coder_host
     # This MUST be stable for our documentation and
     # other automations.
