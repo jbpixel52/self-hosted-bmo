@@ -16,13 +16,13 @@ services:
       # or 127.0.0.1 for non-Docker templates!
       CODER_ACCESS_URL: "https://coder.jbpixel.xyz"
       PUID: 0
-      PGID: 0
+      PGID: 281
     # If the coder user does not have write permissions on
     # the docker socket, you can uncomment the following
     # lines and set the group ID to one that has write
     # permissions on the docker socket.
     group_add:
-      - "0" # docker group on host
+      - "281" # docker group on host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
