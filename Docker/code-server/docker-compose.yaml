@@ -14,4 +14,5 @@ services:
       - /mnt/user/appdata/code-server/config:/config
     ports:
       - 8543:8443
+      - 4000-4050:3000-3050
     restart: unless-stopped
