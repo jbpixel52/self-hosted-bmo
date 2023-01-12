@@ -15,15 +15,3 @@ services:
     ports:
       - 8543:8443
     restart: unless-stopped
-  node:
-    image: "node:18"
-    hostname: node_host
-    user: "node"
-    working_dir: /home/node/app
-    environment:
-      - NODE_ENV=production
-    volumes:
-      - /home/user/appdata/node:/home/node/app
-    ports:
-      - "8899:8888"
-    command: "npm start"
