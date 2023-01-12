@@ -9,6 +9,8 @@ services:
       - PUID=99
       - PGID=100
       - TZ=America/Los_Angeles
+      - PASSWORD=tupu #optional
+      - SUDO_PASSWORD=tupu #optional
       - DEFAULT_WORKSPACE=/config/workspace #optional
     volumes:
       - /mnt/user/appdata/code-server/config:/config
