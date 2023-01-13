@@ -27,7 +27,7 @@ services:
       DIFFICULTY: "normal"
       MAX_PLAYERS: 18
       MAX_WORLD_SIZE: 300000
-      USE_AIKAR_FLAGS: "TRUE"
+      USE_AIKAR_FLAGS: "FALSE"
       ALLOW_NETHER: "TRUE"
       TZ: "America/Los_Angeles"
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
