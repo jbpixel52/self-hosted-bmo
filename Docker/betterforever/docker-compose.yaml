@@ -2,18 +2,18 @@ version: "3.3"
 services:
   minecraft-fabric:
     image: itzg/minecraft-server
-    container_name: minecraft-fabric
+    container_name: betterforever
     restart: unless-stopped
-    hostname: minecraft-fabric_host
+    hostname: betterforever_host
     ports:
       - 25567:25567
     volumes:
-      - "/mnt/user/appdata/minecraftfabric:/data"
+      - "/mnt/user/appdata/betterforever:/data"
     tty: true
     stdin_open: true
     environment:
-      TYPE: FABRIC
-      FABRIC_LOADER_VERSION: 0.14.2
+      TYPE: FORGE
+      FORGE_VERSION: 43.2.0
       MAX_TICK_TIME: -1
       ENABLE_AUTOPAUSE: "TRUE"
       AUTOPAUSE_TIMEOUT_INIT: "600"
