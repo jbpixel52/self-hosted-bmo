@@ -8,8 +8,9 @@ services:
       - 8777:80
     hostname: filebrowser_host
     environment:
-      - PUID=1000
-      - PGID=1000
+        - PUID=99
+        - PGID=100
+        - TZ=America/Los_Angeles
     volumes:
       - '/mnt/user:/srv'
       - /mnt/user/appdata/filebrowser/filebrowser.db:/database/filebrowser.db
