@@ -39,7 +39,7 @@ services:
       MODE: survival
       MOTD: "§c§lFeliz Jueves!... §bOr as I like to call it, §cThursday!"
       # INIT_MEMORY: 5G
-      MAX_MEMORY: 8G
+      MAX_MEMORY: 7G
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
@@ -53,7 +53,7 @@ services:
         max_attempts: 3
       resources:
         limits:
-          memory: 9G
+          memory: 10G
         reservations:
           memory: 2G
 
