@@ -12,7 +12,7 @@ services:
       - TZ=America/Los_Angeles
       - LOGGING=file
     volumes:
-      - /mnt/user/appdata/tachidesk-alpine:/home/suwayomi/.local/share/Tachidesk # edit <path to folder> to your mapped folder
+      - /mnt/user/appdata/tachidesk:/home/suwayomi/.local/share/Tachidesk # edit <path to folder> to your mapped folder
       - /mnt/user/media/COMICS/tachidesk/downloads:/media/downloads
     ports:
       - "5567:4567"
