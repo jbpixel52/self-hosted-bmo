@@ -1,0 +1,18 @@
+---
+version: '3.7'
+
+services:
+
+  tachidesk-docker:
+    image: ghcr.io/suwayomi/tachidesk
+    container_name: tachidesk-docker
+    environment:
+      - PUID=99
+      - PGID=100
+      - TZ=America/Los_Angeles
+      - LOGGING=file
+    volumes:
+      - /mnt/user/appdata/tachidesk-alpine:/home/suwayomi/.local/share/Tachidesk # edit <path to folder> to your mapped folder
+    ports:
+      - "4567:4567"
+    restart: on-failure:3
