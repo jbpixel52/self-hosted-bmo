@@ -6,9 +6,9 @@ services:
     container_name: uptime-kuma
     hostname: uptimekuma_host
     volumes:
-      - ./mnt/user/appdata/uptimekuma:/app/data
-    # ports:
-    #   - 3001:3001  # <Host Port>:<Container Port>
+      - ./mnt/user/appdata/uptimekuma:/app/data1
+    ports:
+      - 3001:3001  # <Host Port>:<Container Port>
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "/bin/check-health"]
