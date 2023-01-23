@@ -5,21 +5,24 @@ services:
     image: lscr.io/linuxserver/code-server:latest
     container_name: code-server
     hostname: code-server_host
+    env_file:
+      - stack.env
     environment:
       - PUID=99
       - PGID=100
       - TZ=America/Los_Angeles
-      - PASSWORD=tupu #optional
-      - SUDO_PASSWORD=tupu #optional
+      - PASSWORD=${PASSWORD} #optional
+      - SUDO_PASSWORD=${SUDO_PASSWORD} #optional
       - DEFAULT_WORKSPACE=/config/workspace #optional
+      - DOCKER_MODS=linuxserver/mods:code-server-nodejs|linuxserver/mods:code-server-npmglobal|linuxserver/mods:code-server-nvm|linuxserver/mods:code-server-python3|linuxserver/mods:code-server-zsh|linuxserver/mods:code-server-java11|linuxserver/mods:universal-docker
     volumes:
       - /mnt/user/appdata/code-server/config:/config
       - projects:/projects
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
       - 8543:8443
       - 4000-4050:3000-3050
     restart: unless-stopped
-
 volumes:
   projects:
     external: true
