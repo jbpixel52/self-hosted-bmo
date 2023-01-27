@@ -15,10 +15,10 @@ services:
       - /mnt/disk1/media2/MUSIC:/musiclibrary
       - /mnt/cache/appdata/Plex/transcode:/cachetranscode
     restart: unless-stopped
-    deploy:
-      resources:
-        reservations:
-          devices:
-          - driver: nvidia
-            count: all
-            capabilities: [gpu]
+      deploy:
+        resources:
+          reservations:
+            devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
