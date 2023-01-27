@@ -3,6 +3,8 @@ services:
     stable-diffusion-webui:
       network_mode: 'host'
       container_name: stable-diffusion-webui
+      command: ["sleep","infinity"]
+      tty: true
       volumes:
             - '/mnt/user/appdata/stable-diffusion-webui:/mnt/invokeai'
       image: "ubuntu:latest"
