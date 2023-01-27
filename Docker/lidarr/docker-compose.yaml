@@ -14,7 +14,7 @@ services:
       - /mnt/disk2/appdata/lidarr/downloads:/downloads
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.lidarr.rule=Host(`lidarr.jbpixel.xyz`)"
+      - "traefik.http.routers.lidarr.rule=Host(`lidarr.{DOMAIN}`)"
       - "traefik.http.routers.lidarr.entrypoints=websecure"
       - "traefik.http.routers.lidarr.tls.certresolver=myresolver"
       - "traefik.http.services.lidarr.loadbalancer.server.port=8686"

@@ -11,7 +11,7 @@ services:
     ports:
       - 7575:7575
     environment:
-      - BASE_URL=homarr.jbpixel.xyz
+      - BASE_URL=homarr.{DOMAIN}
       - PASSWORD=5252
       - PORT=7575
       - TZ=America/Los_Angeles

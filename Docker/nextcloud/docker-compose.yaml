@@ -40,7 +40,7 @@ services:
       flame.icon: https://github.com/walkxhub/dashboard-icons/blob/master/png/nextcloud.png?raw=true
       flame.name: Nextcloud
       flame.type: app
-      flame.url: nextcloud.jbpixel.xyz
+      flame.url: nextcloud.{DOMAIN}
 networks:  
   nginxpm_default:
     external: true

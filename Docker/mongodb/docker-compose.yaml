@@ -30,7 +30,7 @@ services:
           - traefik_default
     labels:
           - "traefik.enable=true"
-          - "traefik.http.routers.mongo.rule=Host(`catdb.jbpixel.xyz`)"
+          - "traefik.http.routers.mongo.rule=Host(`catdb.{DOMAIN}`)"
           - "traefik.http.routers.mongo.entrypoints=websecure"
           - "traefik.http.routers.mongo.tls.certresolver=myresolver"
           - "traefik.http.services.mongo.loadbalancer.server.port=8081"

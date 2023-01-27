@@ -14,7 +14,7 @@ services:
       # You'll need to set CODER_ACCESS_URL to an IP or domain
       # that workspaces can reach. This cannot be localhost
       # or 127.0.0.1 for non-Docker templates!
-      CODER_ACCESS_URL: "https://coder.jbpixel.xyz"
+      CODER_ACCESS_URL: "https://coder.{DOMAIN}"
       PUID: 0
       PGID: 281
     # If the coder user does not have write permissions on
