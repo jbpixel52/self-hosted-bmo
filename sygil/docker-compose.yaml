@@ -9,4 +9,12 @@ services:
             - VALIDATE_MODELS=false
         volumes:
             - '/mnt/user/appdata/sygil/outputs:/sd/outputs'
-        image: 'hlky/sd-webui:runpod'
+            - '/mnt/user/media_cache/sygil/models:/sd/models'
+        image: 'hlky/sd-webui:latest'
+        deploy:
+          resources:
+            reservations:
+              devices:
+              - driver: nvidia
+                count: all
+                capabilities: [gpu]
