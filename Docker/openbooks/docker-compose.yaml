@@ -3,12 +3,14 @@ services:
     openbooks:
       container_name: openbooks
       hostname: openbooks_host
+      restart: unless-stopped
+
       ports:
         - '8887:80'
       volumes:
             - '/mnt/user/appdata/openbooks:/books'
-      image: evanbuss/openbooks
+      image: evanbuss/openbooks:latest
       
       environment:
         - BASE_PATH=/openbooks/
-      command: "--name IRC-jbpixel"
+      command: "--persist true --debug --name IRC-jbpixel --searchbot searchook --server irc.irchighway.net:6697 --useragent OpenBooks v4.5.0 --no-browser-downloads	true"
