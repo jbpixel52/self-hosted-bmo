@@ -11,4 +11,4 @@ services:
       
       environment:
         - BASE_PATH=/openbooks/
-        - command: "--name IRC-jbpixel"
+      command: "--name IRC-jbpixel"
