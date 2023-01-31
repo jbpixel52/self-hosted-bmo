@@ -8,3 +8,6 @@ services:
       volumes:
             - '/mnt/user/appdata/openbooks:/books'
       image: evanbuss/openbooks
+      
+      environment:
+        - BASE_PATH=/openbooks/
