@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+    openbooks:
+      container_name: openbooks
+      hostname: openbooks_host
+      ports:
+        - '8887:80'
+      volumes:
+            - '/mnt/user/appdata/openbooks:/books'
+      image: evanbuss/openbooks
