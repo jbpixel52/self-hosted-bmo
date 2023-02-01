@@ -13,9 +13,9 @@ services:
     environment:
       UID: 99
       GUID: 100
-      TYPE: AUTO_CURSEFORGE
+      TYPE: FORGE
+      FORGE_VERSION: 43.2.3
       MAX_TICK_TIME: -1
-      CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/all-the-mods-8/files/4248411
       ENABLE_AUTOPAUSE: "TRUE"
       AUTOPAUSE_TIMEOUT_INIT: "600"
       AUTOPAUSE_TIMEOUT_EST: "400"
