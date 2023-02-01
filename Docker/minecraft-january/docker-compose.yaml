@@ -1,0 +1,63 @@
+version: "3.3"
+services:
+  minecraft-forge:
+    image: itzg/minecraft-server
+    container_name: betterforever
+    hostname: betterforever_host
+    ports:
+      - 25567:25567
+    volumes:
+      - "/mnt/user/appdata/atm8:/data"
+    tty: true
+    stdin_open: true
+    environment:
+      UID: 99
+      GUID: 100
+      TYPE: AUTO_CURSEFORGE
+      MAX_TICK_TIME: -1
+      CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/all-the-mods-8/files/4248411
+      ENABLE_AUTOPAUSE: "TRUE"
+      AUTOPAUSE_TIMEOUT_INIT: "600"
+      AUTOPAUSE_TIMEOUT_EST: "400"
+      # USE_MODPACK_START_SCRIPT: "FALSE"
+      VERSION: 1.19.2
+      SEED: 777111999
+      PVP: "TRUE"
+      ALLOW_FLIGHT: "TRUE"
+      EULA: "TRUE"
+      DIFFICULTY: "normal"
+      MAX_PLAYERS: 18
+      MAX_WORLD_SIZE: 300000
+      USE_AIKAR_FLAGS: "FALSE"
+      ALLOW_NETHER: "TRUE"
+      TZ: "America/Los_Angeles"
+      ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
+      ENABLE_COMMAND_BLOCK: "TRUE"
+      GENERATE_STRUCTURES: "TRUE"
+      VIEW_DISTANCE: 14
+      OPS: user
+      MAX_BUILD_HEIGHT: 256
+      SPAWN_PROTECTION: 1
+      MODE: survival
+      MOTD: "§c§lFeliz Jueves!... §bOr as I like to call it, §cThursday!"
+      # INIT_MEMORY: 5G
+      MAX_MEMORY: 8G
+      SERVER_PORT: 25567
+      CONSOLE: "FALSE"
+      GUI: "FALSE"
+      SIMULATION_DISTANCE: 8
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 3s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 10G
+        reservations:
+          memory: 2G
+
+    healthcheck:
+      test: ["CMD", "/bin/check-health"]
+      interval: 10s
+      timeout: 3s
