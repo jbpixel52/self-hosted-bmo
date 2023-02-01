@@ -9,7 +9,7 @@ services:
       - PUID=99
       - PGID=100
       - TZ=America/Los_Angeles
-      - URL=jbpixel.xyz
+      - URL=abc.xyz
       - VALIDATION=http
       - SUBDOMAINS=wildcard #optional
       - CERTPROVIDER= #optional

@@ -25,7 +25,7 @@ services:
         flame.icon: https://raw.githubusercontent.com/walkxhub/dashboard-icons/master/png/cryptgeon.png
         flame.name: Cryptgeon
         flame.type: app
-        flame.url: pigeon.jbpixel.xyz
+        flame.url: pigeon.{DOMAIN}
     networks:
       - nginxpm_default
     healthcheck:

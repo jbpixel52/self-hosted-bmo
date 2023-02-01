@@ -3,7 +3,7 @@ services:
     environment:
       # ⚠️ Required:
       # Change this to your host's public address
-      - WG_HOST=jbpixel.xyz
+      - WG_HOST={DOMAIN}
       # Optional:
       - PASSWORD=${PASSWORD}
       - WG_PORT=51820
@@ -14,7 +14,7 @@ services:
     labels:
       - "flame.type=app"
       - "flame.icon=https://github.com/walkxhub/dashboard-icons/blob/master/png/wireguard.png?raw=true"
-      - "flame.url=http://wireguard.jbpixel.xyz"
+      - "flame.url=http://wireguard.{DOMAIN}"
       - "flame.name= Easy Wireguard"
     image: weejewel/wg-easy
     hostname: wireguard_host

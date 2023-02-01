@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+    stable-diffusion-webui:
+      network_mode: 'host'
+      container_name: stable-diffusion-webui
+      command: ["sleep","infinity"]
+      tty: true   
+      stdin_open: true 
+      volumes:
+            - '/mnt/user/appdata/stable-diffusion-webui:/mnt/invokeai'
+      image: "ubuntu:latest"
+      deploy:
+        resources:
+          reservations:
+            devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
