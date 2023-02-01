@@ -1,9 +1,9 @@
 version: "3.3"
 services:
-  minecraft-forge:
+  minecraft-atm8:
     image: itzg/minecraft-server
-    container_name: betterforever
-    hostname: betterforever_host
+    container_name: atm8
+    hostname: atm8_host
     ports:
       - 25567:25567
     volumes:
