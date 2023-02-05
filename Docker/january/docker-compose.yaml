@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  mc:
+    image: itzg/minecraft-server:latest
+    container_name: mcforge
+    hostname: mcforgehost
+    network_mode: host
+    environment:
+      EULA: "true"
+      TYPE: "FORGE"
+      VERSION: "1.19.3"
+      FORGE_VERSION: "43.2.3"
+      MOTD: "FELIZ JUEVES!"
+      DIFFICULTY: "hard"
+      OPS: jbpixel_
+      MAX_PLAYERS: 12
+      ALLOW_NETHER: true
+      ENABLE_COMMAND_BLOCK: true
+      MAX_TICK_TIME: -1
+      VIEW_DISTANCE: 15
+      SEED: 6642043478
+      MODE: "survival"
+      PVP: true
+      ALLOW_FLIGHT: "TRUE"
+      MEMORY: "7G"
+      TZ: "America/Los_Angeles"
+      USE_AIKAR_FLAGS: true
+      GUI: "FALSE"
+      
+
+    ports:
+      - "25565:25565"
+    volumes:
+      - /mnt/user/appdata/mcforge:/data
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
