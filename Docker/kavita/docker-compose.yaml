@@ -5,11 +5,11 @@ services:
         container_name: kavita
         hostname: kavita_host
         volumes:
-            - /mnt/user/media/COMICS:/COMICS
-            - /mnt/user/media/BOOKS:/BOOKS
+            - /mnt/user/comics_share/:/comics 
+            - /mnt/user/comics_share/BOOKS/:/books
             - /mnt/user/appdata/kavita:/kavita/config
         environment:
             - TZ=America/Los_Angeles
         ports:
-            - "5000:5000"
+            - "8688:5000"
         restart: unless-stopped
