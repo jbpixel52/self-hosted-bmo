@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+  jdownloader-2:
+    container_name: jdownloader-2
+    ports:
+      - '88:80'
+      - '5800:5800'
+    volumes:
+      - '/var/run/docker.sock:/tmp/docker.sock:ro'
+      - '/mnt/user/appdata/jdownloader-2:/config:rw'
+      - '/mnt/sata_cache/jdownloads:/output:rw'
+      - '/mnt/user/:/mounts'
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 1g
+    image: jlesage/jdownloader-2
