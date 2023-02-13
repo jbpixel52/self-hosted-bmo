@@ -6,7 +6,6 @@ services:
       - '188:80'
       - '5800:5800'
     volumes:
-      - '/var/run/docker.sock:/tmp/docker.sock:ro'
       - '/mnt/user/appdata/jdownloader-2:/config:rw'
       - '/mnt/sata_cache/jdownloads:/output:rw'
       - '/mnt/user/:/mounts'
