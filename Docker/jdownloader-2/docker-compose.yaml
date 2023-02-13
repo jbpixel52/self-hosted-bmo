@@ -3,7 +3,7 @@ services:
   jdownloader-2:
     container_name: jdownloader-2
     ports:
-      - '88:80'
+      - '188:80'
       - '5800:5800'
     volumes:
       - '/var/run/docker.sock:/tmp/docker.sock:ro'
