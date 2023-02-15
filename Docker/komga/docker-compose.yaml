@@ -10,7 +10,7 @@ services:
       - /mnt/user/appdata/komga:/config
       - /mnt/user/comics_share/BOOKS/:/books
     ports:
-      - 8585:8000
+      - 8585:8080
     user: "99:100"
     environment:
       - TZ="America/Los_Angeles"
