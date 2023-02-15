@@ -4,14 +4,14 @@ services:
   komga:
     image: gotson/komga
     container_name: komga
+    hostname: komga_host
     volumes:
       - /mnt/user/comics_share/:/comics 
       - /mnt/user/appdata/komga:/config
       - /mnt/user/comics_share/BOOKS/:/books
-    network_mode: host
     ports:
       - 8585:8000
-    user: "99:100"
+    user: "nobody:nobody"
     environment:
       - TZ="America/Los_Angeles"
     restart: unless-stopped
