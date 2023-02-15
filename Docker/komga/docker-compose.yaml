@@ -11,7 +11,7 @@ services:
       - /mnt/user/comics_share/BOOKS/:/books
     ports:
       - 8585:8000
-    user: "nobody:nobody"
+    user: "99:100"
     environment:
       - TZ="America/Los_Angeles"
     restart: unless-stopped
