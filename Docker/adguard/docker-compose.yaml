@@ -9,8 +9,8 @@ services:
             - '/mnt/user/appdata/adguard/work:/opt/adguardhome/work'
             - '/mnt/user/appdata/adguard/opt:/opt/adguardhome/conf'
         ports:
-            - '53:53/tcp'
-            - '53:53/udp'
+            - '54:54/tcp'
+            - '54:54/udp'
             - '67:67/udp'
             - '68:68/udp'
             - '82:80/tcp'
