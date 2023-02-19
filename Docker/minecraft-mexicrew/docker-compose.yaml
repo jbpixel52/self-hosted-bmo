@@ -1,60 +1,36 @@
 version: "3.3"
 services:
-  minecraft-mexicrew:
-    image: itzg/minecraft-server
-    container_name: minecraft-mexicrew
-    restart: unless-stopped
-    hostname: minecraftmexicrew_host
-    ports:
-      - 25567:25567
-    networks:
-      - nginxpm_default
-    volumes:
-      - "/mnt/ssddrives/mexicrew:/data"
-    tty: true
-    stdin_open: true
+  mc:
+    image: itzg/minecraft-server:java19
+    container_name: betterforever2
+    hostname: betterforever2_host
+    network_mode: host
     environment:
-      TYPE: FABRIC
-      FABRIC_LOADER_VERSION: 0.14.7
+      EULA: "true"
+      TYPE: "FORGE"
+      VERSION: "1.19.2"
+      FORGE_VERSION: "43.2.4"
+      MOTD: "FELIZ JUEVES!"
+      DIFFICULTY: "hard"
+      OPS: jbpixel_
+      MAX_PLAYERS: 12
+      ALLOW_NETHER: true
+      ENABLE_COMMAND_BLOCK: true
       MAX_TICK_TIME: -1
-      ENABLE_AUTOPAUSE: "TRUE"
-      AUTOPAUSE_TIMEOUT_INIT: "600"
-      AUTOPAUSE_TIMEOUT_EST: "400"
-      # USE_MODPACK_START_SCRIPT: "FALSE"
-      VERSION: 1.18.2
-      SEED: -6643636733
-      PVP: "TRUE"
+      VIEW_DISTANCE: 14
+      SEED: 6642043478
+      MODE: "survival"
+      PVP: "true"
       ALLOW_FLIGHT: "TRUE"
-      EULA: "TRUE"
-      DIFFICULTY: "normal"
-      MAX_PLAYERS: 18
-      MAX_WORLD_SIZE: 300000
-      USE_AIKAR_FLAGS: "TRUE"
-      ALLOW_NETHER: "TRUE"
+      MEMORY: "2.5G"
       TZ: "America/Los_Angeles"
-      ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
-      ENABLE_COMMAND_BLOCK: "TRUE"
-      GENERATE_STRUCTURES: "TRUE"
-      VIEW_DISTANCE: 20
-      OPS: user
-      MAX_BUILD_HEIGHT: 256
-      SPAWN_PROTECTION: 6
-      MODE: survival
-      MOTD: "§c§lFeliz Jueves!... §bOr as I like to call it, §cThursday!"
-      INIT_MEMORY: 2G
-      MAX_MEMORY: 12G
-      SERVER_PORT: 25567
-      CONSOLE: "FALSE"
+      USE_AIKAR_FLAGS: "true"
       GUI: "FALSE"
-      SIMULATION_DISTANCE: 6
-      ICON: "https://media.forgecdn.net/avatars/556/541/637901678731763596.png"
-
-    healthcheck:
-      test: ["CMD", "/bin/check-health"]
-      interval: 10s
-      timeout: 3s
-
-networks:
-  nginxpm_default:
-    external: true
-    name: nginxpm_default
+      PUID: 99
+      PGID: 100
+    ports:
+      - "25565:25565"
+    volumes:
+      - /mnt/user/appdata/betterforever2:/data
+    stdin_open: true
+    tty: true
