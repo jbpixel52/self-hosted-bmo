@@ -1,16 +1,20 @@
----
-version: "2.1"
 services:
   mylar3:
     image: lscr.io/linuxserver/mylar3:latest
     container_name: mylar3
+    hostname: mylar_host
     environment:
       - PUID=1000
       - PGID=1000
     volumes:
-      - /home/jbpixel/Docker/mylar:/config
-      - /mnt/ntfs1/COMICS:/comics
-      - /mnt/ssddrives/mylardownloads:/downloads
+      - /mnt/user/appdata/mylar:/config
+      - /mnt/user/comics_share/COMICS:/comics
+      - /mnt/user/media_cache/downloads/mylar:/downloads
     ports:
       - 8090:8090
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "2gb"
