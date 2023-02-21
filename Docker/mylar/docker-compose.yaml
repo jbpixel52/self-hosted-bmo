@@ -4,8 +4,8 @@ services:
     container_name: mylar3
     hostname: mylar_host
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=99
+      - PGID=100
     volumes:
       - /mnt/user/appdata/mylar:/config
       - /mnt/user/comics_share/COMICS:/comics
