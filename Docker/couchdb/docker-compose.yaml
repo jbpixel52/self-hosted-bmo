@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+    couchdb:
+        restart: always
+        container_name: couchdb
+        hostname: couchdb_host
+        environment:
+            - COUCHDB_USER=admin
+            - COUCHDB_PASSWORD=password
+        volumes:
+            - '/mnt/user/appdata/couchdb/local.ini:/opt/couchdb/etc/local.ini'
+        ports:
+            - '5984:5984'
+        image: couchdb
