@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+    budibase:
+        container_name: budibase
+        hostname: budibase_host
+        ports:
+            - '10000:80'
+        volumes:
+            - '/mnt/user/appdata/bubibase:/data'
+        restart: unless-stopped
+        image: 'budibase/budibase:latest'
