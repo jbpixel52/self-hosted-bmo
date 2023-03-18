@@ -39,11 +39,9 @@ services:
     environment:
       FRIGATE_RTSP_PASSWORD: "password"
     deploy:
-      # <------------- Add this section
       resources:
         reservations:
           devices:
-            - driver: nvidia
-              device_ids: [ '0' ]                 
-              count: 1 # number of GPUs
-              capabilities: [ gpu ]
+          - driver: nvidia
+            count: all
+            capabilities: [gpu]
