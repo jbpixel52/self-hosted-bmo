@@ -1,15 +1,49 @@
+version: "3.9"
 services:
   homeassistant:
     image: lscr.io/linuxserver/homeassistant:latest
     container_name: homeassistant
     network_mode: host
     environment:
-        - PUID=99
-        - PGID=100
-        - TZ=America/Los_Angeles
+      - PUID=99
+      - PGID=100
+      - TZ=America/Los_Angeles
     volumes:
       - /mnt/user/appdata/homeassistant:/config
       - /mnt/user/media:/media
     ports:
       - 8123:8123 #optional
     restart: unless-stopped
+
+  frigate:
+    container_name: frigate
+    privileged: true # this may not be necessary for all setups
+    restart: unless-stopped
+    image: blakeblackshear/frigate:stable
+    shm_size: "64mb" # update for your cameras based on calculation above
+    #devices:
+      #- /dev/bus/usb:/dev/bus/usb # passes the USB Coral, needs to be modified for other versions
+      #- /dev/apex_0:/dev/apex_0 # passes a PCIe Coral, follow driver instructions here https://coral.ai/docs/m2/get-started/#2a-on-linux
+      #- /dev/dri/renderD128 # for intel hwaccel, needs to be updated for your hardware
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/user/appdata/frigate:/config/config.yml
+      - /mnt/user/media_cache/nvr:/media/frigate
+      - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+    ports:
+      - "5500:5000"
+      - "1935:1935" # RTMP feeds
+    environment:
+      FRIGATE_RTSP_PASSWORD: "password"
+    deploy:
+      # <------------- Add this section
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: [ '0' ]                 
+              count: 1 # number of GPUs
+              capabilities: [ gpu ]
