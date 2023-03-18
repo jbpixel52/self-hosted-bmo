@@ -55,4 +55,4 @@ services:
       - /mnt/user/appdata/mosquitto/data/:/mosquitto/data/
     ports:
       - 1883:1883
-      - 9001:9001
+      - 9901:9001
