@@ -38,9 +38,7 @@ services:
       - "1935:1935" # RTMP feeds
     environment:
       FRIGATE_RTSP_PASSWORD: "password"
-      
-      ffmpeg:
-        hwaccel_args: -c:v hevc_cuvid
+      hwaccel_args: -c:v hevc_cuvid
       
     deploy:
       resources:
