@@ -72,4 +72,4 @@ services:
       environment:
         - TZ=America/Los_Angeles  # timezone in logs
       volumes:
-        - -mnt/user/appdata/go2rtc:/config
+        - /mnt/user/appdata/go2rtc:/config
