@@ -7,5 +7,6 @@ services:
             - '10000:80'
         volumes:
             - '/mnt/user/appdata/bubibase:/data'
+            - '/mnt/user/appdata/budibase/database/:/opt/couchdb/data'
         restart: unless-stopped
         image: 'budibase/budibase:latest'
