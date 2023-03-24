@@ -28,7 +28,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /mnt/user/appdata/frigate/config.yml:/config/config.yml
-      - /mnt/user/media_cache/nvr:/media/frigate
+      - /mnt/user/recordings:/media/frigate
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
         tmpfs:
@@ -37,9 +37,7 @@ services:
       - "5500:5000"
       - "1935:1935" # RTMP feeds
     environment:
-      FRIGATE_RTSP_PASSWORD: "password"
-      hwaccel_args: -c:v hevc_cuvid
-      
+      FRIGATE_RTSP_PASSWORD: "password"      
     deploy:
       resources:
         reservations:
