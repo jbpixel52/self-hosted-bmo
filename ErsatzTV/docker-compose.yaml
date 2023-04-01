@@ -1,0 +1,23 @@
+services:
+  ersatztv:
+    image: jasongdove/ersatztv
+    container_name: ersatztv
+    hostname: ersatztv_host
+    privileged: true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    ports:
+      - '8409:8409'
+    volumes:
+      - '/mnt/user/appdata/ersatztv:/root/.local/share/ersatztv'
+      - '/mnt/user/media:/media:ro'
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
