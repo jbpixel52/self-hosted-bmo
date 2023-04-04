@@ -1,14 +1,37 @@
 services:
-    app:
-      image: 'jc21/nginx-proxy-manager:latest'
-      container_name: npm
-      hostname: npm_host
-      restart: unless-stopped
-      ports:
-        - '88:80' #HTTP TRAFFIC
-        - '81:81' #DASHBOARD
-        - '443:443' #HTTPS TRAFFIC
-      volumes:
-        - /mnt/user/appdata/nginxpm:/data
-        - /mnt/user/appdata/nginxpm/letsencrypt:/etc/letsencrypt
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: npm
+    hostname: npm_host
+    restart: unless-stopped
+    ports:
+      - '88:80' #HTTP TRAFFIC
+      - '81:81' #DASHBOARD
+      - '443:443' #HTTPS TRAFFIC
+    volumes:
+      - /mnt/user/appdata/nginxpm:/data
+      - /mnt/user/appdata/nginxpm/letsencrypt:/etc/letsencrypt
 
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    hostname: jellyseerr_host
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=America/Los_Angeles
+    ports:
+      - 5055:5055
+    volumes:
+      - /mnt/user/appdata/config:/app/config
+    restart: unless-stopped
+  jfa-go:
+    container_name: jfa-go
+    hostname: jfa-go_host
+    ports:
+      - '8056:8056'
+      - '8057:8057'
+    volumes:
+      - '/mnt/user/appdata/jfa-go:/data'
+      - '/mnt/user/appdata/jellyfin/config:/jf'
+      - '/etc/localtime:/etc/localtime:ro'
+    image: hrfee/jfa-go
