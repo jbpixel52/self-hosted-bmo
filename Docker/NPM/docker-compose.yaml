@@ -1,8 +1,8 @@
 services:
     app:
       image: 'jc21/nginx-proxy-manager:latest'
-      container_name: nginxpm
-      hostname: nginxpm_host
+      container_name: npm
+      hostname: npm_host
       restart: unless-stopped
       ports:
         - '88:80' #HTTP TRAFFIC
