@@ -1,6 +1,7 @@
 services:
   ddnsgooglejbpixelxyz:
+    container_name: ddns_updater
     image: dragoncube/google-domains-ddns
     volumes:
       - /etc/localtime:/etc/localtime
-      - /mnt/disk2/appdata/googleddns/:/config
+      - /mnt/user/appdata/googleddns/:/config
