@@ -12,7 +12,7 @@ services:
       - /mnt/user/appdata/jellyfin/config:/config
       - /mnt/user/media/:/media
       - /mnt/sata_cache/appdata/jellyfin/transcode:/transcode
-      
+
     ports:
       - 8096:8096
       # - 8920:8920 #optional
@@ -21,6 +21,30 @@ services:
       resources:
         reservations:
           devices:
-          - driver: nvidia
-            count: all
-            capabilities: [gpu]
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    hostname: jellyseerr_host
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=America/Los_Angeles
+    ports:
+      - 5055:5055
+    volumes:
+      - /mnt/user/appdata/config:/app/config
+    restart: unless-stopped
+  jfa-go:
+    container_name: jfa-go
+    hostname: jfa-go_host
+    ports:
+      - '8056:8056'
+      - '8057:8057'
+    volumes:
+      - '/mnt/user/appdata/jfa-go:/data'
+      - '/mnt/user/appdata/jellyfin/config:/jf'
+      - '/etc/localtime:/etc/localtime:ro'
+    image: hrfee/jfa-go
