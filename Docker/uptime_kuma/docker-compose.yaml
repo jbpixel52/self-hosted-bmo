@@ -1,10 +1,8 @@
-version: '3.3'
-
 services:
   uptime-kuma:
     image: louislam/uptime-kuma:1
     container_name: uptime-kuma
-    hostname: uptimekuma_host
+    hostname: uptime-kuma_host
     volumes:
       - ./mnt/user/appdata/uptimekuma:/app/data1
     ports:
@@ -13,4 +11,4 @@ services:
     healthcheck:
       test: ["CMD", "/bin/check-health"]
       interval: 10s
-      timeout: 3s
+      timeout: 10s
