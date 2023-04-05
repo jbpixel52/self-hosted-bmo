@@ -15,5 +15,5 @@ services:
       - PASSWORD=5252
       - PORT=7575
       - TZ=America/Los_Angeles
-      - PUID=1000
-      - PGID=1000
+      - PUID=99
+      - PGID=100
