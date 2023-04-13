@@ -17,8 +17,8 @@ services:
 
   frigate:
     container_name: frigate
-    privileged: true # this may not be necessary for all setups
-    restart: unless-stopped
+    privileged: false # this may not be necessary for all setups
+    restart: never
     image: blakeblackshear/frigate:stable
     shm_size: "64mb" # update for your cameras based on calculation above
     #devices:

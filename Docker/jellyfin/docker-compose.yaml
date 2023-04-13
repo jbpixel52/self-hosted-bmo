@@ -40,6 +40,7 @@ services:
   jfa-go:
     container_name: jfa-go
     hostname: jfa-go_host
+    restart: unless-stopped
     ports:
       - '8056:8056'
       - '8057:8057'
