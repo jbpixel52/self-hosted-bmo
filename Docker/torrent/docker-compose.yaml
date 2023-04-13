@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  rflood:
+    container_name: rflood
+    hostname: rflood_host
+    restart: unless-stopped
+    image: cr.hotio.dev/hotio/rflood
+    ports:
+      - "3000:3000"
+    environment:
+      - PUID=99
+      - PGID=100
+      - UMASK=000
+      - TZ=Etc/Los_Angeles
+      - FLOOD_AUTH=false
+    volumes:
+      - /mnt/user/appdata/rflood:/config
+      - /mnt/sata_cache/downloads:/downloads
+      - /mnt/user/media:/media
