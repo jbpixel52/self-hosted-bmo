@@ -11,14 +11,12 @@ services:
     volumes:
       - /mnt/user/appdata/homeassistant:/config
       - /mnt/user/media:/media
-    ports:
-      - 8123:8123 #optional
+    # ports:
+    #   - 8123:8123 #optional
     restart: unless-stopped
 
   frigate:
     container_name: frigate
-    privileged: false # this may not be necessary for all setups
-    restart: never
     image: blakeblackshear/frigate:stable
     shm_size: "64mb" # update for your cameras based on calculation above
     #devices:
