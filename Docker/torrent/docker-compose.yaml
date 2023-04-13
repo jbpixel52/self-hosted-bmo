@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     image: cr.hotio.dev/hotio/rflood
     ports:
-      - "3000:3000"
+      - "3333:3000"
     environment:
       - PUID=99
       - PGID=100
