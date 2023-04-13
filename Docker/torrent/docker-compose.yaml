@@ -16,5 +16,5 @@ services:
       - FLOOD_AUTH=false
     volumes:
       - /mnt/user/appdata/rflood:/config
-      - /mnt/sata_cache/downloads:/downloads
+      - /mnt/user/media_cache/downloads:/downloads
       - /mnt/user/media:/media
