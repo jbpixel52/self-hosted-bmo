@@ -11,7 +11,7 @@ services:
     volumes:
       - /mnt/user/appdata/qbittorrent/config:/config
       # - /mnt/user/appdata/qbittorrent/downloads:/downloads
-      - /mnt/sata_cache/downloads:/downloads
+      - /mnt/user/media_cache/downloads:/downloads
       - /mnt/user/media/:/media
     ports:
       - 8888:8888
