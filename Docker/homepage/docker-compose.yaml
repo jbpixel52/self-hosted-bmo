@@ -1,0 +1,13 @@
+version: "3.3"
+services:
+  homepage:
+    image: ghcr.io/benphelps/homepage:latest
+    container_name: homepage
+    hostname: homepage_host
+    network_mode: host
+    volumes:
+      - /mnt/user/appdata/homepage:/app/config # Make sure your local config directory exists
+      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations, see alternative methods
+    environment:
+      PUID: 99
+      PGID: 100
