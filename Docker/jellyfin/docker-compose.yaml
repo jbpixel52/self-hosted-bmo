@@ -4,8 +4,8 @@ services:
     container_name: jellyfin
     hostname: jellyfin_host
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=99
+      - PGID=100
       - TZ=America/Los_Angeles
       - JELLYFIN_PublishedServerUrl="https://jellyfin.{DOMAIN}" #optional
     volumes:
