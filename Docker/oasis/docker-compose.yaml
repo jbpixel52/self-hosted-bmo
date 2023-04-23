@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+    oasis:
+        container_name: oasis
+        hostname: oasis_host
+        volumes:
+            - '/mnt/user/appdata/oasis:/opt/oasis/data'
+            - '/mnt/user:/home/storage'
+        ports:
+            - '8765:8000'
+        image: machengim/oasis+
