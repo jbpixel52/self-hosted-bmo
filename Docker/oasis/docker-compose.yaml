@@ -8,4 +8,4 @@ services:
             - '/mnt/user:/home/storage'
         ports:
             - '8765:8000'
-        image: machengim/oasis+
+        image: machengim/oasis:latest
