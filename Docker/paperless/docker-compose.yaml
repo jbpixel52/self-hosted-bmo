@@ -9,6 +9,8 @@ services:
 
   webserver:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    user: "99"
+
     # hostname: webserver_host
     restart: unless-stopped
     depends_on:
@@ -28,6 +30,10 @@ services:
     # env_file: docker-compose.env
     environment:
       PAPERLESS_REDIS: redis://broker:6379
+      USERMAP_UID: 99
+      USERMAP_GID: 100
+      PAPERLESS_ADMIN_USER: ${PAPERLESS_ADMIN_USER}
+      PAPERLESS_ADMIN_PASSWORD: ${PAPERLESS_ADMIN_PASSWORD}
 # volumes:
 #   data:
 #   media:
