@@ -1,86 +1,34 @@
-# - Open portainer Stacks list and click 'Add stack'
-# - Paste the contents of this file and assign a name, e.g. 'Paperless'
-# - Click 'Deploy the stack' and wait for it to be deployed
-# - Open the list of containers, select paperless_webserver_1
-# - Click 'Console' and then 'Connect' to open the command line inside the container
-# - Run 'python3 manage.py createsuperuser' to create a user
-# - Exit the console
-#
-# For more extensive installation and update instructions, refer to the
-# documentation.
-
 version: "3.4"
 services:
   broker:
-    image: redis:6.0
-    hostname: paperlessbroker_host
+    image: docker.io/library/redis:7
+    # hostname: broker_host
     restart: unless-stopped
     volumes:
-      - redisdata:/data
-    networks:
-      - nginxpm_default
-  db:
-    image: postgres:13
-    restart: unless-stopped
-    hostname: paperlessdb_host
-    volumes:
-      - ./mnt/nvme/containers/paperless/pgdata:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: paperless
-      POSTGRES_USER: paperless
-      POSTGRES_PASSWORD: paperless
-    networks:
-      - nginxpm_default
+      - /mnt/user/appdata/paperless/data:/data
 
   webserver:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
-    hostname: paperless_host
+    # hostname: webserver_host
     restart: unless-stopped
     depends_on:
-      - db
       - broker
     ports:
-      - 8010:8000
+      - "8877:8000"
     healthcheck:
       test: ["CMD", "curl", "-fs", "-S", "--max-time", "2", "http://localhost:8000"]
       interval: 30s
       timeout: 10s
       retries: 5
     volumes:
-      - ./mnt/nvme/containers/paperless/data:/usr/src/paperless/data
-      - ./mnt/nvme/containers/paperless/media:/usr/src/paperless/media
-      - ./mnt/nvme/containers/paperless/export:/usr/src/paperless/export
-      - ./mnt/nvme/containers/paperless/consume:/usr/src/paperless/consume
+      - /mnt/user/appdata/paperless/data:/usr/src/paperless/data
+      - /mnt/user/media/documents:/usr/src/paperless/media
+      - /mnt/user/appdata/paperless/export:/usr/src/paperless/export
+      - /mnt/user/appdata/paperless/consume:/usr/src/paperless/consume
+    # env_file: docker-compose.env
     environment:
       PAPERLESS_REDIS: redis://broker:6379
-      PAPERLESS_DBHOST: db
-      PAPERLESS_TIME_ZONE: America/Los_Angeles
-      PAPERLESS_OCR_LANGUAGE: eng
-      USERMAP_UID: 1000
-      USERMAP_GID: 100
-    networks:
-      - nginxpm_default
-# Additional languages to install for text recognition, separated by a
-# whitespace. Note that this is
-# different from PAPERLESS_OCR_LANGUAGE (default=eng), which defines the
-# language used for OCR.
-# The container installs English, German, Italian, Spanish and French by
-# default.
-# See https://packages.debian.org/search?keywords=tesseract-ocr-&searchon=names&suite=buster
-# for available languages.
-      #PAPERLESS_OCR_LANGUAGES: tur ces
-# Adjust this key if you plan to make paperless available publicly. It should
-# be a very long sequence of random characters. You don't need to remember it.
-      #PAPERLESS_SECRET_KEY: change-me
-# Use this variable to set a timezone for the Paperless Docker containers. If not specified, defaults to UTC.
-      #PAPERLESS_TIME_ZONE: America/Los_Angeles
-# The default language to use for OCR. Set this to the language most of your
-# documents are written in.
-      #P
-
-volumes:
-  redisdata:
-networks:
-  nginxpm_default:
-    attachable: true
-    name: nginxpm_default
+# volumes:
+#   data:
+#   media:
+#   redisdata:
