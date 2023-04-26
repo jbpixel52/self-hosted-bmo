@@ -6,7 +6,7 @@ services:
     container_name: komga
     hostname: komga_host
     volumes:
-      - /mnt/user/comics_share/:/comics 
+      - /mnt/user/comics_share/:/comics
       - /mnt/user/appdata/komga:/config
       - /mnt/user/comics_share/BOOKS/:/books
     ports:
@@ -15,3 +15,27 @@ services:
     environment:
       - TZ="America/Los_Angeles"
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "6gb"
+  mylar3:
+    image: lscr.io/linuxserver/mylar3:latest
+    container_name: mylar3
+    hostname: mylar_host
+    environment:
+      - PUID=99
+      - PGID=100
+    volumes:
+      - /mnt/user/appdata/mylar:/config
+      - /mnt/user/comics_share/COMICS:/comics
+      - /mnt/user/media_cache/downloads/mylar:/downloads
+    ports:
+      - 8090:8090
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "2gb"
