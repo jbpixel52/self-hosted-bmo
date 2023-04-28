@@ -52,7 +52,7 @@ services:
         limits:
           memory: 14G
           cpus: "0.50"
-          cpuset: 0-4
+          cpuset: "0-4"
         reservations:
           memory: 4G
 
