@@ -44,6 +44,8 @@ services:
     container_name: immich_web
     image: ghcr.io/immich-app/immich-web:release
     entrypoint: ["/bin/sh", "./entrypoint.sh"]
+    ports:
+      - 2288:3000
     env_file:
       - .env
     restart: always
