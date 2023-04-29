@@ -57,7 +57,7 @@ services:
     logging:
       driver: none
     volumes:
-      - tsdata:/data
+      - /mnt/user/appdata/typesense:/data
     restart: always
 
   redis:
