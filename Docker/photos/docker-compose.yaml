@@ -1,96 +1,47 @@
-version: "3.8"
-
 services:
-  immich-server:
-    container_name: immich_server
-    image: ghcr.io/immich-app/immich-server:release
-    entrypoint: ["/bin/sh", "./start-server.sh"]
-    volumes:
-      - /mnt/user/appdata/immich/upload:/usr/src/app/upload
-      - /mnt/user/media/PHOTOS:/PHOTOS
-    env_file:
-      - .env
-    depends_on:
-      - redis
-      - database
-      - typesense
-    restart: always
-
-  immich-microservices:
-    container_name: immich_microservices
-    image: ghcr.io/immich-app/immich-server:release
-    entrypoint: ["/bin/sh", "./start-microservices.sh"]
-    volumes:
-      - /mnt/user/appdata/immich/upload:/usr/src/app/upload
-    env_file:
-      - .env
-    depends_on:
-      - redis
-      - database
-      - typesense
-    restart: always
-
-  immich-machine-learning:
-    container_name: immich_machine_learning
-    image: ghcr.io/immich-app/immich-machine-learning:release
-    volumes:
-      - /mnt/user/appdata/immich/upload:/usr/src/app/upload
-      - /mnt/user/appdata/immich/model-cache:/cache
-    env_file:
-      - .env
-    restart: always
-
-  immich-web:
-    container_name: immich_web
-    image: ghcr.io/immich-app/immich-web:release
-    entrypoint: ["/bin/sh", "./entrypoint.sh"]
-    env_file:
-      - .env
-    restart: always
-
-  typesense:
-    container_name: immich_typesense
-    image: typesense/typesense:0.24.0
+  immich:
+    image: ghcr.io/imagegenius/immich:latest
+    container_name: immich
     environment:
-      - TYPESENSE_API_KEY=${TYPESENSE_API_KEY}
-      - /mnt/user/appdata/typesense=/data
-    logging:
-      driver: none
+      - PUID=99
+      - PGID=100
+      - TZ=Etc/Los_Angeles
+      - DB_HOSTNAME=immich_pg_host
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=immich_redis_host
+      - JWT_SECRET=somelongrandomstring
+      - DISABLE_MACHINE_LEANRNING=false #optional
+      - DISABLE_TYPESENSE=true #optional
+      - DB_PORT=5432 #optional
+      - REDIS_PORT=6379 #optional
+      #- REDIS_PASSWORD= #optional
     volumes:
-      - /mnt/user/appdata/typesense:/data
-    restart: always
-
-  redis:
-    container_name: immich_redis
-    image: redis:6.2
-    restart: always
-
-  database:
-    container_name: immich_postgres
-    image: postgres:14
-    env_file:
-      - .env
-    environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_DB: ${DB_DATABASE_NAME}
-      PG_DATA: /var/lib/postgresql/data
-    volumes:
-      - /mnt/user/appdata/immich/pgdata:/var/lib/postgresql/data
-    restart: always
-
-  immich-proxy:
-    container_name: immich_proxy
-    image: ghcr.io/immich-app/immich-proxy:release
-    environment:
-      # Make sure these values get passed through from the env file
-      - IMMICH_WEB_URL=http://immich-web:3000
-      - IMMICH_SERVER_URL=http://immich-server:3001
-      - IMMICH_MACHINE_LEARNING_URL=http://immich-machine-learning:3003
+      - /mnt/user/appdata/immich:/config
+      - /mnt/user/media/PHOTOS:/photos
+      - /mnt/user/appdata/immich/transformers:/config/transformers #optional
     ports:
-      - 2283:8080
-    logging:
-      driver: none
-    depends_on:
-      - immich-server
-    restart: always
+      - 8880:8080
+    restart: unless-stopped
+# This container requires an external application to be run separately to be run separately.
+# Redis:
+  redis:
+    image: redis
+    hostname: immich_redis_host
+    ports:
+      - 6379:6379
+    container_name: redis
+# PostgreSQL 14:
+  postgres14:
+    image: postgres:14
+    hostname: immich_pg_host
+    ports:
+      - 5432:5432
+    container_name: postgres14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: immich
+    volumes:
+      - /mnt/user/appdata/immich/pg:/var/lib/postgresql/data
