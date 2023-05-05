@@ -7,7 +7,7 @@ services:
     network_mode: host
     volumes:
       - /mnt/user/appdata/homepage:/app/config # Make sure your local config directory exists
-      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations, see alternative methods
+      - /var/run/docker.sock:/var/run/docker.sock:ro # (optional) For docker integrations, see alternative methods
     environment:
       PUID: 99
       PGID: 100
