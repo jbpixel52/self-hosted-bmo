@@ -1,13 +1,13 @@
 version: "3.3"
 services:
-  minecraft:
+  minecraftforge:
     image: itzg/minecraft-server
     container_name: minecraft
-    hostname: minecraft_host
+    hostname: minecraftforge_host
     ports:
       - 25567:25567
     volumes:
-      - "/mnt/user/appdata/minecraft:/data"
+      - "/mnt/user/appdata/minecraftforge:/data"
     tty: true
     stdin_open: true
     environment:
@@ -33,18 +33,17 @@ services:
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
       ENABLE_COMMAND_BLOCK: "TRUE"
       GENERATE_STRUCTURES: "TRUE"
-      VIEW_DISTANCE: 20
+      VIEW_DISTANCE: 16
       OPS: user
       MAX_BUILD_HEIGHT: 256
       SPAWN_PROTECTION: 1
       MODE: survival
-      MOTD: "§c§lFeliz Jueves! -Misty"
-      # INIT_MEMORY: 5G
+      MOTD: "§c§lFeliz Jueves!"
       MAX_MEMORY: 10G
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
-      SIMULATION_DISTANCE: 20
+      SIMULATION_DISTANCE: 6
     deploy:
       restart_policy:
         condition: on-failure
