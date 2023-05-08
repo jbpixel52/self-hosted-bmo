@@ -17,10 +17,8 @@ services:
       FABRIC_LOADER_VERSION: 0.14.19
       MAX_TICK_TIME: -1
       ENABLE_AUTOPAUSE: "TRUE"
-      AUTOPAUSE_TIMEOUT_INIT: "600"
-      LEVEL: "New World"
       AUTOPAUSE_TIMEOUT_EST: "400"
-      # USE_MODPACK_START_SCRIPT: "FALSE"
+      LEVEL: "New World"
       VERSION: 1.19.2
       PVP: "TRUE"
       ALLOW_FLIGHT: "TRUE"
@@ -28,7 +26,7 @@ services:
       DIFFICULTY: "hard"
       MAX_PLAYERS: 18
       MAX_WORLD_SIZE: 300000
-      USE_AIKAR_FLAGS: "TRUE"
+      USE_AIKAR_FLAGS: "true"
       ALLOW_NETHER: "TRUE"
       TZ: "America/Los_Angeles"
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
@@ -40,8 +38,7 @@ services:
       SPAWN_PROTECTION: 1
       MODE: survival
       MOTD: "§c§lFeliz Jueves! -Misty"
-      # INIT_MEMORY: 5G
-      MAX_MEMORY: 8G
+      MAX_MEMORY: 12G
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
@@ -49,15 +46,17 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-        delay: 3s
-        max_attempts: 3
+        delay: 30s
+        max_attempts: 2
       resources:
         limits:
-          memory: 12G
+          memory: 14G
+          cpus: "0.50"
         reservations:
           memory: 4G
 
     healthcheck:
       test: ["CMD", "/bin/check-health"]
-      interval: 10s
-      timeout: 3s
+      start_period: 3m
+      interval: 20s
+      timeout: 5s

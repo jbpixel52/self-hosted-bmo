@@ -1,0 +1,47 @@
+services:
+  immich:
+    image: ghcr.io/imagegenius/immich:latest
+    container_name: immich
+    environment:
+      - PUID=99
+      - PGID=100
+      - TZ=Etc/Los_Angeles
+      - DB_HOSTNAME=192.168.1.121
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=192.168.1.121
+      - JWT_SECRET=somelongrandomstring
+      - DISABLE_MACHINE_LEANRNING=false #optional
+      - DISABLE_TYPESENSE=true #optional
+      - DB_PORT=5432 #optional
+      - REDIS_PORT=6379 #optional
+      #- REDIS_PASSWORD= #optional
+    volumes:
+      - /mnt/user/appdata/immich:/config
+      - /mnt/user/media/PHOTOS:/photos
+      - /mnt/user/appdata/immich/transformers:/config/transformers #optional
+    ports:
+      - 8880:8080
+    restart: unless-stopped
+# This container requires an external application to be run separately to be run separately.
+# Redis:
+  redis:
+    image: redis
+    hostname: immich_redis_host
+    ports:
+      - 6379:6379
+    container_name: redis
+# PostgreSQL 14:
+  postgres14:
+    image: postgres:14
+    hostname: immich_pg_host
+    ports:
+      - 5432:5432
+    container_name: postgres14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: immich
+    volumes:
+      - /mnt/user/appdata/immich/pg:/var/lib/postgresql/data
