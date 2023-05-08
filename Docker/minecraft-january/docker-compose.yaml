@@ -7,7 +7,7 @@ services:
     ports:
       - 25567:25567
     volumes:
-      - "/mnt/user/appdata/atm8:/data"
+      - "/mnt/user/appdata/minecraftforge:/data"
     tty: true
     stdin_open: true
     environment:
