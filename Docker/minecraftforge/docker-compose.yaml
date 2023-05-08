@@ -1,25 +1,25 @@
 version: "3.3"
 services:
-  minecraftforge:
+  minecraft:
     image: itzg/minecraft-server
-    container_name: minecraftforge
-    hostname: minecraftforge_host
+    container_name: minecraft
+    hostname: minecraft_host
     ports:
       - 25567:25567
     volumes:
-      - "/mnt/user/appdata/atm8:/data"
+      - "/mnt/user/appdata/minecraft:/data"
     tty: true
     stdin_open: true
     environment:
       UID: 99
       GUID: 100
       TYPE: FORGE
-      FORGE_VERSION: 43.2.3
+      FORGE_VERSION: 43.2.0
       MAX_TICK_TIME: -1
       ENABLE_AUTOPAUSE: "TRUE"
       AUTOPAUSE_TIMEOUT_INIT: "600"
+      LEVEL: "Cobbleworld"
       AUTOPAUSE_TIMEOUT_EST: "400"
-      # USE_MODPACK_START_SCRIPT: "FALSE"
       VERSION: 1.19.2
       PVP: "TRUE"
       ALLOW_FLIGHT: "TRUE"
@@ -33,18 +33,18 @@ services:
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
       ENABLE_COMMAND_BLOCK: "TRUE"
       GENERATE_STRUCTURES: "TRUE"
-      VIEW_DISTANCE: 16
+      VIEW_DISTANCE: 20
       OPS: user
       MAX_BUILD_HEIGHT: 256
       SPAWN_PROTECTION: 1
       MODE: survival
-      MOTD: "§c§lFeliz Jueves!"
+      MOTD: "§c§lFeliz Jueves! -Misty"
       # INIT_MEMORY: 5G
-      MAX_MEMORY: 8G
+      MAX_MEMORY: 10G
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
-      SIMULATION_DISTANCE: 6
+      SIMULATION_DISTANCE: 20
     deploy:
       restart_policy:
         condition: on-failure
@@ -52,9 +52,9 @@ services:
         max_attempts: 3
       resources:
         limits:
-          memory: 10G
+          memory: 12G
         reservations:
-          memory: 2G
+          memory: 4G
 
     healthcheck:
       test: ["CMD", "/bin/check-health"]
