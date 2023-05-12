@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+    ac:
+        container_name: copyparty
+        hostname: copyparty_host
+        user: "99:100"
+        ports:
+            - '3923:3923'
+        volumes:
+            - '/mnt/user/:/w'
+            - '/mnt/user/appdata/copyparty:/cfg'
+        image: copyparty/ac
+        restart: unless-stopped
