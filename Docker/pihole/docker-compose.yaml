@@ -10,7 +10,7 @@ services:
     ports:
       - "54:53/tcp"
       - "54:53/udp"
-      - "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
+      #- "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
       - "86:80/tcp"
     environment:
       TZ: 'America/Los_Angeles'
