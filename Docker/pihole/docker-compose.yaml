@@ -17,7 +17,7 @@ services:
       DNSSEC: "true"
     # Volumes store your data between container upgrades
     volumes:
-      - './etc-pihole:/etc/pihole'
+      - '/mnt/user/appdata/pihole:/etc/pihole'
       - './etc-dnsmasq.d:/etc/dnsmasq.d'    
     #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     cap_add:
