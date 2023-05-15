@@ -8,10 +8,10 @@ services:
     image: pihole/pihole:latest
     # For DHCP it is recommended to remove these ports and instead add: network_mode: "host"
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
+      - "192.168.1.121:53:53/tcp"
+      - "192.168.1.121:53:53/udp"
       #- "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
-      - "86:80/tcp"
+      - "192.168.1.121:86:80/tcp"
     environment:
       TZ: 'America/Los_Angeles'
       WEBPASSWORD: 'foobar123'
