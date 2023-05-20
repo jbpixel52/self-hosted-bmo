@@ -1,0 +1,18 @@
+version: "3"
+services:
+  navidrome:
+    container_name: navidrome
+    hostname: navidrome_host
+    image: deluan/navidrome:latest
+    user: 99:100 # should be owner of volumes
+    ports:
+      - "4533:4533"
+    restart: unless-stopped
+    environment:
+      ND_SCANSCHEDULE: 6h
+      ND_LOGLEVEL: info  
+      ND_SESSIONTIMEOUT: 24h
+      ND_BASEURL: ""
+    volumes:
+      - "/mnt/user/appdata/navidrome/data:/data"
+      - "/mnt/user/media/MUSIC:/music:ro"
