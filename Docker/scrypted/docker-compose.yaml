@@ -1,0 +1,32 @@
+version: "3.5"
+services:
+    scrypted:
+        container_name: scrypted
+        hostname: scrypted
+        image: koush/scrypted
+        environment:
+            - SCRYPTED_WEBHOOK_UPDATE_AUTHORIZATION=carlospendejo
+            - SCRYPTED_WEBHOOK_UPDATE=http://localhost:10444/v1/update
+            - NVIDIA_VISIBLE_DEVICES=all
+            - NVIDIA_DRIVER_CAPABILITIES=all
+        runtime: nvidia
+        restart: unless-stopped
+        network_mode: host
+        devices:
+            # hardware accelerated video decoding, opencl, etc.
+            - /dev/dri:/dev/dri
+        volumes:
+            - /mnt/user/appdata/scrypted/volume:/server/volume
+            - /mnt/user/recording/scrypted:/server/recordings
+            # uncomment the following lines to expose Avahi, an mDNS advertiser.
+            # make sure Avahi is running on the host machine, otherwise this will not work.
+            - /var/run/dbus:/var/run/dbus
+            - /var/run/avahi-daemon/socket:/var/run/avahi-daemon/socket
+
+        # logging is noisy and will unnecessarily wear on flash storage.
+        # scrypted has per device in memory logging that is preferred.
+        # logging:
+        #     driver: "json-file"
+        #     options:
+        #         max-size: "10m"
+        #         max-file: "10"
