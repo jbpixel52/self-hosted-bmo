@@ -7,7 +7,7 @@ services:
       - PUID=99
       - PGID=100
       - TZ=America/Los_Angeles
-      - JELLYFIN_PublishedServerUrl="https://jellyfin.{DOMAIN}" #optional
+     # - JELLYFIN_PublishedServerUrl="https://jellyfin.{DOMAIN}" #optional
     volumes:
       - /mnt/user/appdata/jellyfin/config:/config
       - /mnt/user/media/:/media
