@@ -12,7 +12,8 @@ services:
     volumes:
       - /mnt/user/appdata/transmission:/config
       - /mnt/user/media_cache/downloads:/downloads
-      - /mnt/user/appdata/transmission/watch:/watch
+      - /mnt/user/media/:/media
+      - /mnt/user/appdata/transmission/watch:/watch:ro
     ports:
       - 9091:9091
       - 51413:51413
