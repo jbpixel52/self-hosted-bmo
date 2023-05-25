@@ -56,7 +56,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: mypassword
   jellystat:
-    image: jellystat
+    image: cyfershepard/jellystat:latest
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: mypassword
