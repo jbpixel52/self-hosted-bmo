@@ -22,7 +22,7 @@ services:
       # - SONARR__LANGUAGE_PROFILE= #optional
       # - OVERSEERR__DEFAULT_ID= #optional
       # - PARTIAL_SEASONS=true #optional
-      - LOG_LEVEL=:info #optional
+      - LOG_LEVEL=:debug #optional
       - JAVA_OPTS= #optional
     volumes:
       - /mnt/user/appdata/doplarr:/config
