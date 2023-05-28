@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+    google-domains-ddns:
+        ports:
+            - '83:80'
+        volumes:
+            - '/var/run/docker.sock:/tmp/docker.sock:ro'
+            - '/etc/localtime:/etc/localtime'
+        restart: always
+        logging:
+            options:
+                max-size: 1g
+        environment:
+            - USERNAME={USERNAME}
+            - PASSWORD={PASSWORD}
+            - HOSTNAME={HOSTNAME}
+            - INTERVAL=1m
+        image: cwmr/google-domains-ddns
