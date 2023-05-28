@@ -8,22 +8,9 @@ services:
       - PGID=100
       - TZ=America/Los_Angeles
     volumes:
-      - /mnt/disk2/appdata/lidarr:/config
-      - /mnt/disk1/media/MUSIC:/music
-      - /mnt/disk1/media2/MUSIC:/old_music
-      - /mnt/disk2/appdata/lidarr/downloads:/downloads
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.lidarr.rule=Host(`lidarr.{DOMAIN}`)"
-      - "traefik.http.routers.lidarr.entrypoints=websecure"
-      - "traefik.http.routers.lidarr.tls.certresolver=myresolver"
-      - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
+      - /mnt/user/appdata/lidarr:/config
+      - /mnt/user/media/MUSIC:/music
+      - /mnt/user/media_cache/lidarr/downloads:/downloads
     ports:
       - 8686:8686
     restart: unless-stopped
-    networks:
-      - traefik_default
-networks:
-  traefik_default:
-    external: true
-    name: traefik_default
