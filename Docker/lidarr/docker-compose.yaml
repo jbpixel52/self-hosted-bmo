@@ -10,7 +10,7 @@ services:
     volumes:
       - /mnt/user/appdata/lidarr:/config
       - /mnt/user/media/MUSIC:/music
-      - /mnt/user/media_cache/lidarr/downloads:/downloads
+      - /mnt/user/media_cache/downloads:/downloads
     ports:
       - 8686:8686
     restart: unless-stopped
