@@ -3,11 +3,12 @@ services:
   doplarr:
     image: lscr.io/linuxserver/doplarr:latest
     container_name: doplarr
+    hostname: doplarr_host
     environment:
       - PUID=99
       - PGID=100
       - TZ=America/Los_Angeles
-      - DISCORD__TOKEN=
+      - DISCORD__TOKEN={DISCORD__TOKEN}
       - RADARR__API={RADARR__API}
       - RADARR__URL=http://{RADARR__URL}
       - SONARR__API={SONARR__API}
@@ -24,5 +25,5 @@ services:
       - LOG_LEVEL=:info #optional
       - JAVA_OPTS= #optional
     volumes:
-      - /mnt/user/appdata/doplarrconfig:/config
+      - /mnt/user/appdata/doplarr:/config
     restart: unless-stopped
