@@ -14,5 +14,5 @@ services:
             - USERNAME={USERNAME}
             - PASSWORD={PASSWORD}
             - HOSTNAME={HOSTNAME}
-            - INTERVAL=1m
+            - INTERVAL=5m
         image: cwmr/google-domains-ddns
