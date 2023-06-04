@@ -17,8 +17,8 @@ services:
 
   frigate:
     container_name: frigate
-    image: blakeblackshear/frigate:stable
-    shm_size: "512mb" # update for your cameras based on calculation above
+    image: ghcr.io/blakeblackshear/frigate:0.12.0-tensorrt
+    shm_size: "1024mb" # update for your cameras based on calculation above
     #devices:
       #- /dev/bus/usb:/dev/bus/usb # passes the USB Coral, needs to be modified for other versions
       #- /dev/apex_0:/dev/apex_0 # passes a PCIe Coral, follow driver instructions here https://coral.ai/docs/m2/get-started/#2a-on-linux
@@ -34,6 +34,7 @@ services:
     ports:
       - "5500:5000"
       - "1935:1935" # RTMP feeds
+      - "8554:8554"
     environment:
       FRIGATE_RTSP_PASSWORD: "password"      
     deploy:
@@ -54,18 +55,18 @@ services:
     ports:
       - 1883:1883
       - 9901:9001
-  go2rtc:
-      image: alexxit/go2rtc
-      container_name: go2rtc
-      network_mode: host       # important for WebRTC, HomeKit, UDP cameras
-      privileged: true         # only for FFmpeg hardware transcoding
-      restart: unless-stopped  # autorestart on fail or config change from WebUI
-      ports:
-        - 1984:1984 #api port
-        - 8554:8554 #rstp port
-        - 8555:8555 #tcp/udp port
+  # go2rtc:
+  #     image: alexxit/go2rtc
+  #     container_name: go2rtc
+  #     network_mode: host       # important for WebRTC, HomeKit, UDP cameras
+  #     privileged: true         # only for FFmpeg hardware transcoding
+  #     restart: unless-stopped  # autorestart on fail or config change from WebUI
+  #     ports:
+  #       - 1984:1984 #api port
+  #       - 8554:8554 #rstp port
+  #       - 8555:8555 #tcp/udp port
           
-      environment:
-        - TZ=America/Los_Angeles  # timezone in logs
-      volumes:
-        - /mnt/user/appdata/go2rtc:/config
+  #     environment:
+  #       - TZ=America/Los_Angeles  # timezone in logs
+  #     volumes:
+  #       - /mnt/user/appdata/go2rtc:/config
