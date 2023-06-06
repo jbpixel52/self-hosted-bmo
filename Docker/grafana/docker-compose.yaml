@@ -1,0 +1,11 @@
+services:
+  grafana:
+    image: grafana/grafana-oss
+    user: 99:100
+    hostname: grafana
+    ports:
+      - 3333:3000
+    restart: unless-stopped
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - /mnt/user/appdata/grafana:/var/lib/grafana
