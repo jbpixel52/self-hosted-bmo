@@ -9,3 +9,15 @@ services:
     volumes:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - /mnt/user/appdata/grafana:/var/lib/grafana
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb2
+    hostname: influxdb
+    volumes:
+      - /mnt/user/appdata/influxdb:/var/lib/influxdb2:rw
+    #    env_file:
+    #      - .env
+    #    entrypoint: ["./entrypoint.sh"]
+    ports:
+      - 8086:8086
+    restart: unless-stopped
