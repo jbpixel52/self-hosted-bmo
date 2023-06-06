@@ -9,12 +9,16 @@ services:
     volumes:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - /mnt/user/appdata/grafana:/var/lib/grafana
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
   influxdb:
     image: influxdb:latest
     container_name: influxdb2
     hostname: influxdb
     volumes:
       - /mnt/user/appdata/influxdb:/var/lib/influxdb2:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
     #    env_file:
     #      - .env
     #    entrypoint: ["./entrypoint.sh"]
