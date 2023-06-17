@@ -3,3 +3,4 @@ services:
     airconnect:
         network_mode: host
         image: 1activegeek/airconnect
+        restart: unless-stopped
