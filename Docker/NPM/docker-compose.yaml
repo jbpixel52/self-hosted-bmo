@@ -11,3 +11,23 @@ services:
     volumes:
       - /mnt/user/appdata/nginxpm:/data
       - /mnt/user/appdata/nginxpm/letsencrypt:/etc/letsencrypt
+  goaccess:
+      image: 'xavierh/goaccess-for-nginxproxymanager:latest'
+      container_name: goaccess
+      restart: unless-stopped
+      ports:
+          - '7880:7880'
+      environment:
+          - PUID=99
+          - PGID=100
+          - TZ=America/Los_Angeles       
+          - SKIP_ARCHIVED_LOGS=False #optional
+          - DEBUG=False #optional
+          - BASIC_AUTH=False #optional
+          - BASIC_AUTH_USERNAME=user #optional
+          - BASIC_AUTH_PASSWORD=pass #optional   
+          - EXCLUDE_IPS=127.0.0.1 #optional - comma delimited 
+          - LOG_TYPE=NPM #optional - more information below
+      volumes:
+      - /mnt/user/appdata/nginxpm/logs:/opt/log
+      #- /path/to/host/custom:/opt/custom #optional, required if using log_type = CUSTOM
