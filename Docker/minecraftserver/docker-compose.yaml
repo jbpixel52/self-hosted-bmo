@@ -1,0 +1,63 @@
+version: "3.3"
+services:
+  minecraftserver:
+    image: itzg/minecraft-server
+    container_name: minecraftserver
+    hostname: minecraft_host
+    ports:
+      - 25567:25567
+    volumes:
+      - "/mnt/user/appdata/minecraftserver:/data"
+    tty: true
+    stdin_open: true
+    environment:
+      UID: 99
+      GUID: 100
+      TYPE: FABRIC
+      FABRIC_LOADER_VERSION: 0.14.21
+      MAX_TICK_TIME: -1
+      ENABLE_AUTOPAUSE: "TRUE"
+      AUTOPAUSE_TIMEOUT_EST: "400"
+      LEVEL: "New World"
+      VERSION: 1.19.2
+      PVP: "TRUE"
+      ALLOW_FLIGHT: "TRUE"
+      EULA: "TRUE"
+      DIFFICULTY: "hard"
+      SEED: 3918566167360736536
+      MAX_PLAYERS: 18
+      MAX_WORLD_SIZE: 300000
+      USE_AIKAR_FLAGS: "true"
+      ALLOW_NETHER: "TRUE"
+      TZ: "America/Los_Angeles"
+      ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
+      ENABLE_COMMAND_BLOCK: "TRUE"
+      GENERATE_STRUCTURES: "TRUE"
+      VIEW_DISTANCE: 32
+      OPS: user
+      MAX_BUILD_HEIGHT: 256
+      SPAWN_PROTECTION: 1
+      MODE: survival
+      MOTD: "§c§lFeliz Jueves!"
+      MAX_MEMORY: 12G
+      SERVER_PORT: 25567
+      CONSOLE: "FALSE"
+      GUI: "FALSE"
+      SIMULATION_DISTANCE: 12
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 30s
+        max_attempts: 2
+      resources:
+        limits:
+          memory: 14G
+          cpus: "0.50"
+        reservations:
+          memory: 6G
+
+    healthcheck:
+      test: ["CMD", "/bin/check-health"]
+      start_period: 3m
+      interval: 20s
+      timeout: 5s
