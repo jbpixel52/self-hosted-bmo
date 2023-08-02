@@ -6,6 +6,7 @@ services:
     hostname: minecraft_host
     ports:
       - 25567:25567
+      - 8100:8100
     volumes:
       - "/mnt/user/appdata/minecraftserver:/data"
     tty: true
