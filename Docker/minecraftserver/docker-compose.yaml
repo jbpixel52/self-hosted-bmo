@@ -52,7 +52,7 @@ services:
       resources:
         limits:
           memory: 14G
-          # cpus: "0.50"
+          cpus: "0.80"
         reservations:
           memory: 6G
 
