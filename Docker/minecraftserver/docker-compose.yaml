@@ -7,6 +7,7 @@ services:
     ports:
       - 25567:25567
       - 8100:8100
+      - 25575:25575
     volumes:
       - "/mnt/user/appdata/minecraftserver:/data"
     tty: true
