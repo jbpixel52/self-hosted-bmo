@@ -17,8 +17,6 @@ services:
       TYPE: FABRIC
       FABRIC_LOADER_VERSION: 0.14.21
       MAX_TICK_TIME: -1
-      ENABLE_AUTOPAUSE: "TRUE"
-      AUTOPAUSE_TIMEOUT_EST: "400"
       LEVEL: "New World"
       VERSION: 1.19.2
       PVP: "TRUE"
@@ -28,7 +26,6 @@ services:
       SEED: 3918566167360736536
       MAX_PLAYERS: 18
       MAX_WORLD_SIZE: 300000
-      USE_AIKAR_FLAGS: "true"
       ALLOW_NETHER: "TRUE"
       TZ: "America/Los_Angeles"
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
@@ -40,11 +37,21 @@ services:
       SPAWN_PROTECTION: 1
       MODE: survival
       MOTD: "§c§lFeliz Jueves!"
-      MAX_MEMORY: 12G
+      INIT_MEMORY: 4G
+
+      MAX_MEMORY: 10G
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
       SIMULATION_DISTANCE: 12
+      ENABLE_RCON: true
+      RCON_PASSWORD: "carlitos"
+      RCON_PORT: 25575
+      ENABLE_AUTOPAUSE: "TRUE"
+      DEBUG_AUTOPAUSE: true
+      USE_AIKAR_FLAGS: "true"
+      USE_SIMD_FLAGS: "true"
+      ENABLE_ROLLING_LOGS: "true"
     deploy:
       restart_policy:
         condition: on-failure
@@ -52,13 +59,13 @@ services:
         max_attempts: 2
       resources:
         limits:
-          memory: 14G
+          memory: 12G
           cpus: "0.80"
         reservations:
           memory: 6G
 
     healthcheck:
-      test: ["CMD", "/bin/check-health"]
-      start_period: 3m
-      interval: 20s
-      timeout: 5s
+      test: mc-health
+      start_period: 1m
+      interval: 5s
+      retries: 20
