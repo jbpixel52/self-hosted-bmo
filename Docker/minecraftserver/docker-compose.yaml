@@ -48,8 +48,8 @@ services:
       ENABLE_RCON: true
       RCON_PASSWORD: "carlitos"
       RCON_PORT: 25575
-      ENABLE_AUTOPAUSE: "TRUE"
-      DEBUG_AUTOPAUSE: true
+      ENABLE_AUTOPAUSE: "FALSE"
+      DEBUG_AUTOPAUSE: false
       USE_AIKAR_FLAGS: "true"
       USE_SIMD_FLAGS: "true"
       ENABLE_ROLLING_LOGS: "true"
