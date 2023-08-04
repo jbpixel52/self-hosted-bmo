@@ -39,7 +39,6 @@ services:
       MODE: survival
       MOTD: "§c§lFeliz Jueves!"
       INIT_MEMORY: 4G
-
       MAX_MEMORY: 10G
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
