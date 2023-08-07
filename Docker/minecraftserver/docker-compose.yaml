@@ -53,7 +53,7 @@ services:
       USE_SIMD_FLAGS: "true"
       ENABLE_ROLLING_LOGS: "true"
       DATAPACKS: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonLoot-v1.0.1.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonMissingRecipes-1.0.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMons.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Item%20Balls%20v1.1%20%5B1.19.2-v1.3.1%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Legendary_Encounters%21.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/legendarystructures_v1.0.2.zip,https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/QLAPS-OfficialDex.zip,  https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Shinier%20Shinies%20v1.1%20%5B1.19.2-v1.3%2B%5D.zip"
-      RESOURCE_PACK: "https://files.jbpixel.xyz/minecraft-server-public-resources/resourcepack/HeistedMonsResource.zip"
+      RESOURCE_PACK: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMons.zip"
       RESOURCE_PACK_ENFORCE: "FALSE"
     deploy:
       restart_policy:
