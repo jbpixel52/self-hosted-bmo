@@ -65,7 +65,7 @@ services:
           memory: 12G
           cpus: "0.90"
         reservations:
-          memory: 6G
+          memory: 10G
 
     healthcheck:
       test: mc-health
