@@ -33,6 +33,7 @@ services:
       ENABLE_COMMAND_BLOCK: "TRUE"
       GENERATE_STRUCTURES: "TRUE"
       VIEW_DISTANCE: 22
+      SIMULATION_DISTANCE: 12
       OPS: user
       MAX_BUILD_HEIGHT: 256
       SPAWN_PROTECTION: 1
@@ -43,7 +44,6 @@ services:
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
-      SIMULATION_DISTANCE: 12
       ENABLE_RCON: true
       RCON_PASSWORD: "carlitos"
       RCON_PORT: 25575
@@ -67,8 +67,8 @@ services:
         reservations:
           memory: 10G
 
-    healthcheck:
-      test: mc-health
-      start_period: 1m
-      interval: 5s
-      retries: 20
+    # healthcheck:
+    #   test: mc-health
+    #   start_period: 1m
+    #   interval: 5s
+    #   retries: 20
