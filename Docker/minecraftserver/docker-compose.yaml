@@ -8,6 +8,7 @@ services:
       - 25567:25567
       - 8100:8100
       - 25575:25575
+      - 24454:24454/udp
     volumes:
       - "/mnt/user/appdata/minecraftserver:/data"
     tty: true
@@ -39,8 +40,7 @@ services:
       SPAWN_PROTECTION: 1
       MODE: survival
       MOTD: "§c§lFeliz Jueves!"
-      INIT_MEMORY: 4G
-      MAX_MEMORY: 10G
+      MEMORY: "12G"
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
@@ -52,7 +52,7 @@ services:
       # USE_AIKAR_FLAGS: "true"
       # USE_SIMD_FLAGS: "true"
       ENABLE_ROLLING_LOGS: "true"
-      DATAPACKS: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonLoot-v1.0.1.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonMissingRecipes-1.0.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMons.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Item%20Balls%20v1.1%20%5B1.19.2-v1.3.1%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Legendary_Encounters%21.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/legendarystructures_v1.0.2.zip,https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/QLAPS-OfficialDex.zip,  https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Shinier%20Shinies%20v1.1%20%5B1.19.2-v1.3%2B%5D.zip"
+      DATAPACKS: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonLoot-v1.0.1.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonMissingRecipes-1.0.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMons.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Item%20Balls%20v1.1%20%5B1.19.2-v1.3.1%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Legendary_Encounters%21.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/legendarystructures_v1.0.2.zip,https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/QLAPS-OfficialDex.zip,  https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Shinier%20Shinies%20v1.1%20%5B1.19.2-v1.3%2B%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/pokenests_v2.0.zip"
       RESOURCE_PACK: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMons.zip"
       RESOURCE_PACK_ENFORCE: "FALSE"
     deploy:
@@ -62,7 +62,7 @@ services:
         max_attempts: 2
       resources:
         limits:
-          memory: 12G
+          memory: 13G
           cpus: "0.90"
         reservations:
           memory: 10G
