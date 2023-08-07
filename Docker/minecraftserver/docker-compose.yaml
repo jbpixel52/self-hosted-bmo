@@ -16,7 +16,7 @@ services:
       UID: 99
       GUID: 100
       TYPE: FABRIC
-      FABRIC_LOADER_VERSION: 0.14.21
+      FABRIC_LOADER_VERSION: 0.14.22
       MAX_TICK_TIME: -1
       LEVEL: "New World"
       VERSION: 1.19.2
@@ -32,7 +32,7 @@ services:
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
       ENABLE_COMMAND_BLOCK: "TRUE"
       GENERATE_STRUCTURES: "TRUE"
-      VIEW_DISTANCE: 32
+      VIEW_DISTANCE: 22
       OPS: user
       MAX_BUILD_HEIGHT: 256
       SPAWN_PROTECTION: 1
@@ -52,6 +52,9 @@ services:
       USE_AIKAR_FLAGS: "true"
       USE_SIMD_FLAGS: "true"
       ENABLE_ROLLING_LOGS: "true"
+      DATAPACKS: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonLoot-v1.0.1.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonMissingRecipes-1.0.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMons.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Item%20Balls%20v1.1%20%5B1.19.2-v1.3.1%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Legendary_Encounters%21.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/legendarystructures_v1.0.2.zip,https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/QLAPS-OfficialDex.zip,  https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Shinier%20Shinies%20v1.1%20%5B1.19.2-v1.3%2B%5D.zip"
+      RESOURCE_PACK: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMons.zip"
+      RESOURCE_PACK_ENFORCE: "TRUE"
     deploy:
       restart_policy:
         condition: on-failure
@@ -60,7 +63,7 @@ services:
       resources:
         limits:
           memory: 12G
-          cpus: "0.80"
+          cpus: "0.75"
         reservations:
           memory: 6G
 
