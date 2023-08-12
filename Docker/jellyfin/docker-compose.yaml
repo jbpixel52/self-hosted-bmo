@@ -84,4 +84,4 @@ services:
     image: ghcr.io/aleksilassila/reiverr:latest
     restart: unless-stopped
     ports:
-      - 9494:3000
+      - 9494:9494
