@@ -83,5 +83,12 @@ services:
     hostname: reiverr_host
     image: ghcr.io/aleksilassila/reiverr:latest
     restart: unless-stopped
+    environment:
+      - PUBLIC_RADARR_API_KEY={PUBLIC_RADARR_API_KEY}
+      - PUBLIC_RADARR_BASE_URL={PUBLIC_RADARR_BASE_URL}
+      - PUBLIC_SONARR_API_KEY={PUBLIC_SONARR_API_KEY}
+      - PUBLIC_SONARR_BASE_URL={PUBLIC_SONARR_BASE_URL}
+      - PUBLIC_JELLYFIN_API_KEY={PUBLIC_JELLYFIN_API_KEY}
+      - PUBLIC_JELLYFIN_URL={PUBLIC_JELLYFIN_URL}
     ports:
       - 9494:9494
