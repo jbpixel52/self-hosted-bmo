@@ -77,3 +77,11 @@ services:
   #     - APP_URL=https://invite.jbpixel.xyz #URL at which you will access and share 
   #     - DISABLE_BUILTIN_AUTH=false #Set to true ONLY if you are using another auth provider (Authelia, Authentik, etc)
   #     - TZ=America/Los_Angeles #Set your timezone here
+
+  reiverr-frontend:
+    container_name: reiverr-dev
+    hostname: reiverr_host
+    image: ghcr.io/aleksilassila/reiverr:latest
+    restart: unless-stopped
+    ports:
+      - 9494:3000
