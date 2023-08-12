@@ -62,7 +62,7 @@ services:
   #     POSTGRES_PORT: 5432
   #     JWT_SECRET: 'my-secret-jwt-key'
   #   ports:
-  #     - "3000:3000"
+  #     - "3333:3000"
   #   depends_on:
   #     - jellystat-db
   # wizarr:
@@ -77,3 +77,4 @@ services:
   #     - APP_URL=https://invite.jbpixel.xyz #URL at which you will access and share 
   #     - DISABLE_BUILTIN_AUTH=false #Set to true ONLY if you are using another auth provider (Authelia, Authentik, etc)
   #     - TZ=America/Los_Angeles #Set your timezone here
+
