@@ -48,23 +48,23 @@ services:
       - '/etc/localtime:/etc/localtime:ro'
     image: hrfee/jfa-go
 
-  # jellystat-db:
-  #   image: postgres
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: mypassword
-  # jellystat:
-  #   image: cyfershepard/jellystat:latest
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: mypassword
-  #     POSTGRES_IP: jellystat-db
-  #     POSTGRES_PORT: 5432
-  #     JWT_SECRET: 'my-secret-jwt-key'
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - jellystat-db
+  jellystat-db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypassword
+  jellystat:
+    image: cyfershepard/jellystat:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_IP: jellystat-db
+      POSTGRES_PORT: 5432
+      JWT_SECRET: 'my-secret-jwt-key'
+    ports:
+      - "3333:3000"
+    depends_on:
+      - jellystat-db
   # wizarr:
   #   container_name: wizarr
   #   image: ghcr.io/wizarrrr/wizarr
@@ -78,17 +78,3 @@ services:
   #     - DISABLE_BUILTIN_AUTH=false #Set to true ONLY if you are using another auth provider (Authelia, Authentik, etc)
   #     - TZ=America/Los_Angeles #Set your timezone here
 
-  reiverr-frontend:
-    container_name: reiverr-dev
-    hostname: reiverr_host
-    image: ghcr.io/aleksilassila/reiverr:latest
-    restart: unless-stopped
-    environment:
-      - PUBLIC_RADARR_API_KEY={PUBLIC_RADARR_API_KEY}
-      - PUBLIC_RADARR_BASE_URL={PUBLIC_RADARR_BASE_URL}
-      - PUBLIC_SONARR_API_KEY={PUBLIC_SONARR_API_KEY}
-      - PUBLIC_SONARR_BASE_URL={PUBLIC_SONARR_BASE_URL}
-      - PUBLIC_JELLYFIN_API_KEY={PUBLIC_JELLYFIN_API_KEY}
-      - PUBLIC_JELLYFIN_URL={PUBLIC_JELLYFIN_URL}
-    ports:
-      - 9494:9494
