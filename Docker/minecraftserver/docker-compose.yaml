@@ -35,13 +35,14 @@ services:
       ENABLE_COMMAND_BLOCK: "TRUE"
       GENERATE_STRUCTURES: "TRUE"
       VIEW_DISTANCE: 20
-      SIMULATION_DISTANCE: 6
+      SIMULATION_DISTANCE: 10
       OPS: user
       MAX_BUILD_HEIGHT: 256
       SPAWN_PROTECTION: 2
       MODE: survival
       MOTD: "\u00a79\u00a7l\u00a7n#BlueBeetle\u00a7r\u00a7l\u00a7n - \u00a7e\u00a7l\u00a7nOnly in theaters THIS FRIDAY\u00a7c\u00a7l\u00a7n!"
       MEMORY: "6G"
+      SYNC_CHUNK_WRITES: FALSE
       JVM_OPTS: -XX:+UseShenandoahGC  -XX:+UnlockExperimentalVMOptions -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -Dfml.ignorePatchDiscrepancies=true -Dfml.ignoreInvalidMinecraftCertificates=true -XX:-OmitStackTraceInFastThrow -XX:+OptimizeStringConcat -Dfml.readTimeout=180
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
