@@ -41,8 +41,8 @@ services:
       SPAWN_PROTECTION: 2
       MODE: survival
       MOTD: "\u00a79\u00a7l\u00a7n#BlueBeetle\u00a7r\u00a7l\u00a7n - \u00a7e\u00a7l\u00a7nOnly in theaters THIS FRIDAY\u00a7c\u00a7l\u00a7n!"
-      MEMORY: "10G"
-      JVM_OPTS: -XX:+UseShenandoahGC  -XX:+UnlockExperimentalVMOptions -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -Dfml.ignorePatchDiscrepancies=true -Dfml.ignoreInvalidMinecraftCertificates=true -XX:-OmitStackTraceInFastThrow -XX:+OptimizeStringConcat -Dfml.readTimeout=180 
+      MEMORY: "6G"
+      JVM_OPTS: -XX:+UseShenandoahGC
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
@@ -65,9 +65,9 @@ services:
       resources:
         limits:
           memory: 12G
-          cpus: "1"
+          #cpus: "1"
         reservations:
-          memory: 10G
+          memory: 6G
 
     # healthcheck:
     #   test: mc-health
