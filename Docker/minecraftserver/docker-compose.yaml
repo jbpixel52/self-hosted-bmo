@@ -35,14 +35,15 @@ services:
       ENABLE_COMMAND_BLOCK: "TRUE"
       GENERATE_STRUCTURES: "TRUE"
       VIEW_DISTANCE: 20
-      SIMULATION_DISTANCE: 6
+      SIMULATION_DISTANCE: 10
       OPS: user
       MAX_BUILD_HEIGHT: 256
       SPAWN_PROTECTION: 2
       MODE: survival
       MOTD: "\u00a79\u00a7l\u00a7n#BlueBeetle\u00a7r\u00a7l\u00a7n - \u00a7e\u00a7l\u00a7nOnly in theaters THIS FRIDAY\u00a7c\u00a7l\u00a7n!"
-      MEMORY: "10G"
-      JVM_OPTS: -XX:+UseShenandoahGC  -XX:+UnlockExperimentalVMOptions -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -Dfml.ignorePatchDiscrepancies=true -Dfml.ignoreInvalidMinecraftCertificates=true -XX:-OmitStackTraceInFastThrow -XX:+OptimizeStringConcat -Dfml.readTimeout=180 
+      MEMORY: "6G"
+      SYNC_CHUNK_WRITES: FALSE
+      JVM_OPTS: -XX:+UseShenandoahGC  -XX:+UnlockExperimentalVMOptions -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -Dfml.ignorePatchDiscrepancies=true -Dfml.ignoreInvalidMinecraftCertificates=true -XX:-OmitStackTraceInFastThrow -XX:+OptimizeStringConcat -Dfml.readTimeout=180
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
@@ -52,7 +53,7 @@ services:
       ENABLE_AUTOPAUSE: "FALSE"
       DEBUG_AUTOPAUSE: false
       #USE_AIKAR_FLAGS: "true"
-      # USE_SIMD_FLAGS: "true"
+      USE_SIMD_FLAGS: "true"
       ENABLE_ROLLING_LOGS: "true"
       DATAPACKS: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonLoot-v1.0.1.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonMissingRecipes-1.0.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMonsv1.3.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Item%20Balls%20v1.1%20%5B1.19.2-v1.3.1%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Legendary_Encounters%21.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/legendarystructures_v1.0.2.zip,https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/QLAPS-OfficialDex.zip,  https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Shinier%20Shinies%20v1.1%20%5B1.19.2-v1.3%2B%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/pokenests_v2.0.zip"
       RESOURCE_PACK: "https://files.jbpixel.xyz/minecraft-server-public-resources/resourcepack/HeistedMonsResourcesv1.3.zip"
@@ -64,10 +65,10 @@ services:
         max_attempts: 1
       resources:
         limits:
-          memory: 12G
-          cpus: "0.90"
+          memory: 8G
+          #cpus: "1"
         reservations:
-          memory: 10G
+          memory: 6G
 
     # healthcheck:
     #   test: mc-health
