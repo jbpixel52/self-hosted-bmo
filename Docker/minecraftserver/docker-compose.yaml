@@ -41,7 +41,7 @@ services:
       SPAWN_PROTECTION: 2
       MODE: survival
       MOTD: "\u00a79\u00a7l\u00a7n#BlueBeetle\u00a7r\u00a7l\u00a7n - \u00a7e\u00a7l\u00a7nOnly in theaters THIS FRIDAY\u00a7c\u00a7l\u00a7n!"
-      MEMORY: "6G"
+      MEMORY: "8G"
       SYNC_CHUNK_WRITES: FALSE
       JVM_OPTS: -XX:+UseShenandoahGC  -XX:+UnlockExperimentalVMOptions -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -Dfml.ignorePatchDiscrepancies=true -Dfml.ignoreInvalidMinecraftCertificates=true -XX:-OmitStackTraceInFastThrow -XX:+OptimizeStringConcat -Dfml.readTimeout=180
       SERVER_PORT: 25567
@@ -65,7 +65,7 @@ services:
         max_attempts: 1
       resources:
         limits:
-          memory: 8G
+          memory: 10G
           #cpus: "1"
         reservations:
           memory: 6G
