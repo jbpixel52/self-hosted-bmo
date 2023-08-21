@@ -8,6 +8,6 @@ services:
             - '3923:3923'
         volumes:
             - '/home/jbpixel/Docker/:/shares'
-            - '/home/jbpixe/Docker/copyparty/:/cfg'
+            - '/home/jbpixel/Docker/copyparty/:/cfg'
         image: copyparty/ac
         restart: unless-stopped
