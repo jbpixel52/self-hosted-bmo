@@ -10,7 +10,7 @@ services:
       - 25575:25575
       - 24454:24454/udp
     volumes:
-      - "~/Docker/minecraftserver:/data"
+      - "/home/jbpixel/Docker/minecraftserver:/data"
     tty: true
     stdin_open: true
     environment:
