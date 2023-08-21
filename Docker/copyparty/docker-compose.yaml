@@ -7,7 +7,7 @@ services:
         ports:
             - '3923:3923'
         volumes:
-            - '/home/jbpixel/Docker:/shares'
-            - '/home/jbpixel:/cfg'
+            - '/home/jbpixel/Docker/:/shares'
+            - '/home/jbpixe/Docker/copyparty/:/cfg'
         image: copyparty/ac
         restart: unless-stopped
