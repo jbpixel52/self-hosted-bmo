@@ -5,7 +5,7 @@ services:
     container_name: minecraftserver
     hostname: minecraft_host
     ports:
-      - 24567:25567
+      - 25567:25567
       - 8100:8100
       - 25575:25575
       - 24454:24454/udp
