@@ -41,9 +41,9 @@ services:
       SPAWN_PROTECTION: 2
       MODE: survival
       MOTD: "\u00a79\u00a7l\u00a7n#MAKE POKEMON\u00a7r\u00a7l\u00a7n - \u00a7e\u00a7l\u00a7n CREATIVE AGAIN!\u00a7c\u00a7l\u00a7n!"
-      MEMORY: "8G"
+      MEMORY: "14G"
       SYNC_CHUNK_WRITES: FALSE
-      JVM_OPTS: -XX:+UseShenandoahGC  -XX:+UnlockExperimentalVMOptions -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -Dfml.ignorePatchDiscrepancies=true -Dfml.ignoreInvalidMinecraftCertificates=true -XX:-OmitStackTraceInFastThrow -XX:+OptimizeStringConcat -Dfml.readTimeout=180
+      JVM_OPTS: -XX:+UseZGC -XX:AllocatePrefetchStyle=1 -XX:-ZProactive -XX:ConcGCThreads=8 -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:-DontCompileHugeMethods -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000 -XX:+UseVectorCmov -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:ThreadPriorityPolicy=1 -XX:AllocatePrefetchStyle=3
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
