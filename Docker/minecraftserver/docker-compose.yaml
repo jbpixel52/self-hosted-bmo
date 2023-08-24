@@ -40,7 +40,7 @@ services:
       MAX_BUILD_HEIGHT: 256
       SPAWN_PROTECTION: 2
       MODE: survival
-      MOTD: "\u00a79\u00a7l\u00a7n#BlueBeetle\u00a7r\u00a7l\u00a7n - \u00a7e\u00a7l\u00a7nOnly in theaters THIS FRIDAY\u00a7c\u00a7l\u00a7n!"
+      MOTD: "\u00a79\u00a7l\u00a7n#MAKE POKEMON\u00a7r\u00a7l\u00a7n - \u00a7e\u00a7l\u00a7n CREATIVE AGAIN!\u00a7c\u00a7l\u00a7n!"
       MEMORY: "8G"
       SYNC_CHUNK_WRITES: FALSE
       JVM_OPTS: -XX:+UseShenandoahGC  -XX:+UnlockExperimentalVMOptions -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -Dfml.ignorePatchDiscrepancies=true -Dfml.ignoreInvalidMinecraftCertificates=true -XX:-OmitStackTraceInFastThrow -XX:+OptimizeStringConcat -Dfml.readTimeout=180
@@ -55,7 +55,8 @@ services:
       #USE_AIKAR_FLAGS: "true"
       USE_SIMD_FLAGS: "true"
       ENABLE_ROLLING_LOGS: "true"
-      DATAPACKS: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonLoot-v1.0.1.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonMissingRecipes-1.0.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMonsv1.4.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Item%20Balls%20v1.1%20%5B1.19.2-v1.3.1%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Legendary_Encounters%21.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/legendarystructures_v1.0.2.zip,https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/QLAPS-OfficialDex.zip,  https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Shinier%20Shinies%20v1.1%20%5B1.19.2-v1.3%2B%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/pokenests_v2.0.zip"
+      DATAPACKS: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonLoot-v1.0.1.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonMissingRecipes-1.0.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMonsv1.4.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Item%20Balls%20v1.1%20%5B1.19.2-v1.3.1%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Legendary_Encounters%21.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/legendarystructures_v1.0.2.zip,https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/QLAPS-OfficialDex.zip,  https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Shinier%20Shinies%20v1.1%20%5B1.19.2-v1.3%2B%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/pokenests_v2.0.zip, https://cdn.modrinth.com/data/YYpAchyL/versions/4XdZqnr8/nit-dimensions-by-kanokarob-v0.33.zip, https://cdn.modrinth.com/data/9fsxv7Yp/versions/RKkIYjXn/new-in-town-by-kanokarob-v2.14.1.zip  "
+      
       RESOURCE_PACK: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMonsv1.4.zip"
       RESOURCE_PACK_ENFORCE: "TRUE"
     deploy:
