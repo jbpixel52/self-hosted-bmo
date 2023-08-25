@@ -43,7 +43,7 @@ services:
       MOTD: "\u00a79\u00a7l\u00a7n#MAKE POKEMON\u00a7r\u00a7l\u00a7n - \u00a7e\u00a7l\u00a7n CREATIVE AGAIN!\u00a7c\u00a7l\u00a7n!"
       MEMORY: "14G"
       SYNC_CHUNK_WRITES: FALSE
-      JVM_OPTS: -XX:+UseZGC -XX:AllocatePrefetchStyle=1 -XX:-ZProactive -XX:ConcGCThreads=8 -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:-DontCompileHugeMethods -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000 -XX:+UseVectorCmov -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:ThreadPriorityPolicy=1 -XX:AllocatePrefetchStyle=3
+      JVM_OPTS: -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+UseZGC -XX:ZAllocationSpikeTolerance=3 -XX:NewSize=1G -XX:MaxNewSize=4G  -XX:ParallelGCThreads=8 -XX:ConcGCThreads=2 -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=25 -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseAdaptiveSizePolicy -XX:InitialSurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:ZFragmentationLimit=50 -XX:-ZProactive
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
