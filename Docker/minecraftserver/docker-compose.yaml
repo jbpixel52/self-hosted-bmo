@@ -50,6 +50,7 @@ services:
       ENABLE_RCON: true
       RCON_PASSWORD: "carlitos"
       RCON_PORT: 25575
+      CONSOLE: "FALSE"
       ENABLE_AUTOPAUSE: "FALSE"
       DEBUG_AUTOPAUSE: false
       #USE_AIKAR_FLAGS: "true"
