@@ -8,6 +8,7 @@ services:
       - 25567:25567
       - 8100:8100
       - 25575:25575
+      - 1845:1845
       - 24454:24454/udp
     volumes:
       - "/home/jbpixel/Docker/minecraftserver:/data"
