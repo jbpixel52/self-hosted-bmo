@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   minecraftserver:
-    image: itzg/minecraft-server
+    image: itzg/minecraft-server:java17-graalvm-ce
     container_name: minecraftserver
     hostname: minecraft_host
     ports:
@@ -34,7 +34,7 @@ services:
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
       ENABLE_COMMAND_BLOCK: "TRUE"
       GENERATE_STRUCTURES: "TRUE"
-      VIEW_DISTANCE: 16
+      VIEW_DISTANCE: 14
       SIMULATION_DISTANCE: 10
       OPS: user
       MAX_BUILD_HEIGHT: 256
@@ -43,9 +43,8 @@ services:
       MOTD: "\u00a79\u00a7l\u00a7n#MAKE POKEMON\u00a7r\u00a7l\u00a7n - \u00a7e\u00a7l\u00a7n CREATIVE AGAIN!\u00a7c\u00a7l\u00a7n!"
       MEMORY: "14G"
       SYNC_CHUNK_WRITES: FALSE
-      JVM_OPTS: -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+UseZGC -XX:ZAllocationSpikeTolerance=3 -XX:NewSize=1G -XX:MaxNewSize=4G  -XX:ParallelGCThreads=8 -XX:ConcGCThreads=2 -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=25 -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseAdaptiveSizePolicy -XX:InitialSurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:ZFragmentationLimit=50 -XX:-ZProactive
+      JVM_OPTS: -XX:+UseG1GC -XX:MaxGCPauseMillis=130 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=28 -XX:G1HeapRegionSize=16M -XX:G1ReservePercent=20 -XX:G1MixedGCCountTarget=3 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=0 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:G1SATBBufferEnqueueingThresholdPercent=30 -XX:G1ConcMarkStepDurationMillis=5 -XX:G1ConcRSHotCardLimit=16 -XX:G1ConcRefinementServiceIntervalMillis=150
       SERVER_PORT: 25567
-      CONSOLE: "FALSE"
       GUI: "FALSE"
       ENABLE_RCON: true
       RCON_PASSWORD: "carlitos"
@@ -53,11 +52,11 @@ services:
       ENABLE_AUTOPAUSE: "FALSE"
       DEBUG_AUTOPAUSE: false
       #USE_AIKAR_FLAGS: "true"
-      USE_SIMD_FLAGS: "true"
+      #USE_SIMD_FLAGS: "true"
       ENABLE_ROLLING_LOGS: "true"
-      DATAPACKS: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonLoot-v1.0.1.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonMissingRecipes-1.0.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMonsv1.4.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Item%20Balls%20v1.1%20%5B1.19.2-v1.3.1%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Legendary_Encounters%21.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/legendarystructures_v1.0.2.zip,https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/QLAPS-OfficialDex.zip,  https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Shinier%20Shinies%20v1.1%20%5B1.19.2-v1.3%2B%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/pokenests_v2.0.zip "
+      DATAPACKS: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonLoot-v1.0.1.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonMissingRecipes-1.0.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMonsv1.5.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Item%20Balls%20v1.1%20%5B1.19.2-v1.3.1%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Legendary_Encounters%21.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/legendarystructures_v1.0.2.zip,https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/QLAPS-OfficialDex.zip,  https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Shinier%20Shinies%20v1.1%20%5B1.19.2-v1.3%2B%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/pokenests_v2.0.zip "
       
-      RESOURCE_PACK: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMonsv1.4.zip"
+      RESOURCE_PACK: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMonsv1.5.zip"
       RESOURCE_PACK_ENFORCE: "TRUE"
     deploy:
       restart_policy:
