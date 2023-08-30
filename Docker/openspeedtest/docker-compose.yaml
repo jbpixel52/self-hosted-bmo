@@ -1,8 +1,15 @@
+version: '3.3'
 services:
-  openspeedtest:
-    restart: unless-stopped
-    container_name: openspeedtest
-    hostname: openspeedtest_host
-    image: openspeedtest/latest
-    ports:
-      - 3000:3000
+  speedtest:
+        environment:
+            - MODE=standalone
+            - ENABLE_ID_OBFUSCATION=true
+            - REDACT_IP_ADDRESSES=true
+            - DISTANCE=km
+            - DISABLE_IPINFO=false
+            - TELEMETRY=true
+            - PASSWORD="OpenToAll"
+        ports:
+            - 8887:80
+        image: adolfintel/speedtest
+        container_name: speedtest
