@@ -20,6 +20,8 @@ services:
       - '8010:8010'
       - '8015:8015'
     environment:
+      AZURACAST_HTTP_PORT: 80
+      AZURACAST_HTTPS_PORT: 443
       LANG: -en_US.UTF-8
       AZURACAST_DC_REVISION: 14
       AZURACAST_VERSION: "latest"
@@ -37,6 +39,7 @@ services:
       - /mnt/user/appdata/azuracast/backups:/var/azuracast/backups
       - /mnt/user/appdata/azuracast/acme:/var/azuracast/acme
       - /mnt/user/appdata/azuracast/mysql:/var/lib/mysql
+      - /mnt/user/media/MUSIC:/music
     restart: unless-stopped
     ulimits:
       nofile:
