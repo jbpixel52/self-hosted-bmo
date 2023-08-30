@@ -1,0 +1,48 @@
+services:
+  web:
+    container_name: azuracast
+    image: "ghcr.io/azuracast/azuracast"
+    labels:
+      - "com.centurylinklabs.watchtower.scope=azuracast"
+    # Want to customize the HTTP/S ports? Follow the instructions here:
+    # https://docs.azuracast.com/en/administration/docker#using-non-standard-ports
+    ports:
+      - '9999:80'
+      - '448:443'
+      - '2022:2022'
+      # This default mapping is the outgoing and incoming ports for the first 50 stations.
+      # You can override this port mapping in your own docker-compose.override.yml file.
+      # For instructions, see:
+      # https://docs.azuracast.com/en/administration/docker#expanding-the-station-port-range
+      - '8000:8000'
+      - '8005:8005'
+      - '8006:8006'
+      - '8010:8010'
+      - '8015:8015'
+    environment:
+      LANG: -en_US.UTF-8
+      AZURACAST_DC_REVISION: 14
+      AZURACAST_VERSION: "latest"
+      AZURACAST_SFTP_PORT: 2022
+      NGINX_TIMEOUT: 1800
+      PUID: 99
+      PGID: 100
+    volumes:
+      - /mnt/user/appdata/azuracast/upload:/var/azuracast/uploads
+      - /mnt/user/appdata/azuracast/stations:/var/azuracast/stations
+      - /mnt/user/appdata/azuracast/servers/shoutcast2:/var/azuracast/servers/shoutcast2
+      - /mnt/user/appdata/azuracast/server/stereo_tool:/var/azuracast/servers/stereo_tool
+      - /mnt/user/appdata/azuracast/geoip:/var/azuracast/geoip
+      - /mnt/user/appdata/azuracast/sftpgo/persist:/var/azuracast/sftpgo/persist
+      - /mnt/user/appdata/azuracast/backups:/var/azuracast/backups
+      - /mnt/user/appdata/azuracast/acme:/var/azuracast/acme
+      - /mnt/user/appdata/azuracast/mysql:/var/lib/mysql
+    restart: unless-stopped
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "5"
