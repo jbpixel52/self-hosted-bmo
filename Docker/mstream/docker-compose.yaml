@@ -9,7 +9,7 @@ services:
       - TZ=PT
     volumes:
       - /mnt/user/appdata/mstream:/config
-      - /mnt/media/MUSIC:/music
+      - /mnt/user/media/MUSIC:/music
     ports:
       - 8300:3000
     restart: unless-stopped
