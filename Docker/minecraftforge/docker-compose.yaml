@@ -5,22 +5,24 @@ services:
     container_name: minecraft
     hostname: minecraftforge_host
     ports:
-      - 192.168.1.121:25567:25567/tcp
-      - 192.168.1.121:25567:25567/udp
-
+      - 25567:25567
+      - 8100:8100
+      - 25575:25575
+      - 1845:1845
+      - 24454:24454/udp
     volumes:
-      - "/mnt/user/appdata/minecraftforge:/data"
+      - "/home/jbpixel/Docker/minecraftforgeserver:/data"
     tty: true
     stdin_open: true
     environment:
       UID: 99
       GUID: 100
       TYPE: FORGE
-      FORGE_VERSION: 43.2.0
+      FORGE_VERSION: 43.2.21
       MAX_TICK_TIME: -1
       ENABLE_AUTOPAUSE: "TRUE"
       AUTOPAUSE_TIMEOUT_INIT: "600"
-      LEVEL: "Cobbleworld"
+      LEVEL: "New World"
       AUTOPAUSE_TIMEOUT_EST: "400"
       VERSION: 1.19.2
       PVP: "TRUE"
@@ -29,7 +31,7 @@ services:
       DIFFICULTY: "hard"
       MAX_PLAYERS: 18
       MAX_WORLD_SIZE: 300000
-      USE_AIKAR_FLAGS: "TRUE"
+      #USE_AIKAR_FLAGS: "TRUE"
       ALLOW_NETHER: "TRUE"
       TZ: "America/Los_Angeles"
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
@@ -45,7 +47,7 @@ services:
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
-      SIMULATION_DISTANCE: 6
+      SIMULATION_DISTANCE: 8
     deploy:
       restart_policy:
         condition: on-failure
