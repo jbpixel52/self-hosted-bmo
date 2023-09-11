@@ -30,7 +30,7 @@ services:
       ALLOW_FLIGHT: "TRUE"
       EULA: "TRUE"
       DIFFICULTY: "hard"
-      MAX_PLAYERS: 18
+      MAX_PLAYERS: 12
       MAX_WORLD_SIZE: 300000
       #USE_AIKAR_FLAGS: "TRUE"
       ALLOW_NETHER: "TRUE"
