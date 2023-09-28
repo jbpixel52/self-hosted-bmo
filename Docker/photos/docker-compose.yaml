@@ -1,47 +1,139 @@
+version: "3.8"
+
 services:
-  immich:
-    image: ghcr.io/imagegenius/immich:latest
-    container_name: immich
-    environment:
-      - PUID=99
-      - PGID=100
-      - TZ=Etc/Los_Angeles
-      - DB_HOSTNAME=192.168.1.121
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=postgres
-      - DB_DATABASE_NAME=immich
-      - REDIS_HOSTNAME=192.168.1.121
-      - JWT_SECRET=somelongrandomstring
-      - DISABLE_MACHINE_LEANRNING=false #optional
-      - DISABLE_TYPESENSE=true #optional
-      - DB_PORT=5432 #optional
-      - REDIS_PORT=6379 #optional
-      #- REDIS_PASSWORD= #optional
+  immich-server:
+    container_name: immich_server
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    command: [ "start.sh", "immich" ]
     volumes:
-      - /mnt/user/appdata/immich:/config
-      - /mnt/user/media/PHOTOS:/photos
-      - /mnt/user/appdata/immich/transformers:/config/transformers #optional
-    ports:
-      - 8880:8080
-    restart: unless-stopped
-# This container requires an external application to be run separately to be run separately.
-# Redis:
-  redis:
-    image: redis
-    hostname: immich_redis_host
-    ports:
-      - 6379:6379
-    container_name: redis
-# PostgreSQL 14:
-  postgres14:
-    image: postgres:14
-    hostname: immich_pg_host
-    ports:
-      - 5432:5432
-    container_name: postgres14
+      - /mnt/user/appdata/immich/upload:/usr/src/app/upload
     environment:
-      POSTGRES_USER: postgres
+      - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
+      - IMMICH_VERSION=release
+      - DB_PASSWORD=postgres
+      - DB_HOSTNAME=immich_postgres
+      - DB_USERNAME=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=immich_redis
+    depends_on:
+      - redis
+      - database
+      - typesense
+    restart: always
+
+  immich-microservices:
+    container_name: immich_microservices
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    command: [ "start.sh", "microservices" ]
+    volumes:
+      - /mnt/user/appdata/immich/upload:/usr/src/app/upload
+    depends_on:
+      - redis
+      - database
+      - typesense
+    restart: always
+    devices:
+      - /dev/dri:/dev/dri  # If using Intel QuickSync or VAAPI
+    environment:
+      - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
+      - TYPESENSE_ENABLED= false
+      - IMMICH_VERSION=release
+      - DB_PASSWORD=postgres
+      - DB_HOSTNAME=immich_postgres
+      - DB_USERNAME=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=immich_redis
+      - NVIDIA_DRIVER_CAPABILITIES=all # If using NVIDIA GPU
+      - LD_LIBRARY_PATH=/usr/lib/wsl/lib # If using VAAPI in WSL2
+      - LIBVA_DRIVER_NAME=d3d12 # If using VAAPI in WSL2
+      - TZ=America/Los_Angeles
+    deploy: # Uncomment this section if using NVIDIA GPU
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu,video]
+
+
+  immich-machine-learning:
+    container_name: immich_machine_learning
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    volumes:
+      - model-cache:/cache
+    restart: always
+    environment:
+      - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
+      - IMMICH_VERSION=release
+      - DB_PASSWORD=postgres
+      - DB_HOSTNAME=immich_postgres
+      - DB_USERNAME=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=immich_redis
+  immich-web:
+    container_name: immich_web
+    image: ghcr.io/immich-app/immich-web:${IMMICH_VERSION:-release}
+    restart: always
+    environment:
+      - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
+      - IMMICH_VERSION=release
+      - DB_PASSWORD=postgres
+      - DB_HOSTNAME=immich_postgres
+      - DB_USERNAME=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=immich_redis
+  typesense:
+    container_name: immich_typesense
+    image: typesense/typesense:0.24.1@sha256:9bcff2b829f12074426ca044b56160ca9d777a0c488303469143dd9f8259d4dd
+    environment:
+      - TYPESENSE_ENABLED=false
+      - TYPESENSE_DATA_DIR=/data
+      - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
+      - IMMICH_VERSION=release
+      - DB_PASSWORD=postgres
+      - DB_HOSTNAME=immich_postgres
+      - DB_USERNAME=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=immich_redis
+
+    volumes:
+      - tsdata:/data
+    restart: always
+
+  redis:
+    container_name: immich_redis
+    image: redis:6.2-alpine@sha256:70a7a5b641117670beae0d80658430853896b5ef269ccf00d1827427e3263fa3
+    restart: always
+
+  database:
+    container_name: immich_postgres
+    image: postgres:14-alpine@sha256:28407a9961e76f2d285dc6991e8e48893503cc3836a4755bbc2d40bcc272a441
+    environment:
       POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
       POSTGRES_DB: immich
     volumes:
-      - /mnt/user/appdata/immich/pg:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+
+  immich-proxy:
+    container_name: immich_proxy
+    image: ghcr.io/immich-app/immich-proxy:${IMMICH_VERSION:-release}
+    environment:
+      - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
+      - IMMICH_VERSION=release
+      - DB_PASSWORD=postgres
+      - DB_HOSTNAME=immich_postgres
+      - DB_USERNAME=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=immich_redis
+    ports:
+      - 2283:8080
+    depends_on:
+      - immich-server
+      - immich-web
+    restart: always
+volumes:
+  pgdata:
+  model-cache:
+  tsdata:
