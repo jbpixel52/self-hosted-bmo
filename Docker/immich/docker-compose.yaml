@@ -40,6 +40,7 @@ services:
     environment:
       - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
       - TYPESENSE_ENABLED= false
+      - TYPESENSE_API_KEY=random_text
       - IMMICH_VERSION=release
       - DB_PASSWORD=postgres
       - DB_HOSTNAME=immich_postgres
