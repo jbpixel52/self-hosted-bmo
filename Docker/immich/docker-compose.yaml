@@ -7,6 +7,7 @@ services:
     command: [ "start.sh", "immich" ]
     volumes:
       - /mnt/user/appdata/immich/upload:/usr/src/app/upload
+      - /mnt/user/media/PHOTOS:/PHOTOS
     environment:
       - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
       - IMMICH_VERSION=release
