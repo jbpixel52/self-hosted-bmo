@@ -11,6 +11,7 @@ services:
       PGID: 100
   dockerproxy:
       image: ghcr.io/tecnativa/docker-socket-proxy:latest
+      hostname: dockerproxy_host
       container_name: dockerproxy
       environment:
           - CONTAINERS=1 # Allow access to viewing containers
