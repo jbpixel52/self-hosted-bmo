@@ -4,7 +4,7 @@ services:
   immich-server:
     container_name: immich_server
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
-    command: [ "start.sh", "immich" ]
+    command: ["start.sh", "immich"]
     volumes:
       - /mnt/user/appdata/immich/upload:/usr/src/app/upload
       - /mnt/user/media/PHOTOS:/PHOTOS
@@ -25,7 +25,7 @@ services:
   immich-microservices:
     container_name: immich_microservices
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
-    command: [ "start.sh", "microservices" ]
+    command: ["start.sh", "microservices"]
     volumes:
       - /mnt/user/appdata/immich/upload:/usr/src/app/upload
     depends_on:
@@ -34,7 +34,7 @@ services:
       - typesense
     restart: always
     devices:
-      - /dev/dri:/dev/dri  # If using Intel QuickSync or VAAPI
+      - /dev/dri:/dev/dri # If using Intel QuickSync or VAAPI
     environment:
       - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
       - TYPESENSE_ENABLED= false
@@ -54,8 +54,7 @@ services:
           devices:
             - driver: nvidia
               count: 1
-              capabilities: [gpu,video]
-
+              capabilities: [gpu, video]
 
   immich-machine-learning:
     container_name: immich_machine_learning
@@ -88,6 +87,7 @@ services:
     image: typesense/typesense:0.24.1@sha256:9bcff2b829f12074426ca044b56160ca9d777a0c488303469143dd9f8259d4dd
     environment:
       - TYPESENSE_ENABLED=false
+      - TYPESENSE_API_KEY=random_text
       - TYPESENSE_DATA_DIR=/data
       - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
       - IMMICH_VERSION=release
