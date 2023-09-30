@@ -7,9 +7,9 @@ services:
     command: ["start.sh", "immich"]
     volumes:
       - /mnt/user/appdata/immich/upload:/usr/src/app/upload
-      - /mnt/user/media/PHOTOS:/PHOTOS
+      - /mnt/user/media/PHOTOS/upload:/PHOTOS
     environment:
-      - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
+      - UPLOAD_LOCATION=/PHOTOS
       - IMMICH_VERSION=release
       - DB_PASSWORD=postgres
       - DB_HOSTNAME=immich_postgres
@@ -38,7 +38,7 @@ services:
     devices:
       - /dev/dri:/dev/dri # If using Intel QuickSync or VAAPI
     environment:
-      - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
+      - UPLOAD_LOCATION=/PHOTOS
       - TYPESENSE_ENABLED= false
       - TYPESENSE_API_KEY=random_text
       - IMMICH_VERSION=release
@@ -66,7 +66,7 @@ services:
       - model-cache:/cache
     restart: always
     environment:
-      - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
+      - UPLOAD_LOCATION=/PHOTOS
       - IMMICH_VERSION=release
       - DB_PASSWORD=postgres
       - DB_HOSTNAME=immich_postgres
@@ -78,7 +78,7 @@ services:
     image: ghcr.io/immich-app/immich-web:${IMMICH_VERSION:-release}
     restart: always
     environment:
-      - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
+      - UPLOAD_LOCATION=/PHOTOS
       - IMMICH_VERSION=release
       - DB_PASSWORD=postgres
       - DB_HOSTNAME=immich_postgres
@@ -92,7 +92,7 @@ services:
       - TYPESENSE_ENABLED=false
       - TYPESENSE_API_KEY=random_text
       - TYPESENSE_DATA_DIR=/data
-      - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
+      - UPLOAD_LOCATION=/PHOTOS
       - IMMICH_VERSION=release
       - DB_PASSWORD=postgres
       - DB_HOSTNAME=immich_postgres
@@ -124,7 +124,7 @@ services:
     container_name: immich_proxy
     image: ghcr.io/immich-app/immich-proxy:${IMMICH_VERSION:-release}
     environment:
-      - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
+      - UPLOAD_LOCATION=/PHOTOS
       - IMMICH_VERSION=release
       - DB_PASSWORD=postgres
       - DB_HOSTNAME=immich_postgres
