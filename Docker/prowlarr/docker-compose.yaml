@@ -1,8 +1,8 @@
----
 services:
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:develop
     container_name: prowlarr
+    hostname: prowlarr_host
     environment:
       - PUID=99
       - PGID=100
@@ -12,3 +12,14 @@ services:
     ports:
       - 9696:9696
     restart: unless-stopped
+  flaresolverr:
+    image: 'ghcr.io/flaresolverr/flaresolverr:latest'
+    container_name: flaresolverr
+    hostname: flaresolverr_host
+    restart: unless-stopped
+    environment:
+        - LOG_LEVEL=info
+        - PUID=99
+        - PGID=100
+    ports:
+        - '8191:8191'
