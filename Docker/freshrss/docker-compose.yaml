@@ -1,0 +1,17 @@
+services:
+    freshrss:
+        image: freshrss/freshrss
+        container_name: freshrss
+        hostname: freshrss_host
+        volumes:
+            - /mnt/user/appdata/freshrss/extensions:/var/www/FreshRSS/estensions
+            - /mnt/user/appdata/freshrss/freshrss_data/:/var/www/FreshRSS/data
+        environment:
+            - 'CRON_MIN=1,31'
+            - TZ=America/Los_Angeles
+        ports:
+            - '8666:80'
+        logging:
+            options:
+                max-size: 10m
+        restart: unless-stopped
