@@ -8,7 +8,3 @@ services:
     ports:
       - 3001:3001  # <Host Port>:<Container Port>
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "/bin/check-health"]
-      interval: 10s
-      timeout: 10s
