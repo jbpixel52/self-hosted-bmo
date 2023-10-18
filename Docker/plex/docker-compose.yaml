@@ -34,7 +34,7 @@ services:
         ports:
            - 5055:5055
         volumes:
-          - "mnt/user/appdata/overseer/config:/app/config"
+          - "/mnt/user/appdata/overseer/config:/app/config"
         restart: unless-stopped
 
 
