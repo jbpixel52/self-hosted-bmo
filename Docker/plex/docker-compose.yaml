@@ -24,17 +24,17 @@ services:
                         - capabilities: 
                             - gpu 
 
-    overseer:
-        image: sctx/overseer:latest
-        container_name: overseer
-        hostname: overseer
+    overseerr:
+        image: sctx/overseerr:latest
+        container_name: overseerr
+        hostname: overseerr
         environment:
           PORT: "5055"
           TZ: "America/Los_Angeles"
         ports:
            - 5055:5055
         volumes:
-          - "/mnt/user/appdata/overseer/config:/app/config"
+          - "/mnt/user/appdata/overseerr/config:/app/config"
         restart: unless-stopped
 
 
