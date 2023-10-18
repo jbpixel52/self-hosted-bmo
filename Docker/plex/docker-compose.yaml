@@ -30,7 +30,7 @@ services:
             PORT: "5055"
             TZ: "America/Los_Angeles"
         ports:
-            - 5055:5055
+            - 5056:5055
         volumes:
             - "/mnt/user/appdata/overseerr/config:/app/config"
         restart: unless-stopped
