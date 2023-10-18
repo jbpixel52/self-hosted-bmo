@@ -1,24 +1,55 @@
+version: '3.9'
 services:
-  plex:
-    image: lscr.io/linuxserver/plex:latest
-    container_name: plex
-    hostname: plex_host
-    network_mode: host
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - VERSION=docker
-      # - PLEX_CLAIM=claim-UEGyrxY3GDaj9RMVMvrW
-    volumes:
-      - /mnt/disk2/appdata/plex:/config
-      - /mnt/disk1/media:/media
-      - /mnt/disk1/media2/MUSIC:/musiclibrary
-      - /mnt/cache/appdata/Plex/transcode:/cachetranscode
-    restart: unless-stopped
-      deploy:
-        resources:
-          reservations:
-            devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+    arch-plexpass:
+        image: binhex/arch-plexpass
+        environment:
+            - PGID=99
+            - PUID=100
+            - UMASK=000
+        volumes:
+            - '/etc/localtime:/etc/localtime:ro'
+            - '/mnt/user/appdata/plex:/config'
+            - '/mnt/user/media/:/media'
+            - '/tmp:/transcode'
+        container_name: plex
+        network_mode: host
+        restart: unless-stopped
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                        - device_ids:
+                            - "0"
+                        - capabilities: 
+                            - gpu 
+
+    overseer:
+        image: sctx/overseer:latest
+        container_name: overseer
+        hostname: overseer
+        environment:
+          PORT: "5055"
+          TZ: "America/Los_Angeles"
+        ports:
+           - 5055:5055
+        volumes:
+          - "mnt/user/appdata/overseer/config:/app/config"
+        restart: unless-stopped
+
+
+    membarr:
+        image: yoruio/membarr:latest
+        container_name: membarr
+        hostname: membarr_host
+        volumes:
+            - /mnt/user/appdata/membarr:/app/app/config
+        environment:
+            - token="${MEMBARR_TOKEN}"
+    wizarr:
+        container_name: wizarr
+        image: ghcr.io/wizarrrr/wizarr:latest
+        ports:
+            - 5690:5690
+        volumes:
+            - /mnt/user/appdata/wizarr:/data/database
