@@ -39,6 +39,7 @@ services:
     membarr:
         image: yoruio/membarr:latest
         container_name: membarr
+        user: "99:100"
         hostname: membarr_host
         volumes:
             - /mnt/user/appdata/membarr:/app/app/config
