@@ -19,22 +19,20 @@ services:
                 reservations:
                     devices:
                         - driver: nvidia
-                        - device_ids:
-                            - "0"
-                        - capabilities: 
-                            - gpu 
-
+                          count: all
+                          capabilities: [ gpu ]
+                          
     overseerr:
         image: sctx/overseerr:latest
         container_name: overseerr
         hostname: overseerr
         environment:
-          PORT: "5055"
-          TZ: "America/Los_Angeles"
+            PORT: "5055"
+            TZ: "America/Los_Angeles"
         ports:
-           - 5055:5055
+            - 5055:5055
         volumes:
-          - "/mnt/user/appdata/overseerr/config:/app/config"
+            - "/mnt/user/appdata/overseerr/config:/app/config"
         restart: unless-stopped
 
 
