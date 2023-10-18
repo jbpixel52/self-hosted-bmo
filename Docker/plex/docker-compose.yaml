@@ -1,7 +1,7 @@
 version: '3.9'
 services:
     arch-plexpass:
-        image: binhex/arch-plexpass
+        image: binhex/arch-plexpass:latest
         environment:
             - PGID=99
             - PUID=100
@@ -53,3 +53,15 @@ services:
             - 5690:5690
         volumes:
             - /mnt/user/appdata/wizarr:/data/database
+    tautulli:
+        image: ghcr.io/tautulli/tautulli
+        container_name: tautulli
+        restart: unless-stopped
+        volumes:
+          - /mnt/user/appdata/tautulli:/config
+        environment:
+            - PUID=99
+            - PGID=100
+            - TZ=America/Los_Angeles
+        ports:
+          - 8181:8181
