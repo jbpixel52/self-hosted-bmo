@@ -47,6 +47,7 @@ services:
     wizarr:
         container_name: wizarr
         image: ghcr.io/wizarrrr/wizarr:latest
+        user: "99:100"
         ports:
             - 5690:5690
         volumes:
