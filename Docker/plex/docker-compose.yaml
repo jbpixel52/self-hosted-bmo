@@ -30,7 +30,7 @@ services:
             PORT: "5055"
             TZ: "America/Los_Angeles"
         ports:
-            - 5056:5055
+            - 505:5055
         volumes:
             - "/mnt/user/appdata/overseerr/config:/app/config"
         restart: unless-stopped
@@ -43,7 +43,7 @@ services:
         volumes:
             - /mnt/user/appdata/membarr:/app/app/config
         environment:
-            - token="${MEMBARR_TOKEN}"
+            - token=${MEMBARR_TOKEN}
     wizarr:
         container_name: wizarr
         image: ghcr.io/wizarrrr/wizarr:latest
