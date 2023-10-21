@@ -1,0 +1,8 @@
+version: '3.9'
+services:
+    plex-meta-manager:
+        image: meisnate12/plex-meta-manager
+        volumes:
+          - /mnt/user/appdata/plex-meta-manager/config:/config:rw
+        container_name: plex-meta-manager
+        
