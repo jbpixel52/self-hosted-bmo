@@ -7,7 +7,7 @@ services:
     ports:
       - '88:80' #HTTP TRAFFIC
       - '81:81' #DASHBOARD
-      - '443:443' #HTTPS TRAFFIC
+      - '444:443' #HTTPS TRAFFIC
     volumes:
       - /mnt/user/appdata/nginxpm:/data
       - /mnt/user/appdata/nginxpm/letsencrypt:/etc/letsencrypt
