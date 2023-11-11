@@ -1,0 +1,39 @@
+#Reference https://github.com/ai-dock/comfyui/blob/main/docker-compose.yaml
+
+version: "3.8"
+# Compose file build variables set in .env
+services:
+  supervisor:
+    image: ghcr.io/ai-dock/comfyui:latest-cuda
+    volumes:
+    ports:
+        # SSH available on host machine port 2222 to avoid conflict. Change to suit
+        #- ${SSH_PORT_HOST:-2222}:${SSH_PORT:-22}
+        # redirect to Cloudflare quick tunnel
+        - 1111:1111
+        # Websocket log viewer
+        - 1122:1122
+        # ComfyUI web interface
+        - 8188:8188
+        # Jupyter server
+        #- ${JUPYTER_PORT_HOST:-8888}:${JUPYTER_PORT:-8888}
+        # Rclone webserver for interactive configuration
+        - ${RCLONE_PORT_HOST:-53682}:53682
+   
+    environment:
+        # Don't enclose values in quotes
+        - COMFYUI_BRANCH=${COMFYUI_BRANCH:-master}
+        - COMFYUI_FLAGS=${COMFYUI_FLAGS:-}
+        - COMFYUI_PORT=${COMFYUI_PORT:-8188}
+        - JUPYTER_MODE=${JUPYTER_MODE:-lab}
+        # Allows running true SSH alongside provider proxy SSH
+        - SSH_PORT=${SSH_PORT:-22}
+        - WORKSPACE=${WORKSPACE:-/workspace}
+        - WORKSPACE_SYNC=${WORKSPACE_SYNC:-true}
+        - CF_TUNNEL_TOKEN=${CF_TUNNEL_TOKEN:-}
+        - CF_QUICK_TUNNELS=${CF_QUICK_TUNNELS:-true}
+        - WEB_ENABLE_AUTH=${WEB_ENABLE_AUTH:-true}
+        - WEB_USER=${WEB_USER:-user}
+        - WEB_PASSWORD=${WEB_PASSWORD:-password}
+        - SERVERLESS=${SERVERLESS:-false}
+        #- PROVISIONING_SCRIPT=${PROVISIONING_SCRIPT:-}

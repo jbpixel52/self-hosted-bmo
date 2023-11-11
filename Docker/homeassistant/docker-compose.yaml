@@ -59,3 +59,13 @@ services:
     ports:
       - 1883:1883
       - 9901:9001
+
+  wyoming-piper:
+      command: '--voice en_US-lessac-medium'
+      image: rhasspy/wyoming-piper:latest
+      volumes:
+          - '/mnt/user/appdata/piper/:/data'
+      ports:
+          - '10200:10200'
+      tty: true
+      stdin_open: true
