@@ -1,6 +1,6 @@
 services:
   homepage:
-    image: ghcr.io/benphelps/homepage:latest
+    image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     hostname: homepage_host
     network_mode: host
