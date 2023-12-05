@@ -21,9 +21,9 @@ services:
     image: ghcr.io/blakeblackshear/frigate:0.12.0-tensorrt
     shm_size: "1024mb" # update for your cameras based on calculation above
     #devices:
-      #- /dev/bus/usb:/dev/bus/usb # passes the USB Coral, needs to be modified for other versions
-      #- /dev/apex_0:/dev/apex_0 # passes a PCIe Coral, follow driver instructions here https://coral.ai/docs/m2/get-started/#2a-on-linux
-      #- /dev/dri/renderD128 # for intel hwaccel, needs to be updated for your hardware
+    #- /dev/bus/usb:/dev/bus/usb # passes the USB Coral, needs to be modified for other versions
+    #- /dev/apex_0:/dev/apex_0 # passes a PCIe Coral, follow driver instructions here https://coral.ai/docs/m2/get-started/#2a-on-linux
+    #- /dev/dri/renderD128 # for intel hwaccel, needs to be updated for your hardware
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /mnt/user/appdata/frigate/config.yml:/config/config.yml
@@ -39,15 +39,19 @@ services:
       - "1935:1935" # RTMP feeds
       - "8554:8554"
     environment:
-      FRIGATE_RTSP_PASSWORD: "password"      
+      FRIGATE_RTSP_PASSWORD: "password"
     deploy:
       resources:
         reservations:
+          limits:
+            memory: 6G
+          reservations:
+            memory: 2.5G
           devices:
-          - driver: nvidia
-            device_ids:
-              - "1"
-            capabilities: [gpu]
+            - driver: nvidia
+              device_ids:
+                - "1"
+              capabilities: [gpu]
   mosquitto:
     image: eclipse-mosquitto:2
     container_name: mosquitto
@@ -60,12 +64,12 @@ services:
       - 1883:1883
       - 9901:9001
 
-  wyoming-piper:
-      command: '--voice en_US-lessac-medium'
-      image: rhasspy/wyoming-piper:latest
-      volumes:
-          - '/mnt/user/appdata/piper/:/data'
-      ports:
-          - '10200:10200'
-      tty: true
-      stdin_open: true
+  # wyoming-piper:
+  #   command: "--voice en_US-lessac-medium"
+  #   image: rhasspy/wyoming-piper:latest
+  #   volumes:
+  #     - "/mnt/user/appdata/piper/:/data"
+  #   ports:
+  #     - "10200:10200"
+  #   tty: true
+  #   stdin_open: true
