@@ -34,18 +34,18 @@ services:
       - "8554:8554"
     environment:
       FRIGATE_RTSP_PASSWORD: "password"
-    deploy:
+    restart: unless-stopped
+    deploy: 
       resources:
+        limits:
+          memory: 3G
         reservations:
-          limits:
-            memory: 6G
-          reservations:
-            memory: 2.5G
-          devices:
-            - driver: nvidia
-              device_ids:
-                - "1"
-              capabilities: [gpu]
+          memory: 2G
+        devices:
+          - driver: nvidia
+            device_ids:
+              - "1"
+            capabilities: [gpu]
   mosquitto:
     image: eclipse-mosquitto:2
     container_name: mosquitto
