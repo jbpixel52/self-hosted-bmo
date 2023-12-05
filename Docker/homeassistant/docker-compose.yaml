@@ -18,18 +18,13 @@ services:
       - /dev/ttyUSB0:/dev/ttyUSB0
   frigate:
     container_name: frigate
-    image: ghcr.io/blakeblackshear/frigate:0.12.0-tensorrt
-    shm_size: "1024mb" # update for your cameras based on calculation above
-    #devices:
-    #- /dev/bus/usb:/dev/bus/usb # passes the USB Coral, needs to be modified for other versions
-    #- /dev/apex_0:/dev/apex_0 # passes a PCIe Coral, follow driver instructions here https://coral.ai/docs/m2/get-started/#2a-on-linux
-    #- /dev/dri/renderD128 # for intel hwaccel, needs to be updated for your hardware
+    image: ghcr.io/blakeblackshear/frigate:0.12.1-tensorrt
+    shm_size: "160mb" # update for your cameras based on calculation above
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /mnt/user/appdata/frigate/config.yml:/config/config.yml
       - /mnt/user/recordings:/media/frigate
       - /mnt/user/appdata/frigate/trt-models/trt-models/:/trt-models/
-
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
         tmpfs:
