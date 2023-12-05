@@ -19,7 +19,8 @@ services:
                 reservations:
                     devices:
                         - driver: nvidia
-                          count: all
+                          device_ids:
+                            - "0"
                           capabilities: [ gpu ]
                           
     overseerr:
@@ -36,23 +37,23 @@ services:
         restart: unless-stopped
 
 
-    membarr:
-        image: yoruio/membarr:latest
-        container_name: membarr
-        user: "99:100"
-        hostname: membarr_host
-        volumes:
-            - /mnt/user/appdata/membarr:/app/app/config
-        environment:
-            - token=${MEMBARR_TOKEN}
-    wizarr:
-        container_name: wizarr
-        image: ghcr.io/wizarrrr/wizarr:latest
-        user: "99:100"
-        ports:
-            - 5690:5690
-        volumes:
-            - /mnt/user/appdata/wizarr:/data/database
+    # membarr:
+    #     image: yoruio/membarr:latest
+    #     container_name: membarr
+    #     user: "99:100"
+    #     hostname: membarr_host
+    #     volumes:
+    #         - /mnt/user/appdata/membarr:/app/app/config
+    #     environment:
+    #         - token=${MEMBARR_TOKEN}
+    # wizarr:
+    #     container_name: wizarr
+    #     image: ghcr.io/wizarrrr/wizarr:latest
+    #     user: "99:100"
+    #     ports:
+    #         - 5690:5690
+    #     volumes:
+    #         - /mnt/user/appdata/wizarr:/data/database
     tautulli:
         image: ghcr.io/tautulli/tautulli
         container_name: tautulli
