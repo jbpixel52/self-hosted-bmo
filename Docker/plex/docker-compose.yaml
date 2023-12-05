@@ -6,6 +6,8 @@ services:
             - PGID=99
             - PUID=100
             - UMASK=000
+            - NVIDIA_DRIVER_CAPABILITIES=all
+            - NVIDIA_VISIBLE_DEVICES=GPU-c4894e0d-ccbb-afe5-9a2e-8e168c343af3
         volumes:
             - '/etc/localtime:/etc/localtime:ro'
             - '/mnt/user/appdata/plex:/config'
