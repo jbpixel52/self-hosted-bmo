@@ -40,12 +40,12 @@ services:
         limits:
           memory: 3G
         reservations:
-          memory: 2G
-        devices:
-          - driver: nvidia
-            device_ids:
-              - "1"
-            capabilities: [gpu]
+          memory: 1G
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+              device_ids:
+                - "1"
   mosquitto:
     image: eclipse-mosquitto:2
     container_name: mosquitto
@@ -67,3 +67,5 @@ services:
   #     - "10200:10200"
   #   tty: true
   #   stdin_open: true
+
+failed to pull images of the stack: validating /data/compose/17/Docker/homeassistant/docker-compose.yaml: services.frigate.deploy.resources Additional property devices is not allowed 
