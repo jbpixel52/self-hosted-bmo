@@ -68,4 +68,3 @@ services:
   #   tty: true
   #   stdin_open: true
 
-failed to pull images of the stack: validating /data/compose/17/Docker/homeassistant/docker-compose.yaml: services.frigate.deploy.resources Additional property devices is not allowed 
