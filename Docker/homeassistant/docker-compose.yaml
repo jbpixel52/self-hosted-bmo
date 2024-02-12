@@ -17,7 +17,7 @@ services:
       - /dev/ttyUSB0:/dev/ttyUSB0
   frigate:
     container_name: frigate
-    image: ghcr.io/blakeblackshear/frigate:0.13.1-tensorrt
+    image: ghcr.io/blakeblackshear/frigate:stable
     shm_size: "160mb" # update for your cameras based on calculation above
     volumes:
       - /etc/localtime:/etc/localtime:ro
