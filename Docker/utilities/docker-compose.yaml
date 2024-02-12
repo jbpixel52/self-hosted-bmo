@@ -1,0 +1,14 @@
+services:
+    danvergara:
+        image: 'ghcr.io/danvergara/morphos-server:latest'
+        volumes:
+            - '/tmp:/tmp'
+        ports:
+            - '8080:8080'
+
+    it-tools:
+        image: 'corentinth/it-tools:latest'
+        ports:
+            - '8080:80'
+        restart: unless-stopped
+        container_name: it-tools
