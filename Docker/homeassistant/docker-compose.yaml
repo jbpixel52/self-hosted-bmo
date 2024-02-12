@@ -21,7 +21,7 @@ services:
     shm_size: "160mb" # update for your cameras based on calculation above
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /mnt/user/appdata/frigate/config.yml:/config/config.yml
+      - /mnt/user/appdata/frigate/config/:/config/
       - /mnt/user/recordings:/media/frigate
       - /mnt/user/appdata/frigate/trt-models/trt-models/:/trt-models/
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
