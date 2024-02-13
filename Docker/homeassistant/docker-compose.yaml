@@ -33,7 +33,8 @@ services:
       - "1935:1935" # RTMP feeds
       - "8554:8554"
     environment:
-      FRIGATE_RTSP_PASSWORD: "password"
+      - YOLO_MODELS=yolov7x-640
+      - FRIGATE_RTSP_PASSWORD= "password"
     restart: unless-stopped
     deploy: 
       resources:
