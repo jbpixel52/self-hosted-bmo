@@ -2,7 +2,7 @@ version: "3.3"
 services:
   minecraft:
     image: itzg/minecraft-server
-    container_name: minecraft
+    container_name: minecraft-fabric
     hostname: minecraft_host
     ports:
       - 25567:25567
