@@ -7,7 +7,7 @@ services:
     ports:
       - 25567:25567
     volumes:
-      - "/mnt/user/appdata/minecraft:/data"
+      - "/home/jbpixel/Docker/minecraftfabricserver:/data"
     tty: true
     stdin_open: true
     environment:
