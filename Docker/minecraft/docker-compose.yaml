@@ -14,12 +14,12 @@ services:
       UID: 99
       GUID: 100
       TYPE: FABRIC
-      FABRIC_LOADER_VERSION: 0.14.19
+      FABRIC_LOADER_VERSION: 0.15.6
       MAX_TICK_TIME: -1
       ENABLE_AUTOPAUSE: "TRUE"
       AUTOPAUSE_TIMEOUT_EST: "400"
       LEVEL: "New World"
-      VERSION: 1.19.2
+      VERSION: 1.20.1
       PVP: "TRUE"
       ALLOW_FLIGHT: "TRUE"
       EULA: "TRUE"
@@ -32,17 +32,17 @@ services:
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
       ENABLE_COMMAND_BLOCK: "TRUE"
       GENERATE_STRUCTURES: "TRUE"
-      VIEW_DISTANCE: 20
+      VIEW_DISTANCE: 18
       OPS: user
       MAX_BUILD_HEIGHT: 256
       SPAWN_PROTECTION: 1
       MODE: survival
-      MOTD: "§c§lFeliz Jueves! -Misty"
+      MOTD: "§c§lFeliz Jueves!"
       MAX_MEMORY: 12G
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
-      SIMULATION_DISTANCE: 20
+      SIMULATION_DISTANCE: 10
     deploy:
       restart_policy:
         condition: on-failure
@@ -50,10 +50,10 @@ services:
         max_attempts: 2
       resources:
         limits:
-          memory: 14G
-          cpus: "0.50"
+          memory: 10G
+          cpus: "0.75"
         reservations:
-          memory: 4G
+          memory: 6G
 
     healthcheck:
       test: ["CMD", "/bin/check-health"]
