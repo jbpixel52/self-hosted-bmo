@@ -50,7 +50,6 @@ services:
       resources:
         limits:
           memory: 10G
-          cpus: "0.80"
         reservations:
           memory: 6G
 
