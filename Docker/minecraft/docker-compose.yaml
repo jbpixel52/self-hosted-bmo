@@ -16,17 +16,16 @@ services:
       TYPE: FABRIC
       FABRIC_LOADER_VERSION: 0.15.6
       MAX_TICK_TIME: -1
-      ENABLE_AUTOPAUSE: "TRUE"
-      AUTOPAUSE_TIMEOUT_EST: "400"
       LEVEL: "New World"
       VERSION: 1.20.1
       PVP: "TRUE"
       ALLOW_FLIGHT: "TRUE"
       EULA: "TRUE"
       DIFFICULTY: "hard"
-      MAX_PLAYERS: 18
+      MAX_PLAYERS: 8
       MAX_WORLD_SIZE: 300000
-      USE_AIKAR_FLAGS: "true"
+      SYNC_CHUNK_WRITES: FALSE
+      JVM_OPTS: -XX:+UseG1GC -XX:MaxGCPauseMillis=130 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=28 -XX:G1HeapRegionSize=16M -XX:G1ReservePercent=20 -XX:G1MixedGCCountTarget=3 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=0 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:G1SATBBufferEnqueueingThresholdPercent=30 -XX:G1ConcMarkStepDurationMillis=5 -XX:G1ConcRSHotCardLimit=16 -XX:G1ConcRefinementServiceIntervalMillis=150
       ALLOW_NETHER: "TRUE"
       TZ: "America/Los_Angeles"
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
@@ -51,7 +50,7 @@ services:
       resources:
         limits:
           memory: 10G
-          cpus: "0.75"
+          cpus: "0.80"
         reservations:
           memory: 6G
 
