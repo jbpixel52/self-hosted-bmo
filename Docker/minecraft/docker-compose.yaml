@@ -22,7 +22,7 @@ services:
       PVP: "TRUE"
       ALLOW_FLIGHT: "TRUE"
       EULA: "TRUE"
-      DIFFICULTY: "hard"
+      DIFFICULTY: "normal"
       MAX_PLAYERS: 8
       MAX_WORLD_SIZE: 300000
       SYNC_CHUNK_WRITES: FALSE
