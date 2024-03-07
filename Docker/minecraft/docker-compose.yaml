@@ -33,26 +33,28 @@ services:
       ENABLE_COMMAND_BLOCK: "TRUE"
       GENERATE_STRUCTURES: "TRUE"
       VIEW_DISTANCE: 18
+      SIMULATION_DISTANCE: 4
       OPS: user
       MAX_BUILD_HEIGHT: 256
       SPAWN_PROTECTION: 1
       MODE: survival
       MOTD: "§c§lFeliz Jueves!"
+      INIT_MEMORY: 4G
       MAX_MEMORY: 12G
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
       GUI: "FALSE"
-      SIMULATION_DISTANCE: 10
+      ICON: ""
     deploy:
       restart_policy:
         condition: on-failure
         delay: 30s
-        max_attempts: 2
+        max_attempts: 1
       resources:
         limits:
-          memory: 10G
+          memory: 12G
         reservations:
-          memory: 6G
+          memory: 5G
 
     healthcheck:
       test: ["CMD", "/bin/check-health"]
