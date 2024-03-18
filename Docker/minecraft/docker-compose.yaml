@@ -15,7 +15,7 @@ services:
       UID: 99
       GUID: 100
       TYPE: FABRIC
-      FABRIC_LOADER_VERSION: 0.15.6
+      FABRIC_LOADER_VERSION: 0.15.7
       MAX_TICK_TIME: -1
       LEVEL: "New World"
       VERSION: 1.20.1
