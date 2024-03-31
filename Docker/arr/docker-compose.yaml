@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
     ports:
       - 7878:7878
-    networks: [arr_network]
+    networks: [arr]
   sonarr:
     container_name: sonarr
     hostname: sonarr
@@ -34,7 +34,7 @@ services:
       - TZ=America/Los_Angeles
     ports:
       - 8990:8989
-    networks: [arr_network]
+    networks: [arr]
 
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
@@ -50,7 +50,7 @@ services:
       - /mnt/user/media/SHOWS/:/tv #optional
     ports:
       - 6767:6767
-    networks: [arr_network]
+    networks: [arr]
     restart: unless-stopped
 
   prowlarr:
@@ -65,7 +65,7 @@ services:
       - /mnt/user/appdata/prowlarr:/config
     ports:
       - 9696:9696
-    networks: [arr_network]
+    networks: [arr]
     restart: unless-stopped
   flaresolverr:
     image: "ghcr.io/flaresolverr/flaresolverr:latest"
@@ -78,14 +78,14 @@ services:
       - PGID=100
     ports:
       - "8191:8191"
-    networks: [arr_network]
+    networks: [arr]
 
   recyclarr:
     image: ghcr.io/recyclarr/recyclarr:latest
     container_name: recyclarr
     hostname: recyclarr
     user: 99:100
-    networks: [arr_network]
+    networks: [arr]
     volumes:
       - /mnt/user/appdata/recyclarr:/config
     environment:
@@ -93,5 +93,5 @@ services:
       - RECYLARR_CREATE_CONFIG=true
 networks:
   arr:
-    name: arr_network
+    name: arr
     external: true
