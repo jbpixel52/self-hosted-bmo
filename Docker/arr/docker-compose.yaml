@@ -90,7 +90,7 @@ services:
       - /mnt/user/appdata/recyclarr:/config
     environment:
       - TZ=America/Los_Angeles
-      - RECYLARR_CREATE_CONFIG: true
+      - RECYLARR_CREATE_CONFIG=true
 
   networks:
     arr:
