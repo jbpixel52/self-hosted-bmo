@@ -1,7 +1,3 @@
-networks:
-  arr:
-    name: arr_network
-    external: true
 services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -95,3 +91,7 @@ services:
     environment:
       - TZ=America/Los_Angeles
       - RECYLARR_CREATE_CONFIG=true
+networks:
+  arr:
+    name: arr_network
+    external: true
