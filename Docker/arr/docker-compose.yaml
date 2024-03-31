@@ -91,8 +91,7 @@ services:
     environment:
       - TZ=America/Los_Angeles
       - RECYLARR_CREATE_CONFIG=true
-
-  networks:
-    arr:
-      name: arr_network
-      external: true
+networks:
+  arr:
+    name: arr_network
+    external: true
