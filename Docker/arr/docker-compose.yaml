@@ -3,7 +3,7 @@ services:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     hostname: radarr
-    tty:  true
+    tty: true
     stdin_open: true
     environment:
       - PUID=99
@@ -32,7 +32,7 @@ services:
       - PUID=99
       - PGID=100
       - TZ=America/Los_Angeles
-    ports:  
+    ports:
       - 8990:8989
     networks: [arr_network]
 
@@ -68,16 +68,16 @@ services:
     networks: [arr_network]
     restart: unless-stopped
   flaresolverr:
-    image: 'ghcr.io/flaresolverr/flaresolverr:latest'
+    image: "ghcr.io/flaresolverr/flaresolverr:latest"
     container_name: flaresolverr
     hostname: flaresolverr
     restart: unless-stopped
     environment:
-        - LOG_LEVEL=info
-        - PUID=99
-        - PGID=100
+      - LOG_LEVEL=info
+      - PUID=99
+      - PGID=100
     ports:
-        - '8191:8191'
+      - "8191:8191"
     networks: [arr_network]
 
   recyclarr:
@@ -89,10 +89,9 @@ services:
     volumes:
       - /mnt/user/appdata/recyclarr:/config
     environment:
-      - TZ: America/Los_Angeles
+      - TZ=America/Los_Angeles
       - RECYLARR_CREATE_CONFIG: true
-      #- CRON_SCHEDULE: 
-      
+
   networks:
     arr:
       name: arr_network
