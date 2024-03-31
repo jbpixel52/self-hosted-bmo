@@ -89,7 +89,7 @@ services:
     volumes:
       - /mnt/user/appdata/recyclarr:/config
     environment:
-      - TZ: America/Los_Angeles
+      - TZ=America/Los_Angeles
       - RECYLARR_CREATE_CONFIG: true
       #- CRON_SCHEDULE: 
       
