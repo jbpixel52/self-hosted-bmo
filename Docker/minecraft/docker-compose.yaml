@@ -26,14 +26,14 @@ services:
       MAX_PLAYERS: 8
       MAX_WORLD_SIZE: 300000
       SYNC_CHUNK_WRITES: FALSE
-      JVM_OPTS: -XX:+UseG1GC -XX:MaxGCPauseMillis=130 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=28 -XX:G1HeapRegionSize=16M -XX:G1ReservePercent=20 -XX:G1MixedGCCountTarget=3 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=0 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:G1SATBBufferEnqueueingThresholdPercent=30 -XX:G1ConcMarkStepDurationMillis=5 -XX:G1ConcRSHotCardLimit=16 -XX:G1ConcRefinementServiceIntervalMillis=150
+      JVM_OPTS: -XX:+UseZGC -XX:AllocatePrefetchStyle=1 -XX:-ZProactive
       ALLOW_NETHER: "TRUE"
       TZ: "America/Los_Angeles"
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
       ENABLE_COMMAND_BLOCK: "TRUE"
       GENERATE_STRUCTURES: "TRUE"
-      VIEW_DISTANCE: 18
-      SIMULATION_DISTANCE: 4
+      VIEW_DISTANCE: 16
+      SIMULATION_DISTANCE: 7
       OPS: user
       MAX_BUILD_HEIGHT: 256
       SPAWN_PROTECTION: 1
