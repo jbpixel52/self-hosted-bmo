@@ -39,7 +39,6 @@ services:
   invidious-db:
     user: 99:100
     image: docker.io/library/postgres:14
-    hostname: invidious-db
     restart: unless-stopped
     volumes:
       - postgresdata:/var/lib/postgresql/data
