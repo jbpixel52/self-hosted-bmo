@@ -1,6 +1,7 @@
 version: "3"
 services:
   invidious:
+    user: 99:100
     image: quay.io/invidious/invidious:latest
     hostname: invidious
     restart: unless-stopped
@@ -36,13 +37,15 @@ services:
       - invidious-db
 
   invidious-db:
+    user: 99:100
     image: docker.io/library/postgres:14
     hostname: invidious-db
     restart: unless-stopped
     volumes:
       - postgresdata:/var/lib/postgresql/data
       - /mnt/user/appdata/invidious/config/sql:/config/sql
-      - ./docker/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
+      #- ./docker/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
+      - /mnt/user/appdata/invidius/config/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
     environment:
       POSTGRES_DB: invidious
       POSTGRES_USER: ${POSTGRES_USER}
