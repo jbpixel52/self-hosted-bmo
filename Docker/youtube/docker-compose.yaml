@@ -1,5 +1,6 @@
 version: "3"
 services:
+  invidious:
     image: quay.io/invidious/invidious:latest
     hostname: invidious
     restart: unless-stopped
