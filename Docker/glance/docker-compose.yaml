@@ -1,5 +1,6 @@
 services:
   glance:
+    user: 99:100
     image: glanceapp/glance
     hostname: glance
     volumes:
