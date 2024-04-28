@@ -7,5 +7,5 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - 8585:8080
+      - 8885:8080
     restart: unless-stopped
