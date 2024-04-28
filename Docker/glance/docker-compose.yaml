@@ -1,0 +1,11 @@
+services:
+  glance:
+    image: glanceapp/glance
+    hostname: glance
+    volumes:
+      - /mnt/user/appdata/glances/glances.yml:/app/glance.yml
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8585:8080
+    restart: unless-stopped
