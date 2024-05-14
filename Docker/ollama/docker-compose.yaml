@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+    ollama:
+        image: ollama/ollama
+        container_name: ollama
+        hostname: ollama
+        ports:
+            - '11434:11434'
+        volumes:
+            - '/mnt/user/appdata/ollama:/root/.ollama'
+    deploy:
+      resources:
+        reservations:
+          devices:
+              - driver: nvidia
+                device_ids: ['0']
+                capabilities: [gpu]
