@@ -4,7 +4,7 @@ services:
         container_name: ollama
         hostname: ollama
         networks:
-        - ollama-network
+          - ollama-network
         ports:
             - '11434:11434'
         volumes:
