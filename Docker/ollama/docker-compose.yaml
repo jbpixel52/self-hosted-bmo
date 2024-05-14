@@ -42,6 +42,6 @@ services:
                         device_ids:
                           - "0"
                         capabilities: [ gpu ]
-    networks:
-      ollama-network:
-        name: ollama-network
+networks:
+  ollama-network:
+    name: ollama-network
