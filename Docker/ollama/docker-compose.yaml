@@ -10,6 +10,14 @@ services:
             - '11434:11434'
         volumes:
             - '/mnt/user/appdata/ollama:/root/.ollama'
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          device_ids:
+                            - "0"
+                          capabilities: [ gpu ]
     open-webui:
       image: ghcr.io/open-webui/open-webui:cuda
       container_name: open-webui
@@ -27,13 +35,13 @@ services:
       # extra_hosts:
       #   - host.docker.internal:host-gateway
       restart: unless-stopped
- 
-    deploy:
-      resources:
-        reservations:
-          devices:
-              - driver: nvidia
-                device_ids: ['0']
-                capabilities: [gpu]
+      deploy:
+          resources:
+              reservations:
+                  devices:
+                      - driver: nvidia
+                        device_ids:
+                          - "0"
+                        capabilities: [ gpu ]
     networks:
       ollama-network:
