@@ -44,3 +44,4 @@ services:
                         capabilities: [ gpu ]
     networks:
       ollama-network:
+        name: ollama-network
