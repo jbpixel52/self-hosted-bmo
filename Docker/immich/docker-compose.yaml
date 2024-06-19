@@ -22,7 +22,14 @@ services:
     depends_on:
       - redis
       - database
-
+    service: nvenc # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
+    deploy: # Uncomment this section if using NVIDIA GPU
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu, video, compute]
     restart: always
   # immich-microservices: removed as of v106.1.0
   #   container_name: immich_microservices
