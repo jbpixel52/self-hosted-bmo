@@ -22,7 +22,6 @@ services:
     depends_on:
       - redis
       - database
-    service: nvenc # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
     deploy: # Uncomment this section if using NVIDIA GPU
       resources:
         reservations:
