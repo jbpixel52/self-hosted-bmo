@@ -27,5 +27,5 @@ services:
         # Your Cloudflare API token
       - DOMAINS=${DOMAINS}
         # Your domains (separated by commas)
-      - PROXIED=true
+      - PROXIED=false
         # Tell Cloudflare to cache webpages and hide your IP
