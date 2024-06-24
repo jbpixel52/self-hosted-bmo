@@ -1,7 +1,31 @@
 services:
-  ddnsgooglejbpixelxyz:
-    container_name: ddns_updater
-    image: dragoncube/google-domains-ddns
-    volumes:
-      - /etc/localtime:/etc/localtime
-      - /mnt/user/appdata/googleddns/:/config
+  cloudflare-ddns:
+    image: favonia/cloudflare-ddns:latest
+    network_mode: host
+    # This makes IPv6 easier; see below
+    restart: always
+    # Restart the updater after reboot
+    cap_add:
+      - SETUID
+        # Capability to change user ID; needed for using PUID
+      - SETGID
+        # Capability to change group ID; needed for using PGID
+    cap_drop:
+      - all
+      # Drop all other capabilities
+    read_only: true
+    # Make the container filesystem read-only
+    security_opt:
+      - no-new-privileges:true
+        # Another protection to restrict superuser privileges
+    environment:
+      - PUID=99
+        # Run the updater with user ID 1000
+      - PGID=100
+        # Run the updater with group ID 1000
+      - CF_API_TOKEN=${CF_API_TOKEN}
+        # Your Cloudflare API token
+      - DOMAINS=${DOMAINS}
+        # Your domains (separated by commas)
+      - PROXIED=true
+        # Tell Cloudflare to cache webpages and hide your IP
