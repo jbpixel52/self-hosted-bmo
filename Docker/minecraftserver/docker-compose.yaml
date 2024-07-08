@@ -1,65 +1,51 @@
 version: "3.3"
 services:
-  minecraftserver:
-    image: itzg/minecraft-server:java17-graalvm-ce
-    container_name: minecraftserver
+  minecraft:
+    image: itzg/minecraft-server
+    container_name: minecraft-beach-house
     hostname: minecraft_host
     ports:
       - 25567:25567
       - 8100:8100
-      - 25575:25575
-      - 1845:1845
-      - 24454:24454/udp
     volumes:
-      - "/home/jbpixel/Docker/minecraftserver:/data"
+      - "/home/jbpixel/Docker/minecraft_beach_house:/data"
     tty: true
     stdin_open: true
     environment:
       UID: 99
       GUID: 100
-      TYPE: FABRIC
-      FABRIC_LOADER_VERSION: 0.14.22
+      TYPE: FORGE
+      FORGE_VERSION: 47.2.0
       MAX_TICK_TIME: -1
       LEVEL: "New World"
-      ICON: "https://files.jbpixel.xyz/minecraft-server-public-resources/server-icon.png"
-      VERSION: 1.19.2
+      VERSION: 1.20.1
       PVP: "TRUE"
       ALLOW_FLIGHT: "TRUE"
       EULA: "TRUE"
-      DIFFICULTY: "hard"
-      SEED: -56712350
-      MAX_PLAYERS: 18
+      DIFFICULTY: "normal"
+      MAX_PLAYERS: 8
       MAX_WORLD_SIZE: 300000
+      SYNC_CHUNK_WRITES: FALSE
+      LEVEL_TYPE: AMPLIFIED
+      JVM_OPTS: -XX:+UseZGC -XX:AllocatePrefetchStyle=1 -XX:-ZProactive
       ALLOW_NETHER: "TRUE"
       TZ: "America/Los_Angeles"
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
       ENABLE_COMMAND_BLOCK: "TRUE"
       GENERATE_STRUCTURES: "TRUE"
-      VIEW_DISTANCE: 14
-      SIMULATION_DISTANCE: 10
+      VIEW_DISTANCE: 12
+      SIMULATION_DISTANCE: 8
       OPS: user
       MAX_BUILD_HEIGHT: 256
-      SPAWN_PROTECTION: 2
+      SPAWN_PROTECTION: 1
       MODE: survival
-      MOTD: "\u00a79\u00a7l\u00a7n#MAKE POKEMON\u00a7r\u00a7l\u00a7n - \u00a7e\u00a7l\u00a7n CREATIVE AGAIN!\u00a7c\u00a7l\u00a7n!"
-      MEMORY: "14G"
-      SYNC_CHUNK_WRITES: FALSE
-      JVM_OPTS: -XX:+UseG1GC -XX:MaxGCPauseMillis=130 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=28 -XX:G1HeapRegionSize=16M -XX:G1ReservePercent=20 -XX:G1MixedGCCountTarget=3 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=0 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:G1SATBBufferEnqueueingThresholdPercent=30 -XX:G1ConcMarkStepDurationMillis=5 -XX:G1ConcRSHotCardLimit=16 -XX:G1ConcRefinementServiceIntervalMillis=150
+      MOTD: "§c§lFeliz Jueves!"
+      INIT_MEMORY: 4G
+      MAX_MEMORY: 16G
       SERVER_PORT: 25567
-      GUI: "FALSE"
-      ENABLE_RCON: true
-      RCON_PASSWORD: "carlitos"
-      RCON_PORT: 25575
       CONSOLE: "FALSE"
-      ENABLE_AUTOPAUSE: "FALSE"
-      DEBUG_AUTOPAUSE: false
-      #USE_AIKAR_FLAGS: "true"
-      #USE_SIMD_FLAGS: "true"
-      ENABLE_ROLLING_LOGS: "true"
-      DATAPACKS: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonLoot-v1.0.1.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/CobblemonMissingRecipes-1.0.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMonsv1.5.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Item%20Balls%20v1.1%20%5B1.19.2-v1.3.1%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Legendary_Encounters%21.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/legendarystructures_v1.0.2.zip,https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/QLAPS-OfficialDex.zip,  https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/Shinier%20Shinies%20v1.1%20%5B1.19.2-v1.3%2B%5D.zip, https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/pokenests_v2.0.zip "
-      
-      RESOURCE_PACK: "https://files.jbpixel.xyz/minecraft-server-public-resources/datapacks/HeistedMonsv1.5.zip"
-      RESOURCE_PACK_ENFORCE: "TRUE"
+      GUI: "FALSE"
+      ICON: ""
     deploy:
       restart_policy:
         condition: on-failure
@@ -67,13 +53,12 @@ services:
         max_attempts: 1
       resources:
         limits:
-          memory: 15G
-          #cpus: "1"
+          memory: 18G
         reservations:
-          memory: 6G
+          memory: 5G
 
-    # healthcheck:
-    #   test: mc-health
-    #   start_period: 1m
-    #   interval: 5s
-    #   retries: 20
+    healthcheck:
+      test: ["CMD", "/bin/check-health"]
+      start_period: 3m
+      interval: 20s
+      timeout: 5s
