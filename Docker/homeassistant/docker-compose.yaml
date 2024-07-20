@@ -45,8 +45,6 @@ services:
           devices:
             - driver: nvidia
               capabilities: [gpu]
-              device_ids:
-                - "1"
   mosquitto:
     image: eclipse-mosquitto:2
     container_name: mosquitto

@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 services:
     arch-plexpass:
         image: binhex/arch-plexpass:latest
@@ -9,10 +9,10 @@ services:
             - NVIDIA_DRIVER_CAPABILITIES=all
             - NVIDIA_VISIBLE_DEVICES=GPU-c4894e0d-ccbb-afe5-9a2e-8e168c343af3
         volumes:
-            - '/etc/localtime:/etc/localtime:ro'
-            - '/mnt/user/appdata/plex:/config'
-            - '/mnt/user/media/:/media'
-            - '/tmp:/transcode'
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/mnt/user/appdata/plex:/config"
+            - "/mnt/user/media/:/media"
+            - "/tmp:/transcode"
         container_name: plex
         network_mode: host
         restart: unless-stopped
@@ -21,9 +21,7 @@ services:
                 reservations:
                     devices:
                         - driver: nvidia
-                          device_ids:
-                            - "0"
-                          capabilities: [ gpu ]
+                          capabilities: [gpu]
     overseerr:
         image: sctx/overseerr:latest
         container_name: overseerr
@@ -41,10 +39,10 @@ services:
         container_name: tautulli
         restart: unless-stopped
         volumes:
-          - /mnt/user/appdata/tautulli:/config
+            - /mnt/user/appdata/tautulli:/config
         environment:
             - PUID=99
             - PGID=100
             - TZ=America/Los_Angeles
         ports:
-          - 8181:8181
+            - 8181:8181
