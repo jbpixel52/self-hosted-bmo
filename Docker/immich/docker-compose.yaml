@@ -27,7 +27,6 @@ services:
         reservations:
           devices:
             - driver: nvidia
-              count: 1
               capabilities: [gpu, video, compute]
     restart: always
   # immich-microservices: removed as of v106.1.0
@@ -79,7 +78,6 @@ services:
         reservations:
           devices:
             - driver: nvidia
-              count: 1
               capabilities:
                 - gpu
                 - compute
