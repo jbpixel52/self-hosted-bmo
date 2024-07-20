@@ -14,7 +14,9 @@ services:
             - "/mnt/user/media/:/media"
             - "/tmp:/transcode"
         container_name: plex
-        network_mode: host
+        #network_mode: host
+        ports:
+            - 32400:32400
         restart: unless-stopped
         deploy:
             resources:
