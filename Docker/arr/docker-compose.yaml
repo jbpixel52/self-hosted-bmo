@@ -106,6 +106,26 @@ services:
     ports:
       - 8787:8787
     restart: unless-stopped
+
+  rflood:
+    container_name: rflood
+    image: ghcr.io/hotio/rflood
+    ports:
+      - 3000:3000
+      - 5000:5000
+    environment:
+      - PUID=99
+      - PGID=100
+      - UMASK=011
+      - TZ=America/Los_Angeles
+      - FLOOD_AUTH=false
+      - ARGS
+      - FLOOD_ARGS
+    volumes:
+      - /mnt/user/appdata/rflood/config:/config
+      - /mnt/user/media_cache/downloads:/downloads
+      - /mnt/user/media/:/media
 networks:
   arr:
     name: arr
+
