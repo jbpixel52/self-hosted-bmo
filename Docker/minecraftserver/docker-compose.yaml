@@ -15,7 +15,7 @@ services:
       UID: 99
       GUID: 100
       TYPE: FORGE
-      FORGE_VERSION: 47.2.0
+      FORGE_VERSION: 47.3.6
       MAX_TICK_TIME: -1
       LEVEL: "New World"
       VERSION: 1.20.1
