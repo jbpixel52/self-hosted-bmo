@@ -116,7 +116,7 @@ services:
     environment:
       - PUID=99
       - PGID=100
-      - UMASK=011
+      #- UMASK=011
       - TZ=America/Los_Angeles
       - FLOOD_AUTH=false
       - ARGS
