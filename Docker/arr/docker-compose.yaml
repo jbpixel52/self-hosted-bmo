@@ -124,7 +124,7 @@ services:
     volumes:
       - /mnt/user/appdata/rflood/config:/config
       - /mnt/user/media_cache/downloads:/downloads/
-      - /mnt/user/media_cache/downloads:/config/downloads/
+      - /mnt/user/media_cache/downloads:/config/download/
       - /mnt/user/media/:/media
 networks:
   arr:
