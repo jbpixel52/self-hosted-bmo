@@ -107,25 +107,50 @@ services:
       - 8787:8787
     restart: unless-stopped
 
-  rflood:
-    container_name: rflood
-    image: ghcr.io/hotio/rflood
-    ports:
-      - 3000:3000
-      - 5000:5000
+  # rflood:
+  #   container_name: rflood
+  #   image: ghcr.io/hotio/rflood
+  #   ports:
+  #     - 3000:3000
+  #     - 5000:5000
+  #   environment:
+  #     - PUID=99
+  #     - PGID=100
+  #     - UMASK=000
+  #     - TZ=America/Los_Angeles
+  #     - FLOOD_AUTH=false
+  #     - ARGS
+  #     - FLOOD_ARGS
+  #   volumes:
+  #     - /mnt/user/appdata/rflood/config:/config
+  #     - /mnt/user/media_cache/downloads:/downloads/
+  #     - /mnt/user/media_cache/downloads:/config/download/
+  #     - /mnt/user/media/:/media
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    hostname: qbittorrent
     environment:
       - PUID=99
       - PGID=100
-      - UMASK=000
       - TZ=America/Los_Angeles
-      - FLOOD_AUTH=false
-      - ARGS
-      - FLOOD_ARGS
+      - WEBUI_PORT=8888
+      - DOCKER_MODS=ghcr.io/vuetorrent/vuetorrent-lsio-mod:latest
     volumes:
-      - /mnt/user/appdata/rflood/config:/config
+      - /mnt/user/appdata/qbittorrent/config:/config/
+      # - /mnt/user/appdata/qbittorrent/downloads:/downloads
       - /mnt/user/media_cache/downloads:/downloads/
-      - /mnt/user/media_cache/downloads:/config/download/
-      - /mnt/user/media/:/media
+      - /mnt/user/media/:/media/
+      - /mnt/user/media/MOVIES/:/movies #optional
+      - /mnt/user/media/SHOWS/:/tv #optional
+    ports:
+      - 8888:8888
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+    networks: [arr]
+
+
 networks:
   arr:
     name: arr
