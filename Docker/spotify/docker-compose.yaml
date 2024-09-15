@@ -1,0 +1,19 @@
+---
+services:
+  your_spotify:
+    image: lscr.io/linuxserver/your_spotify:latest
+    container_name: your_spotify
+    hostname: your_spotify
+    environment:
+      - PUID=99
+      - PGID=100
+      - TZ=America/Los_Angeles
+      - APP_URL={APP_URL}/api/oauth/spotify/callback
+      - SPOTIFY_PUBLIC={SPOTIFY_PUBLIC}
+      - SPOTIFY_SECRET={SPOTIFY_SECRET}
+      - CORS=http://localhost:80,https://localhost:443
+      - MONGO_ENDPOINT=mongodb://mongo:27017/your_spotify
+    ports:
+      - 8880:80
+      - 4430:443
+    restart: unless-stopped
