@@ -11,7 +11,7 @@ services:
       - APP_URL={APP_URL}/api/oauth/spotify/callback
       - SPOTIFY_PUBLIC={SPOTIFY_PUBLIC}
       - SPOTIFY_SECRET={SPOTIFY_SECRET}
-      - CORS=http://localhost:80,https://localhost:443
+      - CORS=all
       - MONGO_ENDPOINT=mongodb://mongo:27017/your_spotify
     ports:
       - 8880:80
