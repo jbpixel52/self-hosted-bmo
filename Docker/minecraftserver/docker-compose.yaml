@@ -26,7 +26,7 @@ services:
       MAX_PLAYERS: 8
       MAX_WORLD_SIZE: 300000
       SYNC_CHUNK_WRITES: FALSE
-      LEVEL_TYPE: AMPLIFIED
+      SEED: "-9202024"
       JVM_OPTS: -XX:+UseZGC -XX:AllocatePrefetchStyle=1 -XX:-ZProactive
       ALLOW_NETHER: "TRUE"
       TZ: "America/Los_Angeles"
