@@ -17,7 +17,7 @@ services:
       TYPE: FORGE
       FORGE_VERSION: 47.3.10
       MAX_TICK_TIME: -1
-      LEVEL: "New World"
+      LEVEL: "Feliz Jueves"
       VERSION: 1.20.1
       PVP: "TRUE"
       ALLOW_FLIGHT: "TRUE"
