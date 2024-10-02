@@ -1,5 +1,5 @@
 services:
-    arch-plexpass:
+    plex:
         image: binhex/arch-plexpass:latest
         container_name: plex
         hostname: plex
