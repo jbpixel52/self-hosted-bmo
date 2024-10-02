@@ -26,7 +26,7 @@ services:
                     devices:
                         - driver: nvidia
                           capabilities: [gpu]
-  replex:
+    replex:
         image: ghcr.io/lostb1t/replex:latest
         container_name: replex
         hostname: replex
