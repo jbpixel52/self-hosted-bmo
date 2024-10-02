@@ -24,6 +24,7 @@ services:
                     devices:
                         - driver: nvidia
                           capabilities: [gpu]
+
     shoko_server:
         shm_size: 256m
         container_name: shokoserver
@@ -39,6 +40,7 @@ services:
         - "/etc/localtime:/etc/localtime:ro"
         - "/mnt/user/appdata/shoko:/home/shoko/.shoko"
         - "/mnt/user/media/ANIME:/mnt/anime"
+
     replex:
         image: ghcr.io/lostb1t/replex:latest
         container_name: replex
@@ -60,6 +62,7 @@ services:
         restart: unless-stopped
         depends_on:
             - plex
+
     overseerr:
         image: sctx/overseerr:latest
         container_name: overseerr
@@ -72,6 +75,7 @@ services:
         volumes:
             - "/mnt/user/appdata/overseerr/config:/app/config"
         restart: unless-stopped
+
     tautulli:
         image: ghcr.io/tautulli/tautulli
         container_name: tautulli
