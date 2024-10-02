@@ -45,17 +45,17 @@ services:
         image: ghcr.io/lostb1t/replex:latest
         container_name: replex
         environment:
-            REPLEX_HOST: http://plex:32400/
-            REPLEX_TOKEN: ${REPLEX_TOKEN}
-            REPLEX_INTERLEAVE: true
-            REPLEX_EXCLUDE_WATCHED: true
-            REPLEX_HUB_RESTRICTIONS: true
-            REPLEX_DISABLE_CONTINUE_WATCHING: false
-            REPLEX_DISABLE_USER_STATE: false
-            REPLEX_DISABLE_LEAF_COUNT: true
-            REPLEX_HERO_ROWS: "home.movies.recent", "movies.recent","movie.recentlyadded","movie.topunwatched", "hub.movie.recentlyreleased", "movie.recentlyreleased", "home.television.recent","tv.recentlyadded","tv.toprated","tv.inprogress","tv.recentlyaired"
-            REPLEX_VIDEO_TRANSCODE_FALLBACK_FOR: "4k"
-            REPLEX_AUTO_SELECT_VERSION: true
+            - REPLEX_HOST: http://plex:32400/
+            - REPLEX_TOKEN: ${REPLEX_TOKEN}
+            - REPLEX_INTERLEAVE: true
+            - REPLEX_EXCLUDE_WATCHED: true
+            - REPLEX_HUB_RESTRICTIONS: true
+            - REPLEX_DISABLE_CONTINUE_WATCHING: false
+            - REPLEX_DISABLE_USER_STATE: false
+            - REPLEX_DISABLE_LEAF_COUNT: true
+            - REPLEX_HERO_ROWS: "home.movies.recent", "movies.recent","movie.recentlyadded","movie.topunwatched", "hub.movie.recentlyreleased", "movie.recentlyreleased", "home.television.recent","tv.recentlyadded","tv.toprated","tv.inprogress","tv.recentlyaired"
+            - REPLEX_VIDEO_TRANSCODE_FALLBACK_FOR: "4k"
+            - REPLEX_AUTO_SELECT_VERSION: true
         ports:
             - 3001:80
         restart: unless-stopped
