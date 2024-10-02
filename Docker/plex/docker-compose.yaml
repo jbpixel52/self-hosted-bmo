@@ -1,4 +1,3 @@
-version: "3.9"
 services:
     arch-plexpass:
         image: binhex/arch-plexpass:latest
