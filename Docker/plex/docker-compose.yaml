@@ -23,7 +23,7 @@ services:
                 reservations:
                     devices:
                         - driver: nvidia
-                          capabilities: [gpu]
+                        capabilities: [gpu]
 
     shoko_server:
         shm_size: 256m
@@ -57,10 +57,10 @@ services:
             - REPLEX_VIDEO_TRANSCODE_FALLBACK_FOR: "4k"
             - REPLEX_AUTO_SELECT_VERSION: true
         ports:
-            - 3001:80
+        - 3001:80
         restart: unless-stopped
         depends_on:
-            - plex
+        - plex
 
     overseerr:
         image: sctx/overseerr:latest
