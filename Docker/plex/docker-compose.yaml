@@ -15,7 +15,6 @@ services:
             - "/mnt/user/appdata/plex:/config"
             - "/mnt/user/media/:/media"
             - "/tmp:/transcode"
-        container_name: plex
         #network_mode: host
         ports:
             - 32400:32400
