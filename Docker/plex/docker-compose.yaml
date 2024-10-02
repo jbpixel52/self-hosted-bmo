@@ -37,7 +37,8 @@ services:
             REPLEX_DISABLE_CONTINUE_WATCHING: false
             REPLEX_DISABLE_USER_STATE: false
             REPLEX_DISABLE_LEAF_COUNT: true
-            REPLEX_HERO_ROWS: "home.movies.recent,movies.recent,movie.recentlyadded,movie.topunwatched,movie.recentlyviewed,hub.movie.recentlyreleased,movie.recentlyreleased,home.television.recent,tv.recentlyadded,tv.toprated,tv.inprogress,tv.recentlyaired"
+            REPLEX_HERO_ROWS: "home.movies.recent"
+    # ,movies.recent,movie.recentlyadded,movie.topunwatched,movie.recentlyviewed,hub.movie.recentlyreleased,movie.recentlyreleased,home.television.recent,tv.recentlyadded,tv.toprated,tv.inprogress,tv.recentlyaired"
             REPLEX_VIDEO_TRANSCODE_FALLBACK_FOR: "4k"
             REPLEX_AUTO_SELECT_VERSION: true
         ports:
