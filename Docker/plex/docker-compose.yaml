@@ -24,6 +24,21 @@ services:
                     devices:
                         - driver: nvidia
                           capabilities: [gpu]
+    shoko_server:
+        shm_size: 256m
+        container_name: shokoserver
+        image: shokoanime/server:latest
+        restart: always
+        environment:
+        - "PUID=99"
+        - "PGID=100"
+        #- "TZ=Etc/UTC"
+        ports:
+        - "8111:8111"
+        volumes:
+        - "/etc/localtime:/etc/localtime:ro"
+        - "/mnt/user/appdata/shoko:/home/shoko/.shoko"
+        - "/mnt/user/media/ANIME:/mnt/anime"
     replex:
         image: ghcr.io/lostb1t/replex:latest
         container_name: replex
@@ -37,8 +52,7 @@ services:
             REPLEX_DISABLE_CONTINUE_WATCHING: false
             REPLEX_DISABLE_USER_STATE: false
             REPLEX_DISABLE_LEAF_COUNT: true
-            REPLEX_HERO_ROWS: "home.movies.recent"
-    # ,movies.recent,movie.recentlyadded,movie.topunwatched,movie.recentlyviewed,hub.movie.recentlyreleased,movie.recentlyreleased,home.television.recent,tv.recentlyadded,tv.toprated,tv.inprogress,tv.recentlyaired"
+            REPLEX_HERO_ROWS: "home.movies.recent", "movies.recent","movie.recentlyadded","movie.topunwatched", "hub.movie.recentlyreleased", "movie.recentlyreleased", "home.television.recent","tv.recentlyadded","tv.toprated","tv.inprogress","tv.recentlyaired"
             REPLEX_VIDEO_TRANSCODE_FALLBACK_FOR: "4k"
             REPLEX_AUTO_SELECT_VERSION: true
         ports:
