@@ -2,6 +2,8 @@ version: "3.9"
 services:
     arch-plexpass:
         image: binhex/arch-plexpass:latest
+        container_name: plex
+        hostname: plex
         environment:
             - PGID=99
             - PUID=100
@@ -24,6 +26,27 @@ services:
                     devices:
                         - driver: nvidia
                           capabilities: [gpu]
+  replex:
+        image: ghcr.io/lostb1t/replex:latest
+        container_name: replex
+        environment:
+            REPLEX_HOST: https://plex.jbpixel.xyz
+            REPLEX_TOKEN: ${REPLEX_TOKEN} # server admin plex token: https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/
+            REPLEX_INTERLEAVE: true
+            REPLEX_EXCLUDE_WATCHED: true
+            REPLEX_HUB_RESTRICTIONS: true
+            REPLEX_DISABLE_CONTINUE_WATCHING: false
+            REPLEX_DISABLE_USER_STATE: false
+            REPLEX_DISABLE_LEAF_COUNT: true
+            REPLEX_HERO_ROWS: home.movies.recent,movies.recent,movie.recentlyadded,movie.topunwatched,movie.recentlyviewed,hub.movie.recentlyreleased,movie.recentlyreleased,home.television.recent,tv.recentlyadded,tv.toprated,tv.inprogress,tv.recentlyaired
+            REPLEX_VIDEO_TRANSCODE_FALLBACK_FOR: "4k"
+            REPLEX_AUTO_SELECT_VERSION: true
+            
+        ports:
+            - 3001:80
+        restart: unless-stopped
+        depends_on:
+            - plex
     overseerr:
         image: sctx/overseerr:latest
         container_name: overseerr
@@ -48,3 +71,5 @@ services:
             - TZ=America/Los_Angeles
         ports:
             - 8181:8181
+        depends_on:
+            - plex

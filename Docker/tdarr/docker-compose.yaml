@@ -1,15 +1,14 @@
-version: "3.4"
 services:
   tdarr:
     container_name: tdarr
     image: ghcr.io/haveagitgat/tdarr:latest
     restart: unless-stopped
-    hostname: tdarr_host
+    hostname: tdarr
     ports:
       - 8265:8265 # webUI port
       - 8266:8266 # server port
       - 8267:8267 # Internal node port
-      - 8268:8268 # Example extra node port
+      #- 8268:8268 # Example extra node port
     environment:
       - TZ=America/Los_Angeles
       - PUID=99
