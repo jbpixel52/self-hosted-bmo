@@ -29,7 +29,7 @@ services:
         container_name: replex
         hostname: replex
         environment:
-            REPLEX_HOST: https://plex.jbpixel.xyz
+            REPLEX_HOST: https://plex:32400/
             REPLEX_TOKEN: ${REPLEX_TOKEN}
             REPLEX_INTERLEAVE: true
             REPLEX_EXCLUDE_WATCHED: true
