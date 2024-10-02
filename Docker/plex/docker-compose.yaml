@@ -22,7 +22,7 @@ services:
         resources:
             reservations:
                 devices:
-                    - driver: nvidia
+                - driver: nvidia
                     count: all
                     capabilities: [gpu]
     shoko_server:
