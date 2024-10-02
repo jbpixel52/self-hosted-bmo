@@ -44,7 +44,6 @@ services:
     replex:
         image: ghcr.io/lostb1t/replex:latest
         container_name: replex
-        hostname: replex
         environment:
             REPLEX_HOST: http://plex:32400/
             REPLEX_TOKEN: ${REPLEX_TOKEN}
