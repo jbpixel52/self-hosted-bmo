@@ -20,11 +20,11 @@ services:
         restart: unless-stopped
         deploy:
             resources:
-                reservations:
-                    devices:
-                        - driver: nvidia
-                        capabilities: [gpu]
-
+            reservations:
+                devices:
+                - driver: nvidia
+                count: all
+                capabilities: [gpu]
     shoko_server:
         shm_size: 256m
         container_name: shokoserver
