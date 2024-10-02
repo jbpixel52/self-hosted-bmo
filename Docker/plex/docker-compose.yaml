@@ -19,10 +19,10 @@ services:
             - 32400:32400
         restart: unless-stopped
         deploy:
-            resources:
+        resources:
             reservations:
-                devices:
-                - driver: nvidia
+            devices:
+            - driver: nvidia
                 count: all
                 capabilities: [gpu]
     shoko_server:
