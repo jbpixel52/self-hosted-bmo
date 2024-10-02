@@ -23,8 +23,8 @@ services:
                 reservations:
                     devices:
                     - driver: nvidia
-                    count: all
-                    capabilities: [gpu]
+                     count: all
+                     capabilities: [gpu]
     shoko_server:
         shm_size: 256m
         container_name: shokoserver
