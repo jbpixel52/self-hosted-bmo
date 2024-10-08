@@ -31,10 +31,10 @@ services:
       - /mnt/cache:/temp
     devices:
     - /dev/dri/card0:/dev/dri/card0
-    deploy:
-      resources:
-        reservations:
-          devices:
-          - driver: nvidia
-            count: all
-            capabilities: [gpu]
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #       - driver: nvidia
+    #         count: all
+    #         capabilities: [gpu]
