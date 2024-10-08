@@ -22,6 +22,8 @@ services:
       - nodeID=MyInternalNode
       - nodeIP=0.0.0.0
       - nodePort=8267
+      - NEOReadDebugKeys=1
+      - OverrideGpuAddressSpace=48
       # - NVIDIA_DRIVER_CAPABILITIES=all
       # - NVIDIA_VISIBLE_DEVICES=all
     volumes:
@@ -33,8 +35,7 @@ services:
     devices:
     - /dev/dri/card0:/dev/dri/card0
     - /dev/dri/renderD128:/dev/dri/renderD128
-    - /dev/dri/card0:/dev/dri/card1
-    - /dev/dri/renderD128:/dev/dri/renderD129
+
     # deploy:
     #   resources:
     #     reservations:
