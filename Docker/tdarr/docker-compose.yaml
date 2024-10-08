@@ -29,6 +29,8 @@ services:
       - /mnt/user/appdata/tdarr/logs:/app/logs
       - /mnt/user/media:/mnt/media
       - /mnt/cache:/temp
+    devices:
+    - /dev/dri/card0:/dev/dri/card0
     deploy:
       resources:
         reservations:
