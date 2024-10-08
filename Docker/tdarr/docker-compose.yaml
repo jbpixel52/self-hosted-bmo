@@ -5,6 +5,7 @@ services:
     image: ghcr.io/haveagitgat/tdarr:latest
     restart: unless-stopped
     hostname: tdarr_host
+    privileged: true
     ports:
       - 8265:8265 # webUI port
       - 8266:8266 # server port
@@ -32,6 +33,8 @@ services:
     devices:
     - /dev/dri/card0:/dev/dri/card0
     - /dev/dri/renderD128:/dev/dri/renderD128
+    - /dev/dri/card0:/dev/dri/card1
+    - /dev/dri/renderD128:/dev/dri/renderD129
     # deploy:
     #   resources:
     #     reservations:
