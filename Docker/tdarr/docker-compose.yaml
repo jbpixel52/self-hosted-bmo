@@ -20,8 +20,8 @@ services:
       - nodeID=MyInternalNode
       - nodeIP=0.0.0.0
       - nodePort=8267
-      - NVIDIA_DRIVER_CAPABILITIES=all
-      - NVIDIA_VISIBLE_DEVICES=all
+      # - NVIDIA_DRIVER_CAPABILITIES=all
+      # - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - /mnt/user/appdata/tdarr/server:/app/server
       - /mnt/user/appdata/tdarr/configs:/app/configs
