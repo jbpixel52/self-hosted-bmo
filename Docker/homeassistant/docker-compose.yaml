@@ -70,4 +70,4 @@ services:
           MQTT_USERNAME: admin
           #MQTT_PASSWORD: password
           HOME_ASSISTANT: "true"
-      depends_on: mosquitto
+      depends_on: [mosquitto]
