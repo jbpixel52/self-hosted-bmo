@@ -26,7 +26,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /mnt/user/appdata/frigate/config/:/config/
       - /mnt/user/recordings:/media/frigate
-      - /mnt/user/appdata/frigate/trt-models/trt-models/:/trt-models/
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
         tmpfs:
