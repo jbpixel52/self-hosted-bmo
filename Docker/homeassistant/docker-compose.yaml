@@ -56,14 +56,18 @@ services:
     ports:
       - 1883:1883
       - 9901:9001
-
-  # wyoming-piper:
-  #   command: "--voice en_US-lessac-medium"
-  #   image: rhasspy/wyoming-piper:latest
-  #   volumes:
-  #     - "/mnt/user/appdata/piper/:/data"
-  #   ports:
-  #     - "10200:10200"
-  #   tty: true
-  #   stdin_open: true
-
+  amcrest2mqtt:
+      container_name: amcrest2mqtt
+      image: dchesterton/amcrest2mqtt:latest
+      restart: unless-stopped
+      environment:
+          AMCREST_HOST: ${AMCREST_HOST_1}
+          AMCREST_PORT: ${AMCREST_PORT}
+          AMCREST_USERNAME: ${AMCREST_USERNAME}
+          AMCREST_PASSWORD: ${AMCREST_PASSWORD_1}
+          DEVICE_NAME: ${DEVICE_NAME_1}
+          MQTT_HOST: mosquitto
+          MQTT_USERNAME: admin
+          #MQTT_PASSWORD: password
+          HOME_ASSISTANT: "true"
+      depends_on: mosquitto
