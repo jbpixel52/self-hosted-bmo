@@ -20,7 +20,6 @@ services:
     image: ghcr.io/blakeblackshear/frigate:0.14.1
     shm_size: "160mb" # update for your cameras based on calculation above
     privileged: true
-    user: "99:100"
     cap_add:
       - CAP_PERFMON
     volumes:
