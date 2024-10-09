@@ -66,8 +66,7 @@ services:
           AMCREST_USERNAME: ${AMCREST_USERNAME}
           AMCREST_PASSWORD: ${AMCREST_PASSWORD_1}
           DEVICE_NAME: ${DEVICE_NAME_1}
-          MQTT_HOST: mosquitto
+          MQTT_HOST: ${MQTT_HOST}
           MQTT_USERNAME: admin
           #MQTT_PASSWORD: password
           HOME_ASSISTANT: "true"
-      depends_on: [mosquitto]
