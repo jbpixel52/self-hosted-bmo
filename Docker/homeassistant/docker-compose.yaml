@@ -15,27 +15,30 @@ services:
     restart: unless-stopped
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
-  # frigate:
-  #   container_name: frigate
-  #   image: ghcr.io/blakeblackshear/frigate:stable-tensorrt
-  #   shm_size: "160mb" # update for your cameras based on calculation above
-  #   volumes:
-  #     - /etc/localtime:/etc/localtime:ro
-  #     - /mnt/user/appdata/frigate/config/:/config/
-  #     - /mnt/user/recordings:/media/frigate
-  #     - /mnt/user/appdata/frigate/trt-models/trt-models/:/trt-models/
-  #     - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
-  #       target: /tmp/cache
-  #       tmpfs:
-  #         size: 1000000000
-  #   ports:
-  #     - "5500:5000"
-  #     - "1935:1935" # RTMP feeds
-  #     - "8554:8554"
-  #   environment:
-  #     - YOLO_MODELS=yolov7-tiny-416
-  #     - FRIGATE_RTSP_PASSWORD= "password"
-  #   restart: unless-stopped
+  frigate:
+    container_name: frigate
+    image: ghcr.io/blakeblackshear/frigate:stable-tensorrt
+    shm_size: "160mb" # update for your cameras based on calculation above
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/user/appdata/frigate/config/:/config/
+      - /mnt/user/recordings:/media/frigate
+      - /mnt/user/appdata/frigate/trt-models/trt-models/:/trt-models/
+      - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+    ports:
+      - "5500:5000"
+      - "1935:1935" # RTMP feeds
+      - "8554:8554"
+    environment:
+      #- YOLO_MODELS=yolov7-tiny-416
+      - FRIGATE_RTSP_PASSWORD= "password"
+    restart: unless-stopped
+    devices:
+      - /dev/dri/card0:/dev/dri/card0
+      - /dev/dri/renderD128:/dev/dri/renderD128
   #   deploy: 
   #     resources:
   #       limits:
@@ -56,17 +59,17 @@ services:
     ports:
       - 1883:1883
       - 9901:9001
-  amcrest2mqtt:
-      container_name: amcrest2mqtt
-      image: dchesterton/amcrest2mqtt:latest
-      restart: unless-stopped
-      environment:
-          AMCREST_HOST: ${AMCREST_HOST_1}
-          AMCREST_PORT: ${AMCREST_PORT}
-          AMCREST_USERNAME: ${AMCREST_USERNAME}
-          AMCREST_PASSWORD: ${AMCREST_PASSWORD_1}
-          DEVICE_NAME: ${DEVICE_NAME_1}
-          MQTT_HOST: ${MQTT_HOST}
-          MQTT_USERNAME: admin
-          #MQTT_PASSWORD: password
-          HOME_ASSISTANT: "true"
+  # amcrest2mqtt:
+  #     container_name: amcrest2mqtt
+  #     image: dchesterton/amcrest2mqtt:latest
+  #     restart: unless-stopped
+  #     environment:
+  #         AMCREST_HOST: ${AMCREST_HOST_1}
+  #         AMCREST_PORT: ${AMCREST_PORT}
+  #         AMCREST_USERNAME: ${AMCREST_USERNAME}
+  #         AMCREST_PASSWORD: ${AMCREST_PASSWORD_1}
+  #         DEVICE_NAME: ${DEVICE_NAME_1}
+  #         MQTT_HOST: ${MQTT_HOST}
+  #         MQTT_USERNAME: admin
+  #         #MQTT_PASSWORD: password
+  #         HOME_ASSISTANT: "true"
