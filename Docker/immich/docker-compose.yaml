@@ -18,47 +18,21 @@ services:
       - TYPESENSE_ENABLED=false
       - TYPESENSE_API_KEY=random_text
     ports:
-      - 2283:3001
+      - 2283:2283
     depends_on:
       - redis
       - database
-    deploy: # Uncomment this section if using NVIDIA GPU
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              capabilities: [gpu, video, compute]
+    devices:
+      - /dev/dri/card0:/dev/dri/card0
+      - /dev/dri/renderD128:/dev/dri/renderD128
+    # deploy: # Uncomment this section if using NVIDIA GPU
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           capabilities: [gpu, video, compute]
     restart: always
-  # immich-microservices: removed as of v106.1.0
-  #   container_name: immich_microservices
-  #   image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
-  #   command: ["start.sh", "microservices"]
-  #   volumes:
-  #     - /mnt/user/media/PHOTOS/upload:/usr/src/app/upload
-  #     - /etc/localtime:/etc/localtime:ro
-  #   depends_on:
-  #     - redis
-  #     - database
-  #   restart: always
-  #   environment:
-  #     - UPLOAD_LOCATION=/usr/src/app/upload
-  #     - TYPESENSE_ENABLED= false
-  #     - TYPESENSE_API_KEY=random_text
-  #     - IMMICH_VERSION=release
-  #     - DB_PASSWORD=postgres
-  #     - DB_HOSTNAME=immich_postgres
-  #     - DB_USERNAME=postgres
-  #     - DB_DATABASE_NAME=immich
-  #     - REDIS_HOSTNAME=immich_redis
-  #     - NVIDIA_DRIVER_CAPABILITIES=all # If using NVIDIA GPU
-  #     - TZ=America/Los_Angeles
-  #   deploy: # Uncomment this section if using NVIDIA GPU
-  #     resources:
-  #       reservations:
-  #         devices:
-  #           - driver: nvidia
-  #             count: 1
-  #             capabilities: [gpu, video, compute]
+
   immich-machine-learning:
     container_name: immich_machine_learning
     image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
@@ -73,15 +47,18 @@ services:
       - DB_USERNAME=postgres
       - DB_DATABASE_NAME=immich
       - REDIS_HOSTNAME=immich_redis
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              capabilities:
-                - gpu
-                - compute
-                - video
+    devices:
+      - /dev/dri/card0:/dev/dri/card0
+      - /dev/dri/renderD128:/dev/dri/renderD128
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           capabilities:
+    #             - gpu
+    #             - compute
+    #             - video
   redis:
     container_name: immich_redis
     image: redis:6.2-alpine@sha256:51d6c56749a4243096327e3fb964a48ed92254357108449cb6e23999c37773c5
