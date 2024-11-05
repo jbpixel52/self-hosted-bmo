@@ -60,6 +60,7 @@ services:
         - SEARCH_PROVIDER=searxng
         - SEARXNG_BASE_URL=http://searxng:8089
         - TAVILY_API_KEY=${TAVILY_API_KEY}
+        - CUSTOM_MODEL=${CUSTOM_MODEL:-mistral-nemo:12b}
     ports:
         - 63278:8000
         - 27374:3000
