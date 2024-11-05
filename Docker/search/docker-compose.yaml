@@ -56,9 +56,10 @@ services:
         - ENABLE_LOCAL_MODELS=True
         - NEXT_PUBLIC_LOCAL_MODE_ENABLED=True
         - NEXT_PUBLIC_PRO_MODE_ENABLED=True
-        #- NEXT_PUBLIC_API_URL=http://jbpixel.xyz
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
         - SEARCH_PROVIDER=searxng
         - SEARXNG_BASE_URL=http://searxng:8089
+        - TAVILY_API_KEY=${TAVILY_API_KEY}
     ports:
         - 63278:8000
         - 27374:3000
