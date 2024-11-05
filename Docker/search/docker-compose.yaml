@@ -32,7 +32,7 @@ services:
     command: valkey-server --save 30 1 --loglevel warning
     restart: unless-stopped
     networks:
-      - searxng
+      - search
     volumes:
       - valkey-data2:/data
     cap_drop:
@@ -52,13 +52,13 @@ services:
     container_name: farfalle
     restart: unless-stopped
     environment:
-        - OLLAMA_API_BASE=http://ollama:11434
+        - OLLAMA_API_BASE=${OLLAMA_API_BASE:-http://ollama:11434}
         - ENABLE_LOCAL_MODELS=True
         - NEXT_PUBLIC_LOCAL_MODE_ENABLED=True
         - NEXT_PUBLIC_PRO_MODE_ENABLED=True
         - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
         - SEARCH_PROVIDER=searxng
-        - SEARXNG_BASE_URL=http://searxng:8089
+        - SEARXNG_BASE_URL=${SEARXNG_BASE_URL:-http://searxng:8089}
         - TAVILY_API_KEY=${TAVILY_API_KEY}
         - CUSTOM_MODEL=${CUSTOM_MODEL:-mistral-nemo:12b}
     ports:
@@ -68,14 +68,13 @@ services:
         - ollama
         - searxng
     networks:
-        - ollama-network
-        - searxng
+        - search
   ollama:
         image: ollama/ollama
         container_name: ollama
         hostname: ollama
         networks:
-          - ollama-network
+          - search
         ports:
             - '11434:11434'
         volumes:
@@ -88,8 +87,7 @@ services:
                           count: all
                           capabilities: [ gpu ]
 networks:
-  searxng:
-  ollama-network:
+  search:
 
 volumes:
   valkey-data2:
