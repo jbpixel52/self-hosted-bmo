@@ -25,50 +25,7 @@ services:
       options:
         max-size: "1m"
         max-file: "1"
-  # redis:
-  #   container_name: redis
-  #   hostname: redis
-  #   image: docker.io/valkey/valkey:8-alpine
-  #   command: valkey-server --save 30 1 --loglevel warning
-  #   restart: unless-stopped
-  #   networks:
-  #     - search
-  #   volumes:
-  #     - valkey-data2:/data
-  #   cap_drop:
-  #     - ALL
-  #   cap_add:
-  #     - SETGID
-  #     - SETUID
-  #     - DAC_OVERRIDE
-  #   logging:
-  #     driver: "json-file"
-  #     options:
-  #       max-size: "1m"
-  #       max-file: "1"
 
-  # farfalle:
-  #   image: ghcr.io/rashadphz/farfalle:main
-  #   container_name: farfalle
-  #   restart: unless-stopped
-  #   environment:
-  #       - OLLAMA_API_BASE=${OLLAMA_API_BASE:-http://ollama:11434}
-  #       - ENABLE_LOCAL_MODELS=true
-  #       - NEXT_PUBLIC_LOCAL_MODE_ENABLED=true
-  #       - NEXT_PUBLIC_PRO_MODE_ENABLED=true
-  #       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-  #       - SEARCH_PROVIDER=searxng
-  #       - SEARXNG_BASE_URL=${SEARXNG_BASE_URL:-http://searxng:8089}
-  #       - TAVILY_API_KEY=${TAVILY_API_KEY}
-  #       - CUSTOM_MODEL=${CUSTOM_MODEL:-mistral-nemo:12b}
-  #   ports:
-  #       - 63278:8000
-  #       - 27374:3000
-  #   depends_on:
-  #       - ollama
-  #       - searxng
-  #   networks:
-  #       - search
   ollama:
         image: ollama/ollama
         container_name: ollama
@@ -86,6 +43,34 @@ services:
                         - driver: nvidia
                           count: all
                           capabilities: [ gpu ]
+  # perplexica-backend:
+  #   image: rqi14/perplexica-backend:slim
+  #   depends_on:
+  #     - searxng
+  #   ports:
+  #     - 3001:3001
+  #   volumes:
+  #     - /mnt/user/appdata/perplexica/backend-dbstore:/home/perplexica/data
+  #   extra_hosts:
+  #     - 'host.docker.internal:host-gateway'
+  #   networks:
+  #     - search
+  #   restart: unless-stopped
+
+  # perplexica-frontend:
+  #   build:
+  #     context: .
+  #     dockerfile: app.dockerfile
+  #     args:
+  #       - NEXT_PUBLIC_API_URL=http://127.0.0.1:3001/api
+  #       - NEXT_PUBLIC_WS_URL=ws://127.0.0.1:3001
+  #   depends_on:
+  #     - perplexica-backend
+  #   ports:
+  #     - 3000:3000
+  #   networks:
+  #     - perplexica-network
+  #   restart: unless-stopped
 networks:
   search:
 
