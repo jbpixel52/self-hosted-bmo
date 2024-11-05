@@ -54,7 +54,7 @@ services:
     environment:
         - OLLAMA_API_BASE=${OLLAMA_API_BASE:-http://ollama:11434}
         - ENABLE_LOCAL_MODELS=True
-        - NEXT_PUBLIC_LOCAL_MODE_ENABLED=True
+        - NEXT_PUBLIC_LOCAL_MODE_ENABLED=true
         - NEXT_PUBLIC_PRO_MODE_ENABLED=True
         - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
         - SEARCH_PROVIDER=searxng
