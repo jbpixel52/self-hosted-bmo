@@ -10,8 +10,6 @@ services:
     volumes:
       - /mnt/user/appdata/homeassistant:/config
       - /mnt/user/media:/media
-    # ports:
-    #   - 8123:8123 #optional
     restart: unless-stopped
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
@@ -35,21 +33,17 @@ services:
       - "1935:1935" # RTMP feeds
       - "8554:8554"
     environment:
-      #- YOLO_MODELS=yolov7-tiny-416
       - FRIGATE_RTSP_PASSWORD= "password"
     restart: unless-stopped
     devices:
       - /dev/dri/card0:/dev/dri/card0
       - /dev/dri/renderD128:/dev/dri/renderD128
-  #   deploy: 
-  #     resources:
-  #       limits:
-  #         memory: 3G
-  #       reservations:
-  #         memory: 1G
-  #         devices:
-  #           - driver: nvidia
-  #             capabilities: [gpu]
+    deploy: 
+      resources:
+        limits:
+          memory: 5G
+        reservations:
+          memory: 1G
   mosquitto:
     image: eclipse-mosquitto:2
     container_name: mosquitto
@@ -61,17 +55,3 @@ services:
     ports:
       - 1883:1883
       - 9901:9001
-  # amcrest2mqtt:
-  #     container_name: amcrest2mqtt
-  #     image: dchesterton/amcrest2mqtt:latest
-  #     restart: unless-stopped
-  #     environment:
-  #         AMCREST_HOST: ${AMCREST_HOST_1}
-  #         AMCREST_PORT: ${AMCREST_PORT}
-  #         AMCREST_USERNAME: ${AMCREST_USERNAME}
-  #         AMCREST_PASSWORD: ${AMCREST_PASSWORD_1}
-  #         DEVICE_NAME: ${DEVICE_NAME_1}
-  #         MQTT_HOST: ${MQTT_HOST}
-  #         MQTT_USERNAME: admin
-  #         #MQTT_PASSWORD: password
-  #         HOME_ASSISTANT: "true"
