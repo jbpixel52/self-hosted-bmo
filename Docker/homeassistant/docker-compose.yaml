@@ -27,7 +27,7 @@ services:
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
         tmpfs:
-          size: 1000000000
+          size: 5000000000
     ports:
       - "5500:5000"
       - "1935:1935" # RTMP feeds
@@ -41,9 +41,9 @@ services:
     deploy: 
       resources:
         limits:
-          memory: 5G
+          memory: 12G
         reservations:
-          memory: 1G
+          memory: 6G
   mosquitto:
     image: eclipse-mosquitto:2
     container_name: mosquitto
