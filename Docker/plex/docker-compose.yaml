@@ -7,8 +7,8 @@ services:
             - PGID=99
             - PUID=100
             - UMASK=000
-            - NVIDIA_DRIVER_CAPABILITIES=all
-            - NVIDIA_VISIBLE_DEVICES=GPU-c4894e0d-ccbb-afe5-9a2e-8e168c343af3
+            # - NVIDIA_DRIVER_CAPABILITIES=all
+            # - NVIDIA_VISIBLE_DEVICES=GPU-c4894e0d-ccbb-afe5-9a2e-8e168c343af3
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/mnt/user/appdata/plex:/config"
@@ -28,22 +28,6 @@ services:
         #        - driver: nvidia
         #          count: 1
         #          capabilities: [gpu]
-    # shoko_server:
-    #     shm_size: 256m
-    #     container_name: shokoserver
-    #     image: shokoanime/server:latest
-    #     restart: always
-    #     environment:
-    #     - "PUID=99"
-    #     - "PGID=100"
-    #     #- "TZ=Etc/UTC"
-    #     ports:
-    #     - "8111:8111"
-    #     volumes:
-    #     - "/etc/localtime:/etc/localtime:ro"
-    #     - "/mnt/user/appdata/shoko:/home/shoko/.shoko"
-    #     - "/mnt/user/media/ANIME:/mnt/anime"
-
     overseerr:
         image: sctx/overseerr:latest
         container_name: overseerr
