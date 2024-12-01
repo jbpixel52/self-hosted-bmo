@@ -78,9 +78,15 @@ services:
       - --remote-debugging-address=0.0.0.0
       - --remote-debugging-port=9222
       - --hide-scrollbars
+    networks:
+      - search
+    
   meilisearch:
     image: getmeili/meilisearch:v1.11.1
     restart: unless-stopped
+    networks:
+      - search
+    
     environment:
       MEILI_NO_ANALYTICS: "true"
     volumes:
