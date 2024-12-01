@@ -43,36 +43,45 @@ services:
                         - driver: nvidia
                           count: all
                           capabilities: [ gpu ]
-  # perplexica-backend:
-  #   image: rqi14/perplexica-backend:slim
-  #   depends_on:
-  #     - searxng
-  #   ports:
-  #     - 3001:3001
-  #   volumes:
-  #     - /mnt/user/appdata/perplexica/backend-dbstore:/home/perplexica/data
-  #   extra_hosts:
-  #     - 'host.docker.internal:host-gateway'
-  #   networks:
-  #     - search
-  #   restart: unless-stopped
 
-  # perplexica-frontend:
-  #   build:
-  #     context: .
-  #     dockerfile: app.dockerfile
-  #     args:
-  #       - NEXT_PUBLIC_API_URL=http://127.0.0.1:3001/api
-  #       - NEXT_PUBLIC_WS_URL=ws://127.0.0.1:3001
-  #   depends_on:
-  #     - perplexica-backend
-  #   ports:
-  #     - 3000:3000
-  #   networks:
-  #     - perplexica-network
-  #   restart: unless-stopped
-networks:
-  search:
+  web:
+    image: ghcr.io/hoarder-app/hoarder:${HOARDER_VERSION:-release}
+    restart: unless-stopped
+    volumes:
+      - /mnt/user/appdata/hoarder/web/data:/data
+    ports:
+      - 3000:3000
+    environment:
+      MEILI_ADDR: http://meilisearch:7700
+      BROWSER_WEB_URL: http://chrome:9222
+      DATA_DIR: /data
+      OLLAMA_BASE_URL: http://ollama:11434
+      INFERENCE_TEXT_MODEL: llama3.2:3b
+      INFERENCE_IMAGE_MODEL: minicpm-v:8b
+      INFERENCE_CONTEXT_LENGTH: 16384
+      MAX_ASSET_SIZE_MB: 20
+
+  chrome:
+    image: gcr.io/zenika-hub/alpine-chrome:123
+    restart: unless-stopped
+    command:
+      - --no-sandbox
+      - --disable-gpu
+      - --disable-dev-shm-usage
+      - --remote-debugging-address=0.0.0.0
+      - --remote-debugging-port=9222
+      - --hide-scrollbars
+  meilisearch:
+    image: getmeili/meilisearch:v1.11.1
+    restart: unless-stopped
+    environment:
+      MEILI_NO_ANALYTICS: "true"
+    volumes:
+      - /mnt/user/appdata/hoarder/meilisearch/meili_data:/meili_data
 
 volumes:
-  valkey-data2:
+  meilisearch:
+  data:
+
+networks:
+  search:
