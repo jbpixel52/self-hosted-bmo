@@ -60,6 +60,10 @@ services:
       INFERENCE_IMAGE_MODEL: minicpm-v:8b
       INFERENCE_CONTEXT_LENGTH: 16384
       MAX_ASSET_SIZE_MB: 20
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+      NEXTAUTH_URL: ${NEXTAUTH_URL}
+
 
   chrome:
     image: gcr.io/zenika-hub/alpine-chrome:123
