@@ -49,6 +49,9 @@ services:
     restart: unless-stopped
     volumes:
       - /mnt/user/appdata/hoarder/web/data:/data
+    networks:
+      - search
+    
     ports:
       - 3000:3000
     environment:
