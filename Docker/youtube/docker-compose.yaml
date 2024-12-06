@@ -73,7 +73,7 @@ services:
     volumes:
       - /mnt/user/appdata/invidious/postgresdata:/var/lib/postgresql/data
       - /mnt/user/appdata/invidious/config/sql:/var/lib/postgresql/data
-      - ./docker/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
+      - /mnt/user/appdata/invidious/docker/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
     environment:
       POSTGRES_DB: invidious
       POSTGRES_USER: ${POSTGRES_USER}
