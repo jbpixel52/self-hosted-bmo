@@ -71,8 +71,8 @@ services:
     image: docker.io/library/postgres:14
     restart: unless-stopped
     volumes:
-      - /mnt/user/appdata/invidius/postgresdata:/var/lib/postgresql/data
-      - /mnt/user/appdata/invidius/config/sql:/var/lib/postgresql/data
+      - /mnt/user/appdata/invidious/postgresdata:/var/lib/postgresql/data
+      - /mnt/user/appdata/invidious/config/sql:/var/lib/postgresql/data
       - ./docker/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
     environment:
       POSTGRES_DB: invidious
