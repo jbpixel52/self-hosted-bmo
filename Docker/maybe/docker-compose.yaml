@@ -6,7 +6,7 @@ services:
     volumes:
       - /mnt/user/appdata/maybe:/rails/storage
     ports:
-      - '3000:3000'
+      - '3600:3000'
     restart: unless-stopped
     environment:
       SELF_HOSTED: 'true'
