@@ -1,7 +1,7 @@
 ---
 services:
   app:
-    name: maybe
+    container_name: maybe
     image: ghcr.io/maybe-finance/maybe:latest
     volumes:
       - /mnt/user/apppdata/maybe:/rails/storage
