@@ -37,7 +37,7 @@ services:
       MAX_BUILD_HEIGHT: 256
       SPAWN_PROTECTION: 1
       MODE: survival
-      MOTD: "§c§lFeliz Jueves!"
+      MOTD: "§c§l2025!"
       # INIT_MEMORY: 5G
       MAX_MEMORY: 10
       SERVER_PORT: 25567
