@@ -26,6 +26,7 @@ services:
       DIFFICULTY: "hard"
       MAX_PLAYERS: 8
       MAX_WORLD_SIZE: 300000
+      SEED: 5868800201184252347
       #USE_AIKAR_FLAGS: "TRUE"
       ALLOW_NETHER: "TRUE"
       TZ: "America/Los_Angeles"
