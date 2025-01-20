@@ -4,8 +4,6 @@ services:
   app:
     image: ghcr.io/gabe565/castsponsorskip
     environment:
-      # Set the container timezone
-      # See identifier list at https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
       TZ: America/Los_Angeles
       # CSS_PAUSED_INTERVAL:
       # CSS_PLAYING_INTERVAL:
@@ -14,69 +12,48 @@ services:
       # CSS_MUTE_ADS:
     network_mode: host
     restart: always
-  
+  piped-frontend:
+        image: 1337kavin/piped-frontend:latest
+        restart: unless-stopped
+        ports:
+          -88887:80
+        depends_on:
+            - piped
+        environment:
+            BACKEND_HOSTNAME: BACKEND_HOSTNAME_PLACEHOLDER
+            HTTP_MODE: HTTP_MODE_PLACEHOLDER
+        container_name: piped-frontend
+    piped-proxy:
+        image: 1337kavin/piped-proxy:latest
+        restart: unless-stopped
+        ports:
+          -88885:80
+        environment:
+            - UDS=1
+        volumes:
+            - piped-proxy:/app/socket
+        container_name: piped-proxy
+    piped:
+        image: 1337kavin/piped:latest
+        restart: unless-stopped
+        ports:
+          -88886:80
+        volumes:
+            - ./config/config.properties:/app/config.properties:ro
+        depends_on:
+            - postgres
+        container_name: piped-backend
 
-  invidious:
-    image: quay.io/invidious/invidious:latest
-    # image: quay.io/invidious/invidious:latest-arm64 # ARM64/AArch64 devices
-    restart: unless-stopped
-    ports:
-      - "3003:3000"
-    environment:
-      # Please read the following file for a comprehensive list of all available
-      # configuration options and their associated syntax:
-      # https://github.com/iv-org/invidious/blob/master/config/config.example.yml
-      INVIDIOUS_CONFIG: |
-        db:
-          dbname: invidious
-          user: ${POSTGRES_USER}
-          password: ${POSTGRES_PASSWORD}
-          host: invidious-db
-          port: 5432
-        check_tables: true
-        signature_server: inv_sig_helper:12999
-        visitor_data: CHANGE_ME
-        po_token: CHANGE_ME
-        # external_port:
-        # domain:
-        # https_only: false
-        # statistics_enabled: true
-        hmac_key: ${HMAC_KEY}
-    healthcheck:
-      test: wget -nv --tries=1 --spider http://127.0.0.1:3000/api/v1/trending || exit 1
-      interval: 30s
-      timeout: 5s
-      retries: 2
-    logging:
-      options:
-        max-size: "1G"
-        max-file: "4"
-    depends_on:
-      - invidious-db
+    postgres:
+        image: pgautoupgrade/pgautoupgrade:16-alpine
+        restart: unless-stopped
+        volumes:
+            - /mnt/user/appdata/piped/db:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_DB=piped
+            - POSTGRES_USER=piped
+            - POSTGRES_PASSWORD=changeme
+        container_name: postgres
 
-  inv_sig_helper:
-    image: quay.io/invidious/inv-sig-helper:latest
-    init: true
-    command: ["--tcp", "0.0.0.0:12999"]
-    environment:
-      - RUST_LOG=info
-    restart: unless-stopped
-    cap_drop:
-      - ALL
-    read_only: true
-    security_opt:
-      - no-new-privileges:true
-
-  invidious-db:
-    image: docker.io/library/postgres:14
-    restart: unless-stopped
-    volumes:
-      - /mnt/user/appdata/invidious/postgresdata:/var/lib/postgresql/data
-      - /mnt/user/appdata/invidious/config/sql:/config/sql
-      - /mnt/user/appdata/invidious/docker/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
-    environment:
-      POSTGRES_DB: invidious
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+volumes:
+    piped-proxy: null
