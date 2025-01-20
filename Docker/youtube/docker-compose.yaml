@@ -39,7 +39,7 @@ services:
         ports:
           -88886:80
         volumes:
-            - ./config/config.properties:/app/config.properties:ro
+            - /mnt/user/appdata/piped/config/config.properties:/app/config.properties:ro
         depends_on:
             - postgres
         container_name: piped-backend
