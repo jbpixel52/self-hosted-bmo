@@ -12,8 +12,6 @@ services:
             - "/etc/localtime:/etc/localtime:ro"
             - "/mnt/user/appdata/plex:/config"
             - "/mnt/user/media/:/media"
-            - "/tmp:/tmp"
-        #network_mode: host
         ports:
             - 32400:32400
         restart: unless-stopped
