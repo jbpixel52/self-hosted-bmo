@@ -7,12 +7,12 @@ services:
             - PGID=99
             - PUID=100
             - UMASK=000
-            - TRANS_DIR=/transcode
+            #- TRANS_DIR=/transcode
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/mnt/user/appdata/plex:/config"
             - "/mnt/user/media/:/media"
-            - "/mnt/user/media_cache:/transcode"
+            - "/tmp:/tmp"
         #network_mode: host
         ports:
             - 32400:32400
