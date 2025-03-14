@@ -12,7 +12,7 @@ services:
             - "/etc/localtime:/etc/localtime:ro"
             - "/mnt/user/appdata/plex:/config"
             - "/mnt/user/media/:/media"
-            - "/tmp:/transcode"
+            - "/mnt/user/media_cache:/transcode"
         #network_mode: host
         ports:
             - 32400:32400
