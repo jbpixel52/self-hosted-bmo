@@ -1,22 +1,27 @@
 services:
-  palworld-server:
-    hostname: palworld-server
-    container_name: palworld-server
-    # https://github.com/pocketpairjp/palworld-dedicated-server-docker/pkgs/container/palserver
-    image: ghcr.io/pocketpairjp/palserver:v0.3.9.59545
-
-    entrypoint: /pal/helper.sh
-
-    # https://tech.palworldgame.com/settings-and-operation/arguments
-    command:
-      - -port=8211
-      - -useperfthreads
-      - -NoAsyncLoadingThread
-      - -UseMultithreadForDS
-
-    ports:
-      - "8211:8211/udp"
-
-    volumes:
-      - ./helper.sh:/pal/helper.sh:ro
-      - /mnt/user/appdata/palworld:/pal/Package/Pal/Saved
+   palworld-server:
+      image: thijsvanloef/palworld-server-docker:latest
+      restart: unless-stopped
+      container_name: palworld-server
+      stop_grace_period: 30s # Set to however long you are willing to wait for the container to gracefully stop
+      ports:
+        - 8211:8211/udp
+        - 27015:27015/udp
+        # - 8212:8212/tcp  # Port for REST API if REST_API_ENABLED: true
+      environment:
+         PUID: 99
+         PGID: 100
+         PORT: 8211 # Optional but recommended
+         PLAYERS: 8 # Optional but recommended
+         SERVER_PASSWORD: "carlospendejo" # Optional but recommended
+         MULTITHREADING: true
+         RCON_ENABLED: true
+         RCON_PORT: 25575
+         TZ: "America/Los_Angeles"
+         ADMIN_PASSWORD: "${ADMIN_PASSWORD}"
+         COMMUNITY: true  # Enable this if you want your server to show up in the community servers tab, USE WITH SERVER_PASSWORD!
+         SERVER_NAME: "-JPEG community server-"
+         SERVER_DESCRIPTION: "Una mente brillante crea, una mente mediocre copia -Walter Bazar"
+         CROSSPLAY_PLATFORMS: "(Steam,Xbox,PS5,Mac)"
+      volumes:
+         - /mnt/user/appdata/palworld/:/palworld/
