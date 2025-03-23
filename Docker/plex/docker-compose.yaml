@@ -59,7 +59,7 @@ services:
         environment:
         - SITE_TITLE=Posteria
         - AUTH_USERNAME=${AUTH_USERNAME} # Change this!
-        - AUTH_PASSWORD={AUTH_PASSWORD} # Change this!
+        - AUTH_PASSWORD=${AUTH_PASSWORD} # Change this!
         - SESSION_DURATION=3600 # In seconds
         - IMAGES_PER_PAGE=24
         - MAX_FILE_SIZE=5242880 # In bytes
