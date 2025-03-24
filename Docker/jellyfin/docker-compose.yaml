@@ -22,30 +22,30 @@ services:
         - /dev/dri/card0:/dev/dri/card0
         - /dev/dri/renderD128:/dev/dri/renderD128
 
-  # jellyseerr:
-  #   image: fallenbagel/jellyseerr:latest
-  #   container_name: jellyseerr
-  #   hostname: jellyseerr_host
-  #   environment:
-  #     - LOG_LEVEL=debug
-  #     - TZ=America/Los_Angeles
-  #   ports:
-  #     - 5055:5055
-  #   volumes:
-  #     - /mnt/user/appdata/config:/app/config
-  #   restart: unless-stopped
-  # jfa-go:
-  #   container_name: jfa-go
-  #   hostname: jfa-go_host
-  #   restart: unless-stopped
-  #   ports:
-  #     - '8056:8056'
-  #     - '8057:8057'
-  #   volumes:
-  #     - '/mnt/user/appdata/jfa-go:/data'
-  #     - '/mnt/user/appdata/jellyfin/config:/jf'
-  #     - '/etc/localtime:/etc/localtime:ro'
-  #   image: hrfee/jfa-go
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    hostname: jellyseerr_host
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=America/Los_Angeles
+    ports:
+      - 5055:5055
+    volumes:
+      - /mnt/user/appdata/config:/app/config
+    restart: unless-stopped
+  jfa-go:
+    container_name: jfa-go
+    hostname: jfa-go_host
+    restart: unless-stopped
+    ports:
+      - '8056:8056'
+      - '8057:8057'
+    volumes:
+      - '/mnt/user/appdata/jfa-go:/data'
+      - '/mnt/user/appdata/jellyfin/config:/jf'
+      - '/etc/localtime:/etc/localtime:ro'
+    image: hrfee/jfa-go
 
   # jellystat-db:
   #   image: postgres
