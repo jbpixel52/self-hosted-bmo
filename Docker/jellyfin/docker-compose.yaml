@@ -46,7 +46,12 @@ services:
       - '/mnt/user/appdata/jellyfin/config:/jf'
       - '/etc/localtime:/etc/localtime:ro'
     image: hrfee/jfa-go
-
+  jellyfin_vue:
+    container_name: jellyfin_vue
+    image: ghcr.io/jellyfin/jellyfin-vue:unstable
+    restart: always
+    ports:
+      - 8884:80
   # jellystat-db:
   #   image: postgres
   #   environment:
