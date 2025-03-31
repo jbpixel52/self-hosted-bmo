@@ -10,8 +10,6 @@ services:
     tty: true
     stdin_open: true
     environment:
-      UID: 99
-      GUID: 100
       TYPE: NEOFORGE
       VERSION: "1.21.1"
       NEOFORGE_VERSION: "21.1.141"
