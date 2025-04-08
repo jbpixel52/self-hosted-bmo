@@ -1,0 +1,21 @@
+  tachidesk:
+    image: ghcr.io/suwayomi/suwayomi-server:stable
+    container_name: tachidesk
+    volumes: # The order matters! Make sure the downloads is first in the volume list or it will not work!
+      - /mnt/user/appdata/tachidesk/downloads:/home/suwayomi/.local/share/Tachidesk/downloads
+      - /mnt/user/appdata/tachidesk/files:/home/suwayomi/.local/share/Tachidesk
+    environment:
+      - TZ=America/Los_Angeles
+      - BASIC_AUTH_ENABLED=true
+      - BASIC_AUTH_USERNAME=${BASIC_AUTH_USERNAME}
+      - BASIC_AUTH_PASSWORD=${BASIC_AUTH_PASSWORD}
+      - WEB_UI_ENABLED=true
+      - AUTO_DOWNLOAD_CHAPTERS=true
+      - EXTENSION_REPOS=["https://raw.githubusercontent.com/keiyoushi/extensions/repo"]
+      - FLARESOLVERR_ENABLED=True
+      - FLARESOLVERR_URL=${FLARESOLVERR_URL}
+
+    ports:
+      - 4568:4567
+    restart: on-failure:3
+    
