@@ -1,3 +1,4 @@
+services:
   tachidesk:
     image: ghcr.io/suwayomi/suwayomi-server:stable
     container_name: tachidesk
