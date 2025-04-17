@@ -1,5 +1,6 @@
 services:
   cloudflare-ddns:
+    container_name: cloudflare-ddns
     image: favonia/cloudflare-ddns:latest
     network_mode: host
     # This makes IPv6 easier; see below
