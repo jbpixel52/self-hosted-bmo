@@ -1,7 +1,7 @@
 services:
   cloudflare-ddns:
     container_name: cloudflare-ddns
-    image: favonia/cloudflare-ddns:latest
+    image: favonia/cloudflare-:latest
     network_mode: host
     # This makes IPv6 easier; see below
     restart: always
