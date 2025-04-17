@@ -1,5 +1,6 @@
 services:
   glance:
+    container_name: glance
     user: 99:100
     image: glanceapp/glance
     hostname: glance
