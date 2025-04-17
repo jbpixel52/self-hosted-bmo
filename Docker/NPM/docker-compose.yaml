@@ -8,8 +8,7 @@ services:
       - '88:80' #HTTP TRAFFIC
       - '81:81' #DASHBOARD
       - '444:443' #HTTPS TRAFFIC
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    network_mode: host
     volumes:
       - /mnt/user/appdata/nginxpm:/data
       - /mnt/user/appdata/nginxpm/letsencrypt:/etc/letsencrypt
