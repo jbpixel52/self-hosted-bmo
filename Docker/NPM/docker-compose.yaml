@@ -1,13 +1,15 @@
 services:
-  app:
+  nginx-proxy-manage:
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: npm
-    hostname: npm_host
+    hostname: nginx-proxy-manage
     restart: unless-stopped
     ports:
       - '88:80' #HTTP TRAFFIC
       - '81:81' #DASHBOARD
       - '444:443' #HTTPS TRAFFIC
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - /mnt/user/appdata/nginxpm:/data
       - /mnt/user/appdata/nginxpm/letsencrypt:/etc/letsencrypt
@@ -30,4 +32,3 @@ services:
           - LOG_TYPE=NPM #optional - more information below
       volumes:
       - /mnt/user/appdata/nginxpm/logs:/opt/log
-      #- /path/to/host/custom:/opt/custom #optional, required if using log_type = CUSTOM
