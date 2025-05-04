@@ -34,20 +34,20 @@ services:
     #         - "/mnt/user/appdata/overseerr/config:/app/config"
     #     restart: unless-stopped
 
-    tautulli:
-        image: ghcr.io/tautulli/tautulli
-        container_name: tautulli
-        restart: unless-stopped
-        volumes:
-            - /mnt/user/appdata/tautulli:/config
-        environment:
-            - PUID=99
-            - PGID=100
-            - TZ=America/Los_Angeles
-        ports:
-            - 8181:8181
-        depends_on:
-            - plex
+    # tautulli:
+    #     image: ghcr.io/tautulli/tautulli
+    #     container_name: tautulli
+    #     restart: unless-stopped
+    #     volumes:
+    #         - /mnt/user/appdata/tautulli:/config
+    #     environment:
+    #         - PUID=99
+    #         - PGID=100
+    #         - TZ=America/Los_Angeles
+    #     ports:
+    #         - 8181:8181
+    #     depends_on:
+    #         - plex
 
     # posteria:
     #     image: bozodev/posteria:latest
