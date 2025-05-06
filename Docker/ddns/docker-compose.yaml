@@ -6,11 +6,8 @@ services:
     # This makes IPv6 easier; see below
     restart: always
     # Restart the updater after reboot
-    cap_add:
-      - SETUID
-        # Capability to change user ID; needed for using PUID
-      - SETGID
-        # Capability to change group ID; needed for using PGID
+    user: "99:100"
+    # Run the updater with user ID 99 and group ID 100
     cap_drop:
       - all
       # Drop all other capabilities
@@ -20,10 +17,6 @@ services:
       - no-new-privileges:true
         # Another protection to restrict superuser privileges
     environment:
-      - PUID=99
-        # Run the updater with user ID 1000
-      - PGID=100
-        # Run the updater with group ID 1000
       - CF_API_TOKEN=${CF_API_TOKEN}
         # Your Cloudflare API token
       - DOMAINS=${DOMAINS}
