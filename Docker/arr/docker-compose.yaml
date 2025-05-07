@@ -79,6 +79,21 @@ services:
     ports:
       - "8191:8191"
     networks: [arr]
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    environment:
+      - PUID=99
+      - PGID=100
+      - TZ=America/Los_Angeles
+    volumes:
+      - /mnt/user/appdata/lidarr/config:/config
+      - /mnt/user/media/MUSIC:/music #optional
+      - /mnt/user/media_cache/downloads:/downloads #optional
+    networks: [arr]
+    ports:
+      - 8686:8686
+    restart: unless-stopped
 
   recyclarr:
     image: ghcr.io/recyclarr/recyclarr:latest
@@ -91,22 +106,21 @@ services:
     environment:
       - TZ=America/Los_Angeles
       - RECYLARR_CREATE_CONFIG=true
-  readarr:
-    image: lscr.io/linuxserver/readarr:develop
-    hostname: readarr
-    container_name: readarr
-    environment:
-      - PUID=99
-      - PGID=100
-      - TZ=America/Los_Angeles
-    volumes:
-      - /mnt/user/appdata/readarr:/config
-      - /mnt/user/media/BOOKS:/books #optional
-      - /mnt/user/media_cache/downloads:/downloads/
-    ports:
-      - 8787:8787
-    restart: unless-stopped
-
+  # readarr:
+  #   image: lscr.io/linuxserver/readarr:develop
+  #   hostname: readarr
+  #   container_name: readarr
+  #   environment:
+  #     - PUID=99
+  #     - PGID=100
+  #     - TZ=America/Los_Angeles
+  #   volumes:
+  #     - /mnt/user/appdata/readarr:/config
+  #     - /mnt/user/media/BOOKS:/books #optional
+  #     - /mnt/user/media_cache/downloads:/downloads/
+  #   ports:
+  #     - 8787:8787
+  #   restart: unless-stopped
   # rflood:
   #   container_name: rflood
   #   image: ghcr.io/hotio/rflood
