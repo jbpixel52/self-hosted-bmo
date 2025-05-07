@@ -1,31 +1,4 @@
 services:
-  searxng:
-    container_name: searxng
-    image: docker.io/searxng/searxng:latest
-    restart: unless-stopped
-    hostname: searxng
-    networks:
-      - search
-    ports:
-      - "8089:8080"
-    volumes:
-      - /mnt/user/appdata/searxng/:/etc/searxng:rw
-    environment:
-      - SEARXNG_BASE_URL=https://${SEARXNG_HOSTNAME:-localhost}/
-      - UWSGI_WORKERS=${SEARXNG_UWSGI_WORKERS:-4}
-      - UWSGI_THREADS=${SEARXNG_UWSGI_THREADS:-4}
-    cap_drop:
-      - ALL
-    cap_add:
-      - CHOWN
-      - SETGID
-      - SETUID
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "1m"
-        max-file: "1"
-
   ollama:
         image: ollama/ollama
         container_name: ollama
@@ -45,7 +18,7 @@ services:
                           capabilities: [ gpu ]
 
   web:
-    image: ghcr.io/hoarder-app/hoarder:${HOARDER_VERSION:-release}
+    image: ghcr.io/karakeep-app/karakeep:${KARAKEEP:-release}
     restart: unless-stopped
     volumes:
       - /mnt/user/appdata/hoarder/web/data:/data
