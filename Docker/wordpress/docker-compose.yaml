@@ -18,6 +18,8 @@ services:
       - 33060
   wordpress:
     image: wordpress:latest
+    links:
+      - "db:db"
     ports:
       - 8586:80
     restart: always
@@ -28,3 +30,5 @@ services:
       - WORDPRESS_DB_NAME=wordpress
 volumes:
   db_data:
+networks:
+  default:
