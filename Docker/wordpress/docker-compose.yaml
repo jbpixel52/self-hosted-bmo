@@ -13,9 +13,11 @@ services:
       - MYSQL_DATABASE=wordpress
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-    expose:
-      - 3306
-      - 33060
+    networks:
+     - default
+    ports:
+     - 3306:3306
+     - 33060:33060
   wordpress:
     image: wordpress:latest
     links:
@@ -28,6 +30,8 @@ services:
       - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
       - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
       - WORDPRESS_DB_NAME=wordpress
+    networks:
+      - default
 volumes:
   db_data:
 networks:
