@@ -9,5 +9,6 @@ services:
         volumes:
             - '/home/jbpixel/Docker/:/shares'
             - '/home/jbpixel/Docker/copyparty/:/cfg'
+            - '/mnt/bramari:/bramari'
         image: copyparty/ac
         restart: unless-stopped

@@ -15,9 +15,7 @@ services:
       - /mnt/disk1/media2/MUSIC:/musiclibrary
       - /mnt/cache/appdata/Plex/transcode:/cachetranscode
     restart: unless-stopped
-    devices:
-      - /dev/dri/card0:/dev/dri/card0
-      - /dev/dri/renderD128:/dev/dri/renderD128
+
       # deploy:
       #   resources:
       #     reservations:
