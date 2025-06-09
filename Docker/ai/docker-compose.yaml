@@ -16,7 +16,14 @@ services:
                         - driver: nvidia
                           count: all
                           capabilities: [ gpu ]
-
+    lobe-chat:
+      image: lobehub/lobe-chat
+      container_name: lobe-chat
+      restart: always
+      networks:
+      - ai
+      ports:
+        - '3210:3210'
     # morphic:
     #   image: ghcr.io/miurla/morphic:latest
     #   env_file: .env.local
