@@ -74,9 +74,6 @@ volumes:
   data:
 
 networks:
-  search:
-
-networks:
   ai:
     name: ai
 
