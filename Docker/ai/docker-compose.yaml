@@ -20,8 +20,8 @@ services:
       image: lobehub/lobe-chat
       container_name: lobe-chat
       restart: always
-      depends on:
-        - ollama
+      links:
+        - "ollama:ollama"
       networks:
       - ai
       ports:
