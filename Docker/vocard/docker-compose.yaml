@@ -16,11 +16,11 @@ services:
             - vocard
         expose:
             - "2333"
-        healthcheck:
-            test: nc -z -v localhost 2333
-            interval: 20s
-            timeout: 5s
-            retries: 5
+        # healthcheck:
+        #     test: nc -z -v localhost 2333
+        #     interval: 20s
+        #     timeout: 5s
+        #     retries: 5
     vocard-db:
        container_name: vocard-db
        image: mongo:8
