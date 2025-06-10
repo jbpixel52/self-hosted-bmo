@@ -77,3 +77,5 @@ services:
 networks:
     vocard:
         name: vocard
+    web:
+      name: web
