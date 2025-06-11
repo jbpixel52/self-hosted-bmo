@@ -27,7 +27,6 @@ services:
           - /mnt/user/appdata/invokeai:/invokeai
         environment:
           - HUGGINGFACE_TOKEN=${HUGGINGFACE_TOKEN}
-          - GPU_DRIVER=cuda
           - HOST_INVOKEAI_ROOT=/invokeai-data
           - CONTAINER_INVOKEAI_ROOT=/invokeai
         networks:
