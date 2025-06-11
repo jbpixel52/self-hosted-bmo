@@ -16,6 +16,29 @@ services:
                         - driver: nvidia
                           count: all
                           capabilities: [ gpu ]
+    invokeai:
+        container_name: invokeai
+        hostname: invokeai
+        tty: true
+        stdin_open: true
+        image: ghcr.io/invoke-ai/invokeai:latest
+        volumes:
+          - /mnt/user/appdata/invokeai:~/invokeai
+        environment:
+          - HUGGINGFACE_TOKEN=${HUGGINGFACE_TOKEN}
+          - GPU_DRIVER=cuda
+        networks:
+        - ai
+        ports:
+          - 9090:9090
+        runtime: nvidia
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          count: all
+                          capabilities: [ gpu ]
     lobe-chat:
       image: lobehub/lobe-chat
       container_name: lobe-chat
