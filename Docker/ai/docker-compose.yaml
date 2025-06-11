@@ -40,17 +40,9 @@ services:
                 reservations:
                     devices:
                         - driver: nvidia
-                          count: all
+                          count: 1
                           capabilities: [ gpu ]
-    invokeai-cuda:
-      <<: *invokeai
-      deploy:
-        resources:
-          reservations:
-            devices:
-              - driver: nvidia
-                count: 1
-                capabilities: [gpu]
+
     lobe-chat:
       image: lobehub/lobe-chat
       container_name: lobe-chat
