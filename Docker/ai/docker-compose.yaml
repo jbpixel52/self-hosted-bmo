@@ -27,6 +27,7 @@ services:
           - /mnt/user/appdata/invokeai:/invokeai
         environment:
           - HUGGINGFACE_TOKEN=${HUGGINGFACE_TOKEN}
+          - GPU_DRIVER=cuda
           - HOST_INVOKEAI_ROOT=/invokeai-data
           - CONTAINER_INVOKEAI_ROOT=/invokeai
         networks:
@@ -41,6 +42,15 @@ services:
                         - driver: nvidia
                           count: all
                           capabilities: [ gpu ]
+    invokeai-cuda:
+      <<: *invokeai
+      deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: 1
+                capabilities: [gpu]
     lobe-chat:
       image: lobehub/lobe-chat
       container_name: lobe-chat
