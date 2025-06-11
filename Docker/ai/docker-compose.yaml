@@ -23,10 +23,13 @@ services:
         stdin_open: true
         image: ghcr.io/invoke-ai/invokeai:latest
         volumes:
-          - /mnt/user/appdata/invokeai:~/invokeai
+          - /mnt/user/appdata/invokeai/data:/invokeai-data
+          - /mnt/user/appdata/invokeai:/invokeai
         environment:
           - HUGGINGFACE_TOKEN=${HUGGINGFACE_TOKEN}
           - GPU_DRIVER=cuda
+          - HOST_INVOKEAI_ROOT=/invokeai-data
+          - CONTAINER_INVOKEAI_ROOT=/invokeai
         networks:
         - ai
         ports:
