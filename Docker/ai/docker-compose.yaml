@@ -30,6 +30,7 @@ services:
           - GPU_DRIVER=cuda
           - HOST_INVOKEAI_ROOT=/invokeai-data
           - CONTAINER_INVOKEAI_ROOT=/invokeai
+          - NVIDIA_VISIBLE_DEVICES= GPU-c4894e0d-ccbb-afe5-9a2e-8e168c343af3
         networks:
         - ai
         ports:
