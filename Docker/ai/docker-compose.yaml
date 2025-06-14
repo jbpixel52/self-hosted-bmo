@@ -19,16 +19,18 @@ services:
     stable-diffusion-webui:
       hostname: stable-diffusion-webui
       image: emsi/stable-diffusion-webui
+      PUID: 99
+      PGUID: 100
       networks:
         - ai
       ports:
-        - "7860"
+        - 7860:7860
       environment:
         - NVIDIA_VISIBLE_DEVICES=all
       volumes:
         - /mnt/user/appdata/stable-diffusion-webui/data:/stable-diffusion-webui
         - /mnt/user/appdata/stable-diffusion-webui/root:/root
-      command: python3 launch.py --listen
+      command: python3 launch.py --listen --api
       runtime: nvidia
       deploy:
           resources:
