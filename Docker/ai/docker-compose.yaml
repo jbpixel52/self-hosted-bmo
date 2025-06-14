@@ -30,7 +30,7 @@ services:
         - /mnt/user/appdata/stable-diffusion-webui/data:/stable-diffusion-webui
         - /mnt/user/appdata/stable-diffusion-webui/root:/root
       command: python3 launch.py --listen
-        runtime: nvidia
+      runtime: nvidia
         deploy:
             resources:
                 reservations:
