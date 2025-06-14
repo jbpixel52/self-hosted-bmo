@@ -16,34 +16,27 @@ services:
                         - driver: nvidia
                           count: all
                           capabilities: [ gpu ]
-    invokeai:
-        container_name: invokeai
-        hostname: invokeai
-        tty: true
-        stdin_open: true
-        image: ghcr.io/invoke-ai/invokeai:main-cuda
-        volumes:
-          - /mnt/user/appdata/invokeai/data:/invokeai-data
-          - /mnt/user/appdata/invokeai:/invokeai
-        environment:
-          - HUGGINGFACE_TOKEN=${HUGGINGFACE_TOKEN}
-          - INVOKE_AI_DEVICE=cuda
-          - INVOKE_AI_ENABLE_PARTIAL_LOADING=TRUE
-          - GPU_DRIVER=cuda
-          - HOST_INVOKEAI_ROOT=/invokeai-data
-          - CONTAINER_INVOKEAI_ROOT=/invokeai
-          - NVIDIA_VISIBLE_DEVICES=GPU-c4894e0d-ccbb-afe5-9a2e-8e168c343af3
-        networks:
+    stable-diffusion-webui:
+      runtime: nvidia
+      hostname: stable-diffusion-webui
+      image: emsi/stable-diffusion-webui
+      networks:
         - ai
-        ports:
-          - 9090:9090
+      ports:
+        - "7860"
+      environment:
+        - NVIDIA_VISIBLE_DEVICES=all
+      volumes:
+        - /mnt/user/appdata/stable-diffusion-webui/data:/stable-diffusion-webui
+        - /mnt/user/appdata/stable-diffusion-webui:/root
+      command: python3 launch.py --listen
         runtime: nvidia
         deploy:
             resources:
                 reservations:
                     devices:
                         - driver: nvidia
-                          count: 0
+                          count: all
                           capabilities: [ gpu ]
 
     lobe-chat:
