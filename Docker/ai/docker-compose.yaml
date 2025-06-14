@@ -31,13 +31,13 @@ services:
         - /mnt/user/appdata/stable-diffusion-webui/root:/root
       command: python3 launch.py --listen
       runtime: nvidia
-        deploy:
-            resources:
-                reservations:
-                    devices:
-                        - driver: nvidia
-                          count: all
-                          capabilities: [ gpu ]
+      deploy:
+          resources:
+              reservations:
+                  devices:
+                      - driver: nvidia
+                        count: all
+                        capabilities: [ gpu ]
 
     lobe-chat:
       image: lobehub/lobe-chat
