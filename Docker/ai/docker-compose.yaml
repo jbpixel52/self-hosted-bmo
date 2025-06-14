@@ -19,7 +19,7 @@ services:
     stable-diffusion-webui:
       hostname: stable-diffusion-webui
       image: emsi/stable-diffusion-webui
-      PUID: 99
+      UID: 99
       PGUID: 100
       networks:
         - ai
