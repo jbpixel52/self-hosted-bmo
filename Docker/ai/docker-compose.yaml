@@ -17,7 +17,6 @@ services:
                           count: all
                           capabilities: [ gpu ]
     stable-diffusion-webui:
-      runtime: nvidia
       hostname: stable-diffusion-webui
       image: emsi/stable-diffusion-webui
       networks:
