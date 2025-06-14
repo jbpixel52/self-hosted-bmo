@@ -21,7 +21,7 @@ services:
         hostname: invokeai
         tty: true
         stdin_open: true
-        image: ghcr.io/invoke-ai/invokeai:latest
+        image: ghcr.io/invoke-ai/invokeai:main-cuda
         volumes:
           - /mnt/user/appdata/invokeai/data:/invokeai-data
           - /mnt/user/appdata/invokeai:/invokeai
