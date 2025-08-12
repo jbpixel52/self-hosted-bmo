@@ -15,7 +15,7 @@ services:
       - /dev/ttyUSB0:/dev/ttyUSB0
   frigate:
     container_name: frigate
-    image: ghcr.io/blakeblackshear/frigate:0.15.1
+    image: ghcr.io/blakeblackshear/frigate:0.16.0-rc4
     shm_size: "160mb" # update for your cameras based on calculation above
     privileged: true
     cap_add:
