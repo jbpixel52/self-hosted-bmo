@@ -25,7 +25,7 @@ services:
       MAX_PLAYERS: 8
       MAX_WORLD_SIZE: 300000
       SEED: 1
-      USE_AIKAR_FLAGS: "TRUE"
+      USE_AIKAR_FLAGS: "FALSE"
       ALLOW_NETHER: "TRUE"
       TZ: "America/Los_Angeles"
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
