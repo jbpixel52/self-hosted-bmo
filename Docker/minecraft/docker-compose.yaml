@@ -42,11 +42,16 @@ services:
       CONSOLE: "FALSE"
       GUI: "FALSE"
       SIMULATION_DISTANCE: 10
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 3s
+        max_attempts: 3
       resources:
         limits:
           memory: 12G
         reservations:
-          memory: 8G
+          memory: 10G
 
     healthcheck:
       test: ["CMD", "/bin/check-health"]
