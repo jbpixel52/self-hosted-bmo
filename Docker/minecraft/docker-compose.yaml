@@ -49,9 +49,9 @@ services:
         max_attempts: 3
       resources:
         limits:
-          memory: 10G
+          memory: 12G
         reservations:
-          memory: 5G
+          memory: 8G
 
     healthcheck:
       test: ["CMD", "/bin/check-health"]
