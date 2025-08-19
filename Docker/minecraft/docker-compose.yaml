@@ -46,7 +46,7 @@ services:
       restart_policy:
         condition: on-failure
         delay: 3s
-        max_attempts: 3
+        max_attempts: 5
       resources:
         limits:
           memory: 12G
