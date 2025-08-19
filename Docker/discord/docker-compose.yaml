@@ -9,6 +9,3 @@ services:
       - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
       - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
       - DISCORD_TOKEN=${DISCORD_TOKEN}
-      - DISCORD_USER_ID=${DISCORD_USER_ID}      # Discord user ID of the user you want Aoede to follow
-      - SPOTIFY_BOT_AUTOPLAY=true  # Autoplay similar songs when your music ends (true/false)
-      - SPOTIFY_DEVICE_NAME="djpeg"
