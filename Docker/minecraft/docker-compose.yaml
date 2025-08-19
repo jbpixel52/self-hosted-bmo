@@ -1,7 +1,7 @@
 services:
   minecraft:
     image: itzg/minecraft-server
-    container_name: createmon
+    container_name: minecraft
     hostname: minecraft
     ports:
       - 25567:25567
