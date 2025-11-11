@@ -1,4 +1,7 @@
+# Docker Compose configuration for Torrent - Torrent services
+
 services:
+  # Transmission - Lightweight torrent client
   transmission:
     image: lscr.io/linuxserver/transmission:latest
     container_name: transmission

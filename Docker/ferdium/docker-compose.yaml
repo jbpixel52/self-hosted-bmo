@@ -1,4 +1,7 @@
+# Docker Compose configuration for Ferdium - Multi-account messaging
+
 services:
+  # Ferdium-Server - Docker service
   ferdium-server:
     image: ferdium-server
     container_name: ferdium-server

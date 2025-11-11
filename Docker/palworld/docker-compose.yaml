@@ -1,4 +1,7 @@
+# Docker Compose configuration for Palworld - Game server
+
 services:
+   # Palworld-Server - Docker service
    palworld-server:
       image: thijsvanloef/palworld-server-docker:latest
       restart: unless-stopped

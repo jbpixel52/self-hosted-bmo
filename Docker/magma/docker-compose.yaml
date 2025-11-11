@@ -1,4 +1,7 @@
+# Docker Compose configuration for Magma - Service
+
 services:
+  # Magma - Docker service
   magma:
     container_name: magma
     image: help14/magma
@@ -10,6 +13,7 @@ services:
     #   - '7001:7001'
     networks:
       - nginxpm_default
+  # Watchtower - Docker service
   watchtower:
     image: containrrr/watchtower
     restart: unless-stopped
@@ -19,6 +23,7 @@ services:
     command: --interval 30
 
 networks:
+  # Nginxpm_Default - Docker service
   nginxpm_default:
     attachable: true
     name: nginxpm_default

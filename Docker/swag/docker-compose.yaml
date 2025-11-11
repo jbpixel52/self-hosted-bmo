@@ -1,4 +1,7 @@
+# Docker Compose configuration for SWAG - Nginx reverse proxy with SSL
+
 services:
+  # SWAG - Nginx reverse proxy with Let's Encrypt
   swag:
     image: lscr.io/linuxserver/swag:latest
     container_name: swag

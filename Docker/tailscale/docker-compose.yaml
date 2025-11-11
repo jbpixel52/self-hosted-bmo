@@ -1,5 +1,8 @@
+# Docker Compose configuration for Tailscale - Mesh VPN
+
 version: "2.4"
 services:
+  # Tailscale - Managed mesh VPN
   tailscale:
       privileged: true
       hostname: tailscale                                          # This will become the tailscale device name

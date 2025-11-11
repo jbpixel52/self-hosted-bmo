@@ -1,5 +1,8 @@
+# Docker Compose configuration for Spotify - Music streaming
+
 ---
 services:
+  # Your_Spotify - Docker service
   your_spotify:
     image: lscr.io/linuxserver/your_spotify:latest
     container_name: your_spotify

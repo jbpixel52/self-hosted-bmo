@@ -1,6 +1,9 @@
+# Docker Compose configuration for MongoDB - NoSQL database
+
 version: '3.9'
 services:
 
+  # Mongo - Docker service
   mongo:
     image: mongo
     container_name : mongodbcat
@@ -15,6 +18,7 @@ services:
 
 
 
+  # Mongo-Express - Docker service
   mongo-express:
     image: mongo-express
     restart: always
@@ -36,6 +40,7 @@ services:
           - "traefik.http.services.mongo.loadbalancer.server.port=8081"
 
 networks:
+  # Traefik_Default - Docker service
   traefik_default:
     external: true
     name: traefik_default

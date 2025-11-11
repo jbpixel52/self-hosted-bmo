@@ -1,5 +1,8 @@
+# Docker Compose configuration for Maybe - Finance planning tool
+
 ---
 services:
+  # App - Docker service
   app:
     container_name: maybe
     image: ghcr.io/maybe-finance/maybe:latest
@@ -21,6 +24,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+  # PostgreSQL - Advanced relational database
   postgres:
     image: postgres:16
     restart: unless-stopped

@@ -1,5 +1,8 @@
+# Docker Compose configuration for Memos - Note-taking service
+
 version: "3.0"
 services:
+  # Memos - Lightweight note-taking service
   memos:
     image: neosmemo/memos:stable
     container_name: memos

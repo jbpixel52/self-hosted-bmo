@@ -1,5 +1,8 @@
+# Docker Compose configuration for OctoPrint - 3D printer web interface
+
 
 services:
+  # Octoprint - Docker service
   octoprint:
     image: octoprint/octoprint
     restart: unless-stopped

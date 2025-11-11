@@ -1,4 +1,7 @@
+# Docker Compose configuration for Homepage - Dashboard and launcher
+
 services:
+  # Homepage - Docker service
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
@@ -9,6 +12,7 @@ services:
     environment:
       PUID: 99
       PGID: 100
+  # Dockerproxy - Docker service
   dockerproxy:
       image: ghcr.io/tecnativa/docker-socket-proxy:latest
       hostname: dockerproxy_host

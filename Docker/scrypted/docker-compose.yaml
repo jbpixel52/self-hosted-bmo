@@ -1,3 +1,5 @@
+# Docker Compose configuration for Scrypted - HomeKit and security integration
+
 version: "3.5"
 services:
     scrypted:

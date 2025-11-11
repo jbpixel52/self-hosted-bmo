@@ -1,4 +1,7 @@
+# Docker Compose configuration for Uptime Kuma - Uptime monitoring
+
 services:
+  # Uptime-Kuma - Docker service
   uptime-kuma:
     image: louislam/uptime-kuma:latest
     container_name: uptime-kuma

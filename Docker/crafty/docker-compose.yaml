@@ -1,6 +1,9 @@
+# Docker Compose configuration for Crafty - Minecraft server manager
+
 version: '3'
 
 services:
+  # Crafty - Docker service
   crafty:
     container_name: crafty_container
     hostname: crafty_container_host

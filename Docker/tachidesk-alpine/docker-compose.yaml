@@ -1,8 +1,11 @@
+# Docker Compose configuration for Tachidesk Alpine - Lightweight manga server
+
 ---
 version: '3.7'
 
 services:
 
+  # Tachidesk-Docker - Docker service
   tachidesk-docker:
     image: ghcr.io/suwayomi/tachidesk
     container_name: tachidesk-docker

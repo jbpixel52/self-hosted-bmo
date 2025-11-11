@@ -1,3 +1,5 @@
+# Docker Compose configuration for Wyze Bridge - Wyze camera integration
+
 version: '2.4'
 services:
     wyze-bridge:

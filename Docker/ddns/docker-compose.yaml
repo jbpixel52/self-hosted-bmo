@@ -1,4 +1,7 @@
+# Docker Compose configuration for DDNS - Dynamic DNS services
+
 services:
+  # Cloudflare-Ddns - Docker service
   cloudflare-ddns:
     container_name: cloudflare-ddns
     image: favonia/cloudflare-ddns:latest

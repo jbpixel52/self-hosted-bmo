@@ -1,4 +1,7 @@
+# Docker Compose configuration for Winter Games - Game collection
+
 services:
+  # Minecraftsummer - Docker service
   minecraftsummer:
     image: itzg/minecraft-server:java17-alpine
     container_name: wintergames

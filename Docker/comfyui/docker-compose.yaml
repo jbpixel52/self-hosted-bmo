@@ -1,8 +1,11 @@
+# Docker Compose configuration for ComfyUI - Stable Diffusion UI
+
 #Reference https://github.com/ai-dock/comfyui/blob/main/docker-compose.yaml
 
 version: "3.8"
 # Compose file build variables set in .env
 services:
+  # Supervisor - Docker service
   supervisor:
     image: ghcr.io/ai-dock/comfyui:latest-cuda
     volumes:

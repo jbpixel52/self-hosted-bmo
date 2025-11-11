@@ -1,5 +1,8 @@
+# Docker Compose configuration for Minecraft Server - Standard server
+
 version: "3.3"
 services:
+  # Minecraftserver - Docker service
   minecraftserver:
     image: itzg/minecraft-server
     container_name: minecraftserver

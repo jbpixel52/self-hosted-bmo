@@ -1,6 +1,9 @@
+# Docker Compose configuration for Stable Diffusion - AI image generation
+
 version: '3.9'
 name: webui-docker
 services:
+  # Download - Docker service
   download:
     build: ./services/download/
     profiles: ["download"]
@@ -15,6 +18,7 @@ services:
     environment:
       - CLI_ARGS=--allow-code --medvram --xformers --enable-insecure-extension-access --api
 
+  # Auto-Cpu - Docker service
   auto-cpu:
     <<: *automatic
     profiles: ["auto-cpu"]
@@ -22,6 +26,7 @@ services:
     environment:
       - CLI_ARGS=--no-half --precision full
 
+  # Invoke - Docker service
   invoke:
     <<: *base_service
     profiles: ["invoke"]
@@ -41,6 +46,7 @@ services:
       - CLI_ARGS=--optimized-turbo
       - USE_STREAMLIT=0
 
+  # Sygil-Sl - Docker service
   sygil-sl:
     <<: *sygil
     profiles: ["sygil-sl"]

@@ -1,10 +1,15 @@
+# Docker Compose configuration for Nextcloud - File sync and share
+
 version: '2'
 
 volumes:
+  # Nextcloud - Self-hosted file sharing and collaboration
   nextcloud:
+  # Db - Docker service
   db:
 
 services:
+  # Db - Docker service
   db:
     image: mariadb:10.5
     restart: always
@@ -19,6 +24,7 @@ services:
     networks:
       - nginxpm_default
 
+  # App - Docker service
   app:
     image: nextcloud
     restart: always
@@ -42,6 +48,7 @@ services:
       flame.type: app
       flame.url: nextcloud.{DOMAIN}
 networks:  
+  # Nginxpm_Default - Docker service
   nginxpm_default:
     external: true
     name: nginxpm_default

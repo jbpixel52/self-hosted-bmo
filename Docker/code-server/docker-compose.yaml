@@ -1,6 +1,9 @@
+# Docker Compose configuration for Code Server - VS Code in browser
+
 ---
 version: "2.1"
 services:
+  # Code Server - VS Code in the browser
   code-server:
     image: lscr.io/linuxserver/code-server:latest
     container_name: code-server
@@ -24,5 +27,6 @@ services:
       - 4000-4050:3000-3050
     restart: unless-stopped
 volumes:
+  # Projects - Docker service
   projects:
     external: true

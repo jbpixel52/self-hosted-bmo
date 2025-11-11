@@ -1,3 +1,5 @@
+# Docker Compose configuration for Budibase - Low-code application builder
+
 version: '3.3'
 services:
     budibase:

@@ -1,4 +1,7 @@
+# Docker Compose configuration for Ersatz - Service
+
 services:
+  # Ersatztv - Docker service
   ersatztv:
     image: jasongdove/ersatztv
     container_name: ersatztv

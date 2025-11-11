@@ -1,6 +1,9 @@
+# Docker Compose configuration for Jackett - Torrent indexer aggregator
+
 ---
 version: "2.1"
 services:
+  # Jackett - Torrent indexer aggregator
   jackett:
     image: lscr.io/linuxserver/jackett:latest
     container_name: jackett

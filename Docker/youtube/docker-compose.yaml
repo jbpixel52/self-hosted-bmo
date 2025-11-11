@@ -1,6 +1,9 @@
+# Docker Compose configuration for YouTube - YouTube services
+
 version: "3.9"
 
 services:
+  # App - Docker service
   app:
     image: ghcr.io/gabe565/castsponsorskip
     environment:
@@ -12,6 +15,7 @@ services:
       # CSS_MUTE_ADS:
     network_mode: host
     restart: always
+  # Piped-Frontend - Docker service
   piped-frontend:
         image: 1337kavin/piped-frontend:latest
         restart: unless-stopped

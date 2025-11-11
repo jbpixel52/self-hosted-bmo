@@ -1,4 +1,7 @@
+# Docker Compose configuration for Appwrite - Backend-as-a-Service platform
+
 services:
+  # Appwrite - Backend-as-a-Service platform
   appwrite:
     container_name: appwrite
     hostname: appwrite_host

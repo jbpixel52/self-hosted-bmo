@@ -1,4 +1,7 @@
+# Docker Compose configuration for GoAccess Service
+
 services:
+  # Goaccess - Docker service
   goaccess:
       image: xavierh/goaccess-for-nginxproxymanager:latest
       container_name: goaccess

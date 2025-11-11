@@ -1,5 +1,8 @@
+# Docker Compose configuration for Actual - Personal finance management
+
 version: "3"
 services:
+  # Actual - Personal finance management application
   actual_server:
     container_name: actual_server
     image: jlongster/actual-server
@@ -13,6 +16,7 @@ services:
 
     restart: unless-stopped
 networks:  
+  # Nginxpm_Default - Docker service
   nginxpm_default:
     external: true
     name: nginxpm_default

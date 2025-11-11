@@ -1,3 +1,5 @@
+# Docker Compose configuration for AirCast - AirPlay to Chromecast bridge
+
 version: '3.3'
 services:
     airconnect:

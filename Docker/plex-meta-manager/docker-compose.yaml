@@ -1,3 +1,5 @@
+# Docker Compose configuration for Plex Meta Manager - Library automation
+
 version: '3.9'
 services:
     plex-meta-manager:

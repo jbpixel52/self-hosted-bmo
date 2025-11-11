@@ -1,6 +1,9 @@
+# Docker Compose configuration for Flame - Hotplate-like dashboard
+
 version: '3.6'
 
 services:
+  # Flame - Docker service
   flame:
     image: pawelmalak/flame
     container_name: flame
@@ -21,6 +24,7 @@ services:
       timeout: 3s
 
 networks:  
+  # Nginxpm_Default - Docker service
   nginxpm_default:
     external: true
     name: nginxpm_default

@@ -1,9 +1,13 @@
+# Docker Compose configuration for Plausible - Privacy-focused analytics
+
 version: "3.3"
 services:
+  # Mail - Docker service
   mail:
     image: bytemark/smtp
     restart: always
 
+  # Plausible_Db - Docker service
   plausible_db:
     image: postgres:12
     restart: always
@@ -13,6 +17,7 @@ services:
       - POSTGRES_PASSWORD=postgres
     networks:
       - nginxpm_default
+  # Plausible_Events_Db - Docker service
   plausible_events_db:
     image: yandex/clickhouse-server:21.3.2.5
     restart: always
@@ -26,6 +31,7 @@ services:
         hard: 262144
     networks:
       - nginxpm_default
+  # Plausible - Privacy-focused analytics
   plausible:
     image: plausible/analytics:latest
     restart: always
@@ -48,14 +54,18 @@ services:
 
 
 volumes:
+  # Db-Data - Docker service
   db-data:
     driver: local
+  # Event-Data - Docker service
   event-data:
     driver: local
+  # Geoip - Docker service
   geoip:
     driver: local
 
 networks:  
+  # Nginxpm_Default - Docker service
   nginxpm_default:
     external: true
     name: nginxpm_default

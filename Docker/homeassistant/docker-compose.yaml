@@ -1,4 +1,7 @@
+# Docker Compose configuration for Home Assistant - Home automation
+
 services:
+  # Home Assistant - Home automation platform
   homeassistant:
     image: lscr.io/linuxserver/homeassistant:latest
     container_name: homeassistant
@@ -13,6 +16,7 @@ services:
     restart: unless-stopped
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
+  # Frigate - Docker service
   frigate:
     container_name: frigate
     image: ghcr.io/blakeblackshear/frigate:0.16.1
@@ -44,6 +48,7 @@ services:
           memory: 12G
         reservations:
           memory: 6G
+  # Mosquitto - Docker service
   mosquitto:
     image: eclipse-mosquitto:2
     container_name: mosquitto

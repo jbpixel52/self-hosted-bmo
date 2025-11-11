@@ -1,4 +1,7 @@
+# Docker Compose configuration for Tdarr - Media transcoding
+
 services:
+  # Tdarr - Docker service
   tdarr:
     container_name: tdarr
     image: ghcr.io/haveagitgat/tdarr:latest

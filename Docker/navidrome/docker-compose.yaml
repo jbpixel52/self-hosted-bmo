@@ -1,5 +1,8 @@
+# Docker Compose configuration for Navidrome - Music server
+
 version: "3"
 services:
+  # Navidrome - Docker service
   navidrome:
     container_name: navidrome
     hostname: navidrome_host

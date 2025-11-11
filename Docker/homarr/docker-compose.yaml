@@ -1,4 +1,7 @@
+# Docker Compose configuration for Homarr - Homepage and dashboard
+
 services:
+  # Homarr - Docker service
   homarr:
     container_name: homarr-dashboard
     hostname: homarr_host

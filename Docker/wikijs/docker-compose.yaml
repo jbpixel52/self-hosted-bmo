@@ -1,6 +1,9 @@
+# Docker Compose configuration for Wiki.js - Wiki engine
+
 version: "3"
 services:
 
+  # Db - Docker service
   db:
     image: postgres:11-alpine
     hostname: db_host
@@ -15,6 +18,7 @@ services:
       - db-data:/var/lib/postgresql/data
     networks:
       - nginxpm_default
+  # Wiki - Knowledge base
   wiki:
     image: ghcr.io/requarks/wiki:2
     hostname: wikijs_host
@@ -34,9 +38,11 @@ services:
     networks:
       - nginxpm_default
 volumes:
+  # Db-Data - Docker service
   db-data:
 
 networks:  
+  # Nginxpm_Default - Docker service
   nginxpm_default:
     external: true
     name: nginxpm_default

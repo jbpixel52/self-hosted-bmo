@@ -1,5 +1,8 @@
+# Docker Compose configuration for Coder - Workspace-as-Code platform
+
 version: "3.9"
 services:
+  # Coder - Workspace-as-Code platform
   coder:
     container_name: coder
     hostname: coder_host
@@ -29,6 +32,7 @@ services:
     depends_on:
       database:
         condition: service_healthy
+  # Database - Docker service
   database:
     image: "postgres:14.2"
     ports:
@@ -49,4 +53,5 @@ services:
       timeout: 5s
       retries: 5
 volumes:
+  # Coder_Data - Docker service
   coder_data:

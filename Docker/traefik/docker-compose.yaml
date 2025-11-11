@@ -1,7 +1,10 @@
+# Docker Compose configuration for Traefik - Reverse proxy and load balancer
+
 version: "3.3"
 
 services:
 
+  # Traefik - Reverse proxy and load balancer
   traefik:
     image: "traefik:v2.8"
     container_name: "traefik"
@@ -26,6 +29,7 @@ services:
     extra_hosts:
       - host.docker.internal:172.17.0.1
 
+  # Whoami - Test service for Traefik routing
   whoami:
     image: "traefik/whoami"
     container_name: "simple-service"

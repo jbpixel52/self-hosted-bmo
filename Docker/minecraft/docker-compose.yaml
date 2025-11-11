@@ -1,4 +1,7 @@
+# Docker Compose configuration for Minecraft - Game server
+
 services:
+  # Minecraft - Docker service
   minecraft:
     image: itzg/minecraft-server
     container_name: minecraft

@@ -1,4 +1,7 @@
+# Docker Compose configuration for ddclient - Dynamic DNS update client
+
 services:
+  # Cloudflare-Ddns - Docker service
   cloudflare-ddns:
     image: favonia/cloudflare-ddns:latest
     network_mode: host

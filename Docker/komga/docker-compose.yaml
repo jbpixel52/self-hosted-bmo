@@ -1,6 +1,9 @@
+# Docker Compose configuration for Komga - Manga server
+
 ---
 version: '3.3'
 services:
+  # Komga - Manga server
   komga:
     image: gotson/komga
     container_name: komga
@@ -20,6 +23,7 @@ services:
         limits:
           cpus: "1"
           memory: "6gb"
+  # Mylar3 - Docker service
   mylar3:
     image: lscr.io/linuxserver/mylar3:latest
     container_name: mylar3

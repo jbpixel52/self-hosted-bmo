@@ -1,7 +1,10 @@
+# Docker Compose configuration for Pi-hole - DNS ad blocker
+
 version: "3"
 
 # More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
 services:
+  # Pi-hole - Network-wide DNS ad blocker
   pihole:
     container_name: pihole
     hostname: pihole

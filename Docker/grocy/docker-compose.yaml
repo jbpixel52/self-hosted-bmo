@@ -1,6 +1,9 @@
+# Docker Compose configuration for Grocy - Grocery management
+
 ---
 version: "3.3"
 services:
+  # Grocy - Docker service
   grocy:
     image: lscr.io/linuxserver/grocy
     container_name: grocy
@@ -16,6 +19,7 @@ services:
       - nginxpm_default
 
 networks:
+  # Nginxpm_Default - Docker service
   nginxpm_default:
     attachable: true
     name: nginxpm_default

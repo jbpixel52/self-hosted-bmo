@@ -1,5 +1,8 @@
+# Docker Compose configuration for Immich - Photo and video backup
+
 version: "3.8"
 services:
+  # Immich-Server - Docker service
   immich-server:
     container_name: immich_server
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
@@ -33,6 +36,7 @@ services:
     #           capabilities: [gpu, video, compute]
     restart: always
 
+  # Immich-Machine-Learning - Docker service
   immich-machine-learning:
     container_name: immich_machine_learning
     image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
@@ -59,10 +63,12 @@ services:
     #             - gpu
     #             - compute
     #             - video
+  # Redis - In-memory data structure store
   redis:
     container_name: immich_redis
     image: redis:6.2-alpine@sha256:51d6c56749a4243096327e3fb964a48ed92254357108449cb6e23999c37773c5
     restart: always
+  # Database - Docker service
   database:
     container_name: immich_postgres
     image: tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
@@ -74,5 +80,7 @@ services:
       - pgdata:/var/lib/postgresql/data
     restart: always
 volumes:
+  # Pgdata - Docker service
   pgdata:
+  # Model-Cache - Docker service
   model-cache:

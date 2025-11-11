@@ -1,3 +1,5 @@
+# Docker Compose configuration for RSS - Feed services
+
 services:
     rss:
         image: ghcr.io/ssddanbrown/rss:latest

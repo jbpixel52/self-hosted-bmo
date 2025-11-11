@@ -1,4 +1,7 @@
+# Docker Compose configuration for Printer - Printer integration
+
 services:
+  # Orcaslicer - Docker service
   orcaslicer:
     image: lscr.io/linuxserver/orcaslicer:latest
     container_name: orcaslicer

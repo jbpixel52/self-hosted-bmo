@@ -1,5 +1,8 @@
+# Docker Compose configuration for JDownloader 2 - Download manager
+
 version: '3.3'
 services:
+  # Jdownloader-2 - Docker service
   jdownloader-2:
     container_name: jdownloader-2
     ports:

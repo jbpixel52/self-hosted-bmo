@@ -1,4 +1,7 @@
+# Docker Compose configuration for Jellyfin - Media server
+
 services:
+  # Jellyfin - Media server for movies, TV shows and music
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
@@ -22,6 +25,7 @@ services:
         - /dev/dri/card0:/dev/dri/card0
         - /dev/dri/renderD128:/dev/dri/renderD128
 
+  # Jellyseerr - Content request management for Jellyfin
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
     container_name: jellyseerr
@@ -34,6 +38,7 @@ services:
     volumes:
       - /mnt/user/appdata/config:/app/config
     restart: unless-stopped
+  # Jfa-Go - Docker service
   jfa-go:
     container_name: jfa-go
     hostname: jfa-go_host

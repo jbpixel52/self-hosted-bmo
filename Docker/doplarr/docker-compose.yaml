@@ -1,5 +1,8 @@
+# Docker Compose configuration for Doplarr - Discord media management bot
+
 version: "2.1"
 services:
+  # Doplarr - Docker service
   doplarr:
     image: lscr.io/linuxserver/doplarr:latest
     container_name: doplarr

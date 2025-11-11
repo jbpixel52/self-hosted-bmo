@@ -1,4 +1,7 @@
+# Docker Compose configuration for Prowlarr - Indexer manager
+
 services:
+  # Prowlarr - Indexer manager for arr-stack
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:develop
     container_name: prowlarr
@@ -12,6 +15,7 @@ services:
     ports:
       - 9696:9696
     restart: unless-stopped
+  # Flaresolverr - Docker service
   flaresolverr:
     image: 'ghcr.io/flaresolverr/flaresolverr:latest'
     container_name: flaresolverr

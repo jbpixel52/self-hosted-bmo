@@ -1,5 +1,8 @@
+# Docker Compose configuration for Minecraft Forge - Modded server
+
 version: "3.3"
 services:
+  # Minecraftforge - Docker service
   minecraftforge:
     image: itzg/minecraft-server
     container_name: minecraft

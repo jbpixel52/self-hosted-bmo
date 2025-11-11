@@ -1,5 +1,8 @@
+# Docker Compose configuration for Text Generation WebUI - LLM interface
+
 version: "3.3"
 services:
+  # Text Generation WebUI - LLM interface
   text-generation-webui:
     container_name: text-generation-webui
     hostname: text-generation-webui_host

@@ -1,4 +1,7 @@
+# Docker Compose configuration for Perpetual Summer - Service
+
 services:
+  # Minecraftsummer - Docker service
   minecraftsummer:
     image: itzg/minecraft-server
     container_name: minecraftsummer

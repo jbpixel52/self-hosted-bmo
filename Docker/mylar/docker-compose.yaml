@@ -1,4 +1,7 @@
+# Docker Compose configuration for Mylar - Comic book manager
+
 services:
+  # Mylar3 - Docker service
   mylar3:
     image: lscr.io/linuxserver/mylar3:latest
     container_name: mylar3

@@ -1,4 +1,7 @@
+# Docker Compose configuration for Suwayomi - Manga reader
+
 services:
+  # Tachidesk - Docker service
   tachidesk:
     image: ghcr.io/suwayomi/suwayomi-server:stable
     container_name: tachidesk

@@ -1,5 +1,8 @@
+# Docker Compose configuration for mStream - Music streaming
+
 
 services:
+  # Mstream - Docker service
   mstream:
     image: lscr.io/linuxserver/mstream:latest
     container_name: mstream

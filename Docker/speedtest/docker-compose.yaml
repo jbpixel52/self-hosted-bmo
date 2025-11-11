@@ -1,5 +1,8 @@
+# Docker Compose configuration for Speedtest - Internet speed testing
+
 version: '3.3'
 services:
+  # Speedtest - Internet speed testing service
   speedtest:
         environment:
             - MODE=standalone

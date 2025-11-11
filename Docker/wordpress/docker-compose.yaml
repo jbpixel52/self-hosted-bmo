@@ -1,4 +1,7 @@
+# Docker Compose configuration for WordPress - CMS platform
+
 services:
+  # Db - Docker service
   db:
     # If you really want to use MySQL, uncomment the following line
     image: mysql:8.0.27
@@ -16,6 +19,7 @@ services:
     ports:
      - 3306:3306
      - 33060:33060
+  # WordPress - CMS and blogging platform
   wordpress:
     image: wordpress:latest
     links:
@@ -31,6 +35,8 @@ services:
     networks:
       - default
 volumes:
+  # Db_Data - Docker service
   db_data:
 networks:
+  # Default - Docker service
   default:

@@ -1,4 +1,8 @@
+# Docker Compose configuration for AI services
+# Includes Ollama (LLM service) and Lobe Chat (UI frontend)
+
 services:
+    # Ollama - Local LLM inference server with GPU acceleration
     ollama:
         image: ollama/ollama
         container_name: ollama
@@ -6,26 +10,33 @@ services:
         networks:
           - ai
         ports:
+            # Ollama API port
             - '11434:11434'
         volumes:
+            # Persistent storage for Ollama models
             - '/mnt/user/appdata/ollama:/root/.ollama'
         deploy:
             resources:
                 reservations:
+                    # GPU resource allocation - uses all available NVIDIA GPUs
                     devices:
                         - driver: nvidia
                           count: all
                           capabilities: [ gpu ]
+    # Lobe Chat - Web UI for interacting with Ollama
     lobe-chat:
       image: lobehub/lobe-chat
       container_name: lobe-chat
       restart: always
+      # Link to Ollama service for LLM backend
       links:
         - "ollama:ollama"
       networks:
       - ai
       ports:
+        # Web interface port
         - '3210:3210'
+# Network configuration for AI services
 networks:
   ai:
     name: ai

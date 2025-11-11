@@ -1,6 +1,9 @@
+# Docker Compose configuration for File Browser - Web file manager
+
 ---
 version: "3.3"
 services:
+  # File Browser - Web-based file manager
   filebrowser:
     image: 'filebrowser/filebrowser:latest'
     container_name: filebrowser

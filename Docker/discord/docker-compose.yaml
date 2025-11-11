@@ -1,4 +1,7 @@
+# Docker Compose configuration for Discord - Chat and communication
+
 services:
+  # Muse - Docker service
   muse:
     image: ghcr.io/museofficial/muse:latest
     restart: always

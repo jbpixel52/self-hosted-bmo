@@ -1,4 +1,7 @@
+# Docker Compose configuration for Arr Stack - Radarr, Sonarr, Bazarr (media management)
+
 services:
+  # Radarr - Movie collection manager and downloader
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
@@ -18,6 +21,7 @@ services:
     ports:
       - 7878:7878
     networks: [arr]
+  # Sonarr - TV series collection manager and downloader
   sonarr:
     container_name: sonarr
     hostname: sonarr
@@ -36,6 +40,7 @@ services:
       - 8990:8989
     networks: [arr]
 
+  # Bazarr - Subtitle manager for Radarr and Sonarr
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
@@ -53,6 +58,7 @@ services:
     networks: [arr]
     restart: unless-stopped
 
+  # Prowlarr - Indexer manager for arr-stack
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
@@ -67,6 +73,7 @@ services:
       - 9696:9696
     networks: [arr]
     restart: unless-stopped
+  # Flaresolverr - Docker service
   flaresolverr:
     image: "ghcr.io/flaresolverr/flaresolverr:latest"
     container_name: flaresolverr
@@ -79,6 +86,7 @@ services:
     ports:
       - "8191:8191"
     networks: [arr]
+  # Lidarr - Docker service
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
     container_name: lidarr
@@ -95,6 +103,7 @@ services:
       - 8686:8686
     restart: unless-stopped
 
+  # Recyclarr - Docker service
   recyclarr:
     image: ghcr.io/recyclarr/recyclarr:latest
     container_name: recyclarr
@@ -140,6 +149,7 @@ services:
   #     - /mnt/user/media_cache/downloads:/downloads/
   #     - /mnt/user/media_cache/downloads:/config/download/
   #     - /mnt/user/media/:/media
+  # qBittorrent - Torrent client
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -166,6 +176,7 @@ services:
 
 
 networks:
+  # Arr - Docker service
   arr:
     name: arr
 

@@ -1,4 +1,7 @@
+# Docker Compose configuration for Overseerr - Content request management
+
 services:
+  # Overseerr - Docker service
   overseerr:
     image: sctx/overseerr:latest
     container_name: overseerr

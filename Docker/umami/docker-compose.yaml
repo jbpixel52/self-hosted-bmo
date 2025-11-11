@@ -1,5 +1,8 @@
+# Docker Compose configuration for Umami - Privacy-focused analytics
+
 version: '3'
 services:
+  # Umami - Privacy-focused analytics
   umami:
     image: ghcr.io/mikecao/umami:postgresql-latest
 
@@ -13,6 +16,7 @@ services:
     depends_on:
       - db
     restart: always
+  # Db - Docker service
   db:
     image: postgres:12-alpine
     hostname: umami_db
@@ -30,4 +34,5 @@ services:
       interval: 10s
       timeout: 3s
 volumes:
+  # Umami-Db-Data - Docker service
   umami-db-data:

@@ -1,3 +1,5 @@
+# Docker Compose configuration for Plex Media Server - Media streaming
+
 services:
     plex:
         image: binhex/arch-plexpass:latest

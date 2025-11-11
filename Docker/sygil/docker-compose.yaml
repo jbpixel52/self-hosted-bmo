@@ -1,6 +1,9 @@
+# Docker Compose configuration for Sygil - AI image generation UI
+
 version: '3'
 
 services:
+  # Stablediffusion - Docker service
   stablediffusion:
     container_name: stablediffusion
     image: sharrnah/stable-diffusion-guitard

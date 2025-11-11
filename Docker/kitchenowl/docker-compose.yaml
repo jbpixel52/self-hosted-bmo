@@ -1,5 +1,8 @@
+# Docker Compose configuration for KitchenOwl - Recipe manager
+
 version: "3"
 services:
+  # Front - Docker service
   front:
     image: tombursch/kitchenowl-web:latest
     restart: unless-stopped
@@ -7,6 +10,7 @@ services:
       - "8765:80"
     depends_on:
       - back
+  # Back - Docker service
   back:
     image: tombursch/kitchenowl:latest
     restart: unless-stopped

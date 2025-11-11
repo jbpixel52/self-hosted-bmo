@@ -1,5 +1,8 @@
+# Docker Compose configuration for Minecraft MexiCrew - Game server
+
 version: "3.3"
 services:
+  # Mc - Docker service
   mc:
     image: itzg/minecraft-server:java19
     container_name: betterforever2

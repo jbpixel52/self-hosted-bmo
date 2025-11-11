@@ -1,6 +1,9 @@
+# Docker Compose configuration for Cryptgeon - Encrypted message passing
+
 # docker-compose.yml
 version: '3.7'
 services:
+  # Memcached - Docker service
   memcached:
     image: memcached:1-alpine
     entrypoint: memcached -m 1024M -I 256M # Limit to 128 MB Ram, 4M per entry, customize at free will.
@@ -9,6 +12,7 @@ services:
     restart: unless-stopped
     networks:
       - nginxpm_default
+  # App - Docker service
   app:
     image: cupcakearmy/cryptgeon:latest
     hostname: cryptgeon_host
@@ -33,6 +37,7 @@ services:
       interval: 10s
       timeout: 3s
 networks:
+  # Nginxpm_Default - Docker service
   nginxpm_default:
     attachable: true
     name: nginxpm_default

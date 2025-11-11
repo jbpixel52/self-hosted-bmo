@@ -1,8 +1,11 @@
+# Docker Compose configuration for Tachidesk - Manga server
+
 ---
 version: '3.7'
 
 services:
 
+  # Tachidesk-Docker - Docker service
   tachidesk-docker:
     image: ghcr.io/suwayomi/tachidesk:stable-alpine
     container_name: tachidesk-jbpixel-docker

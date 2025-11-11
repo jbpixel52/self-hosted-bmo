@@ -1,4 +1,7 @@
+# Docker Compose configuration for Glance - Personal dashboard
+
 services:
+  # Glance - Docker service
   glance:
     container_name: glance
     user: 99:100

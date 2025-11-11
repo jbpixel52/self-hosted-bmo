@@ -1,4 +1,7 @@
+# Docker Compose configuration for NPM Service
+
 services:
+  # Nginx-Proxy-Manage - Docker service
   nginx-proxy-manage:
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: npm
@@ -11,6 +14,7 @@ services:
     volumes:
       - /mnt/user/appdata/nginxpm:/data
       - /mnt/user/appdata/nginxpm/letsencrypt:/etc/letsencrypt
+  # Goaccess - Docker service
   goaccess:
       image: 'xavierh/goaccess-for-nginxproxymanager:latest'
       container_name: goaccess

@@ -1,6 +1,9 @@
+# Docker Compose configuration for LlamaGPT - GPT interface
+
 version: '3.6'
 
 services:
+  # Llama-Gpt-Api-Cuda-Gguf - Docker service
   llama-gpt-api-cuda-gguf:
     build:
       context: ./cuda
@@ -28,6 +31,7 @@ services:
               count: 1
               capabilities: [gpu]
 
+  # Llama-Gpt-Ui - Docker service
   llama-gpt-ui:
     # TODO: Use this image instead of building from source after the next release
     # image: 'ghcr.io/getumbrel/llama-gpt-ui:latest'

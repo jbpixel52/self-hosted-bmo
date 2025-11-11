@@ -1,4 +1,7 @@
+# Docker Compose configuration for WireGuard - VPN tunnel
+
 services:
+  # Wg-Easy - Docker service
   wg-easy:
     environment:
       # ⚠️ Required:

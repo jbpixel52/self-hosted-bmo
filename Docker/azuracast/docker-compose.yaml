@@ -1,4 +1,7 @@
+# Docker Compose configuration for AzuraCast - Self-hosted radio automation
+
 services:
+  # Web - Docker service
   web:
     container_name: azuracast
     image: "ghcr.io/azuracast/azuracast"

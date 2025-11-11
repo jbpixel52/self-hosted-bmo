@@ -1,4 +1,7 @@
+# Docker Compose configuration for Radarr - Movie manager
+
 services:
+  # Radarr - Movie collection manager and downloader
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr

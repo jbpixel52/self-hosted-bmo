@@ -1,5 +1,8 @@
+# Docker Compose configuration for Paperless - Document management
+
 version: "3.4"
 services:
+  # Broker - Docker service
   broker:
     image: docker.io/library/redis:7
     # hostname: broker_host
@@ -7,6 +10,7 @@ services:
     volumes:
       - /mnt/user/appdata/paperless/data:/data
 
+  # Webserver - Docker service
   webserver:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
     # hostname: webserver_host

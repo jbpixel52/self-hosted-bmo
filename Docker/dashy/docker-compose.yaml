@@ -1,8 +1,11 @@
+# Docker Compose configuration for Dashy - Dashboard and homepage
+
 ---
 # Welcome to Dashy! To get started, run `docker compose up -d`
 # You can configure your container here, by modifying this file
 version: "3.8"
 services:
+  # Dashy - Docker service
   dashy:
     container_name: Dashy
     hostname: dashy_host
@@ -48,6 +51,7 @@ services:
       start_period: 40s
 
 networks:
+  # Nginxpm_Default - Docker service
   nginxpm_default:
     attachable: true
     name: nginxpm_default
