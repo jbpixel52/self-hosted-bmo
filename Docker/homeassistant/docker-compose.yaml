@@ -19,7 +19,7 @@ services:
   # Frigate - Docker service
   frigate:
     container_name: frigate
-    image: ghcr.io/blakeblackshear/frigate:0.16.1
+    image: ghcr.io/blakeblackshear/frigate:0.17.0-beta1
     shm_size: "160mb" # update for your cameras based on calculation above
     privileged: true
     cap_add:
