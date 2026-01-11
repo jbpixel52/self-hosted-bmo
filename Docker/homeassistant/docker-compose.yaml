@@ -20,7 +20,7 @@ services:
   frigate:
     container_name: frigate
     image: ghcr.io/blakeblackshear/frigate:0.17.0-beta1
-    shm_size: "160mb" # update for your cameras based on calculation above
+    shm_size: 1gb # update for your cameras based on calculation above
     privileged: true
     cap_add:
       - CAP_PERFMON
