@@ -15,7 +15,6 @@ services:
       - /mnt/user/media:/media
     restart: unless-stopped
     devices:
-      - /dev/ttyUSB0:/dev/ttyUSB0
       - /dev/serial/by-id/usb-Nabu_Casa_ZBT-2_1CDBD45F1FA4-if00:/dev/ttyACM0
   # Frigate - Docker service
   frigate:
