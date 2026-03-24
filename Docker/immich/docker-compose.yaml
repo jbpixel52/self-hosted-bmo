@@ -5,7 +5,7 @@ services:
   # Immich-Server - Docker service
   immich-server:
     container_name: immich_server
-    image: ghcr.io/immich-app/immich-server:2.5.6
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
     # command: ["start.sh", "immich"] REmoved as of v1.106.0
     volumes:
       - /mnt/user/media/PHOTOS/upload:/usr/src/app/upload
@@ -41,7 +41,7 @@ services:
   # Immich-Machine-Learning - Docker service
   immich-machine-learning:
     container_name: immich_machine_learning
-    image: ghcr.io/immich-app/immich-machine-learning:2.5.6
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
     volumes:
       - model-cache:/cache
     restart: always
