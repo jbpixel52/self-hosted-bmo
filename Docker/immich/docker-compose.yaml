@@ -5,7 +5,7 @@ services:
   # Immich-Server - Docker service
   immich-server:
     container_name: immich_server
-    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    image: ghcr.io/immich-app/immich-server:2.5.6
     # command: ["start.sh", "immich"] REmoved as of v1.106.0
     volumes:
       - /mnt/user/media/PHOTOS/upload:/usr/src/app/upload
