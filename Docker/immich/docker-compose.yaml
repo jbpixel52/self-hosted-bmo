@@ -41,7 +41,7 @@ services:
   # Immich-Machine-Learning - Docker service
   immich-machine-learning:
     container_name: immich_machine_learning
-    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    image: ghcr.io/immich-app/immich-machine-learning:2.5.6
     volumes:
       - model-cache:/cache
     restart: always
