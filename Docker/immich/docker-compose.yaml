@@ -1,92 +1,60 @@
-# Docker Compose configuration for Immich - Photo and video backup
-
-version: "3.8"
 services:
-  # Immich-Server - Docker service
-  immich-server:
-    container_name: immich_server
-    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
-    # command: ["start.sh", "immich"] REmoved as of v1.106.0
-    volumes:
-      - /mnt/user/media/PHOTOS/upload:/usr/src/app/upload
-      - /etc/localtime:/etc/localtime:ro
+  immich:
+    image: ghcr.io/imagegenius/immich:latest
+    container_name: immich
     environment:
-      - UPLOAD_LOCATION=/usr/src/app/upload
-      - IMMICH_VERSION=release
-      - DB_PASSWORD=postgres
-      - DB_HOSTNAME=immich_postgres
+      - PUID=99
+      - PGID=100
+      - TZ=America/Los_Angeles
+      - DB_HOSTNAME=192.168.1.x
       - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
       - DB_DATABASE_NAME=immich
-      - REDIS_HOSTNAME=immich_redis
-      - TYPESENSE_ENABLED=false
-      - TYPESENSE_API_KEY=random_text
-    ports:
-      - 2283:2283
-    depends_on:
-      - redis
-      - database
-    devices:
-      - /dev/dri/card0:/dev/dri/card0
-      - /dev/dri/renderD128:/dev/dri/renderD128
-    # deploy: # Uncomment this section if using NVIDIA GPU
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           capabilities: [gpu, video, compute]
-    restart: always
-    healthcheck:
-      disable: false
-
-  # Immich-Machine-Learning - Docker service
-  immich-machine-learning:
-    container_name: immich_machine_learning
-    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+      - REDIS_HOSTNAME=localhost
+      - DB_PORT=5432 #optional
+      - DOCKER_MODS=imagegenius/mods:universal-redis
+      - REDIS_PORT=6379 #optional
+      - REDIS_PASSWORD= #optional
+      - SERVER_HOST=0.0.0.0 #optional
+      - SERVER_PORT=8080 #optional
+      - MACHINE_LEARNING_HOST=0.0.0.0 #optional
+      - MACHINE_LEARNING_PORT=3003 #optional
+      - MACHINE_LEARNING_WORKERS=1 #optional
+      - MACHINE_LEARNING_WORKER_TIMEOUT=120 #optional
     volumes:
+      - /mnt/user/appdata/immich:/config
+      - /mnt/user/media/PHOTOS:/photos
+      - /mnt/user/media/PHOTOS/upload/library:/libraries #optional
       - model-cache:/cache
-    restart: always
-    environment:
-      - UPLOAD_LOCATION=/mnt/user/appdata/immich/upload
-      - IMMICH_VERSION=release
-      - DB_PASSWORD=postgres
-      - DB_HOSTNAME=immich_postgres
-      - DB_USERNAME=postgres
-      - DB_DATABASE_NAME=immich
-      - REDIS_HOSTNAME=immich_redis
     devices:
       - /dev/dri/card0:/dev/dri/card0
       - /dev/dri/renderD128:/dev/dri/renderD128
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           capabilities:
-    #             - gpu
-    #             - compute
-    #             - video
-  # Redis - In-memory data structure store
-  redis:
-    container_name: immich_redis
-    image: docker.io/valkey/valkey:9
-    healthcheck:
-      test: redis-cli ping || exit 1
-    restart: always
+    ports:
+      - 2283:8080
+    restart: unless-stopped
 
-  # Database - Docker service
-  database:
-    container_name: immich_postgres
-    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
+# This container requires an external application to be run separately.
+# By default, ports for the databases are opened, be careful when deploying it
+# Valkey:
+  valkey:
+    image: valkey/valkey:8-bookworm
+    ports:
+      - 6379:6379
+    container_name: valkey
+# PostgreSQL 14:
+  postgres14:
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0
+    ports:
+      - 5432:5432
+    container_name: postgres14
     environment:
-      POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: immich
-      POSTGRES_INITDB_ARGS: '--data-checksums'
+      # Uncomment the DB_STORAGE_TYPE: 'HDD' var if your database isn't stored on SSDs
+      # DB_STORAGE_TYPE: 'HDD'
     volumes:
       - pgdata:/var/lib/postgresql/data
-    restart: always
-    healthcheck:
-      disable: false
 volumes:
   # Pgdata - Docker service
   pgdata:
