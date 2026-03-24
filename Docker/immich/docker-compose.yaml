@@ -6,7 +6,7 @@ services:
       - PUID=99
       - PGID=100
       - TZ=America/Los_Angeles
-      - DB_HOSTNAME=192.168.1.x
+      - DB_HOSTNAME=192.168.1.121
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
       - DB_DATABASE_NAME=immich
