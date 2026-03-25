@@ -21,6 +21,7 @@ services:
       - MACHINE_LEARNING_PORT=3003 #optional
       - MACHINE_LEARNING_WORKERS=1 #optional
       - MACHINE_LEARNING_WORKER_TIMEOUT=120 #optional
+      - IMMICH_IGNORE_MOUNT_CHECK_ERRORS=true
     volumes:
       - /mnt/user/appdata/immich:/config
       - /mnt/user/media/PHOTOS:/photos
