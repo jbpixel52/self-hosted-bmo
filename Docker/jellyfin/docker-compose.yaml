@@ -25,19 +25,29 @@ services:
         - /dev/dri/card0:/dev/dri/card0
         - /dev/dri/renderD128:/dev/dri/renderD128
 
-  # Jellyseerr - Content request management for Jellyfin
-  jellyseerr:
-    image: fallenbagel/jellyseerr:latest
-    container_name: jellyseerr
-    hostname: jellyseerr_host
+
+  #seerr - Content request management for Jellyfin
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    init: true
+    container_name: seerr
+    hostname: seerr_host
     environment:
       - LOG_LEVEL=debug
       - TZ=America/Los_Angeles
     ports:
       - 5055:5055
     volumes:
-      - /mnt/user/appdata/config:/app/config
+      - /mnt/user/appdata/config/seerr:/app/config
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+      retries: 3
     restart: unless-stopped
+
+
   # Jfa-Go - Docker service
   jfa-go:
     container_name: jfa-go
