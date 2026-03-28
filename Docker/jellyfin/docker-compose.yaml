@@ -32,6 +32,7 @@ services:
     init: true
     container_name: seerr
     hostname: seerr_host
+    user: "99:100"
     environment:
       - LOG_LEVEL=debug
       - TZ=America/Los_Angeles
