@@ -27,26 +27,18 @@ services:
 
 
   #seerr - Content request management for Jellyfin
-  seerr:
-    image: ghcr.io/seerr-team/seerr:latest
-    init: true
-    container_name: seerr
-    hostname: seerr_host
-    user: "99:100"
-    environment:
-      - LOG_LEVEL=debug
-      - TZ=America/Los_Angeles
-    ports:
-      - 5055:5055
-    volumes:
-      - /mnt/user/appdata/config/seerr:/app/config
-    healthcheck:
-      test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
-      start_period: 20s
-      timeout: 3s
-      interval: 15s
-      retries: 3
-    restart: unless-stopped
+  arch-seerr:
+        ports:
+            - 5055:5055
+        container_name: seerr
+        volumes:
+            - /mnt/user/appdata/config/seerr:/config
+            - /etc/localtime:/etc/localtime:ro
+        environment:
+            - UMASK=000
+            - PUID=0
+            - PGID=0
+        image: binhex/arch-seerr
 
 
   # Jfa-Go - Docker service
