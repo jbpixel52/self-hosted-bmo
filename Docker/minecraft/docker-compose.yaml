@@ -29,6 +29,8 @@ services:
       MAX_WORLD_SIZE: 300000
       SEED: 664
       USE_AIKAR_FLAGS: "FALSE"
+      LEVEL: "New World"
+      LEVEL_TYPE: "BetterX"
       ALLOW_NETHER: "TRUE"
       TZ: "America/Los_Angeles"
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
