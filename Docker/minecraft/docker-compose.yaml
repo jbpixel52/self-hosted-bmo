@@ -28,7 +28,6 @@ services:
       MAX_PLAYERS: 6
       MAX_WORLD_SIZE: 300000
       SEED: 664
-      USE_AIKAR_FLAGS: "FALSE"
       LEVEL: "New World"
       ALLOW_NETHER: "TRUE"
       TZ: "America/Los_Angeles"
@@ -39,10 +38,10 @@ services:
       OPS: user
       SPAWN_PROTECTION: 1
       MODE: survival
-      MEMORY: 12G
+      MEMORY: 6G
       INIT_MEMORY: 12G
       MAX_MEMORY: 12G
-      JVM_XX_OPTS: -XX:+UseZGC -XX:+ZGenerational -XX:SoftMaxHeapSize=10g -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+UseDynamicNumberOfGCThreads
+      JVM_XX_OPTS: -XX:+UseZGC -XX:+UseCompactObjectHeaders
       MOTD: "§c§PRENDAN EL SERVER"
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
@@ -55,6 +54,6 @@ services:
         max_attempts: 1
       resources:
         limits:
-          memory: 16G
+          memory: 10G
         reservations:
-          memory: 14G
+          memory: 8G
