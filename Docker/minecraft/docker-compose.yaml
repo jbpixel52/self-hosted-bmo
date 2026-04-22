@@ -41,7 +41,7 @@ services:
       MEMORY: 6G
       INIT_MEMORY: 12G
       MAX_MEMORY: 12G
-      JVM_XX_OPTS: -XX:+UseZGC -XX:+UseCompactObjectHeaders
+      #JVM_XX_OPTS: -XX:+UseZGC
       MOTD: "§c§PRENDAN EL SERVER"
       SERVER_PORT: 25567
       CONSOLE: "FALSE"
