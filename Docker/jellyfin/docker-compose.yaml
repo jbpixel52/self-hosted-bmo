@@ -38,8 +38,6 @@ services:
 
 
   arch-seerr:
-        ports:
-            - 5055:5055
         container_name: seerr
         volumes:
             - /mnt/user/appdata/seerr/config:/config
