@@ -35,36 +35,36 @@ services:
         - /dev/dri/card0:/dev/dri/card0
         - /dev/dri/renderD128:/dev/dri/renderD128
 
-  arch-seerr:
-        container_name: seerr
-        volumes:
-            - /mnt/user/appdata/seerr/config:/config
-            - /etc/localtime:/etc/localtime:ro
-        environment:
-            - UMASK=000
-            - PUID=99
-            - PGID=100
-        image: binhex/arch-seerr
-        labels:
-          tsdproxy.enable: "true"
-          tsdproxy.name: "seerr"
-          # HTTPS on 443 -> container port 5055 (HTTP)
-          tsdproxy.port.1: "443/https:5055/http, tailscale_funnel"
+  # arch-seerr:
+  #       container_name: seerr
+  #       volumes:
+  #           - /mnt/user/appdata/seerr/config:/config
+  #           - /etc/localtime:/etc/localtime:ro
+  #       environment:
+  #           - UMASK=000
+  #           - PUID=99
+  #           - PGID=100
+  #       image: binhex/arch-seerr
+  #       labels:
+  #         tsdproxy.enable: "true"
+  #         tsdproxy.name: "seerr"
+  #         # HTTPS on 443 -> container port 5055 (HTTP)
+  #         tsdproxy.port.1: "443/https:5055/http, tailscale_funnel"
 
-  # Jfa-Go - Docker service
-  jfa-go:
-    container_name: jfa-go
-    hostname: jfa-go
-    restart: unless-stopped
-    volumes:
-      - '/mnt/user/appdata/jfa-go:/data'
-      - '/mnt/user/appdata/jellyfin/config:/jf'
-      - '/etc/localtime:/etc/localtime:ro'
-    image: hrfee/jfa-go
-    labels:
-      tsdproxy.enable: "true"
-      tsdproxy.name: "invite"
-      # HTTPS on 443 -> container port 8056 (HTTP)
-      tsdproxy.port.1: "443/https:8056/http, tailscale_funnel"
-    depends_on:
-      - jellyfin
+  # # Jfa-Go - Docker service
+  # jfa-go:
+  #   container_name: jfa-go
+  #   hostname: jfa-go
+  #   restart: unless-stopped
+  #   volumes:
+  #     - '/mnt/user/appdata/jfa-go:/data'
+  #     - '/mnt/user/appdata/jellyfin/config:/jf'
+  #     - '/etc/localtime:/etc/localtime:ro'
+  #   image: hrfee/jfa-go
+  #   labels:
+  #     tsdproxy.enable: "true"
+  #     tsdproxy.name: "invite"
+  #     # HTTPS on 443 -> container port 8056 (HTTP)
+  #     tsdproxy.port.1: "443/https:8056/http, tailscale_funnel"
+  #   depends_on:
+  #     - jellyfin
