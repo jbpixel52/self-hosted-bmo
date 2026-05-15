@@ -1,16 +1,5 @@
 # Docker Compose configuration for Jellyfin - Media server
 services:
-  tsdproxy:
-    image: almeidapaulopt/tsdproxy:2
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /mnt/user/appdata/tsdproxy/data:/data
-      - /mnt/user/appdata/tsdproxy/config:/config
-    ports:
-      - "8080:8080"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    restart: unless-stopped
 
   # Jellyfin - Media server for movies, TV shows and music
   jellyfin:
