@@ -1,109 +1,72 @@
 # Docker Compose configuration for Jellyfin - Media server
-configs:
-  ts-serve:
-    content: |
-      {"TCP":{"443":{"HTTPS":true}},
-      "Web":{"$${TS_CERT_DOMAIN}:443":
-          {"Handlers":{"/":
-          {"Proxy":"http://127.0.0.1:8096"}}}},
-      "AllowFunnel":{"$${TS_CERT_DOMAIN}:443":true}}
-
 services:
-# Make sure you have updated/checked the .env file with the correct variables. 
-# All the ${ xx } need to be defined there.
-  # Tailscale Sidecar Configuration
-  tailscale:
-    image: tailscale/tailscale:latest # Image to be used
-    container_name: tailscale-jellyfin # Name for local container management
-    hostname: jellyfin # Name used within your Tailscale environment
-    environment:
-      - TS_AUTHKEY=${TS_AUTHKEY}
-      - TS_STATE_DIR=/var/lib/tailscale
-      - TS_SERVE_CONFIG=/config/serve.json # Tailscale Serve configuration to expose the web interface on your local Tailnet - remove this line if not required
-      - TS_USERSPACE=false
-      - TS_ENABLE_HEALTH_CHECK=true              # Enable healthcheck endpoint: "/healthz"
-      - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
-      - TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
-      - TS_AUTH_ONCE=true
-    configs:
-      - source: ts-serve
-        target: /config/serve.json
+  tsdproxy:
+    image: almeidapaulopt/tsdproxy:2
     volumes:
-      - /mnt/user/appdata/tailscale/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - /mnt/user/appdata/tailscale/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
-    devices:
-      - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
-    cap_add:
-      - net_admin # Tailscale requirement
-    #ports:
-    #  - 0.0.0.0:${SERVICEPORT}:${SERVICEPORT} # Binding port ${SERVICE}PORT to the local network - may be removed if only exposure to your Tailnet is required
-    # If any DNS issues arise, use your preferred DNS provider by uncommenting the config below
-    # dns:
-    #   - ${DNS_SERVER}
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:41234/healthz"] # Check Tailscale has a Tailnet IP and is operational
-      interval: 1m # How often to perform the check
-      timeout: 10s # Time to wait for the check to succeed
-      retries: 3 # Number of retries before marking as unhealthy
-      start_period: 10s # Time to wait before starting health checks
-    restart: always
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /mnt/user/appdata/tsdproxy/data:/data
+      - /mnt/user/appdata/tsdproxy/config:/config
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
 
   # Jellyfin - Media server for movies, TV shows and music
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
-    network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     environment:
       - PUID=99
       - PGID=100
       - TZ=America/Los_Angeles
-     # - JELLYFIN_PublishedServerUrl="https://jellyfin.{DOMAIN}" #optional
     volumes:
       - /mnt/user/appdata/jellyfin/config:/config
       - /mnt/user/media/:/media
       - "/etc/localtime:/etc/localtime:ro"
       - "/tmp:/transcode"
-    # ports:
-    #   - 8096:8096
-    #   - 8920:8920 #optional
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "jellyfin"
+      # HTTPS on 443 -> container port 8096 (HTTP)
+      tsdproxy.port.1: "443/https:8096/http, tailscale_funnel"
     restart: unless-stopped
     devices:
         - /dev/dri/card0:/dev/dri/card0
         - /dev/dri/renderD128:/dev/dri/renderD128
-    depends_on:
-      tailscale:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "pgrep", "-f", "${SERVICE}"] # Check if ${SERVICE} process is running
-      interval: 1m # How often to perform the check
-      timeout: 10s # Time to wait for the check to succeed
-      retries: 3 # Number of retries before marking as unhealthy
-      start_period: 30s # Time to wait before starting health checks
-  #seerr - Content request management for Jellyfin
+
+
   arch-seerr:
         ports:
             - 5055:5055
         container_name: seerr
         volumes:
-            - /mnt/user/appdata/config/seerr:/config
+            - /mnt/user/appdata/seerr/config:/config
             - /etc/localtime:/etc/localtime:ro
         environment:
             - UMASK=000
             - PUID=99
             - PGID=100
         image: binhex/arch-seerr
-
+        labels:
+          tsdproxy.enable: "true"
+          tsdproxy.name: "seerr"
+          # HTTPS on 443 -> container port 5055 (HTTP)
+          tsdproxy.port.1: "443/https:5055/http, tailscale_funnel"
 
   # Jfa-Go - Docker service
   jfa-go:
     container_name: jfa-go
-    hostname: jfa-go_
+    hostname: jfa-go
     restart: unless-stopped
-    ports:
-      - '8056:8056'
-      - '8057:8057'
     volumes:
       - '/mnt/user/appdata/jfa-go:/data'
       - '/mnt/user/appdata/jellyfin/config:/jf'
       - '/etc/localtime:/etc/localtime:ro'
     image: hrfee/jfa-go
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "invite"
+      # HTTPS on 443 -> container port 8056 (HTTP)
+      tsdproxy.port.1: "443/https:8056/http, tailscale_funnel"
