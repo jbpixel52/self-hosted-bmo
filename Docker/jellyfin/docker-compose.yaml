@@ -29,7 +29,7 @@ services:
       tsdproxy.enable: "true"
       tsdproxy.name: "jellyfin"
       # HTTPS on 443 -> container port 8096 (HTTP)
-      tsdproxy.port.1: "443/https:8096/http, tailscale_funnel"
+      tsdproxy.port.1: "8096/http, tailscale_funnel"
     restart: unless-stopped
     devices:
         - /dev/dri/card0:/dev/dri/card0
@@ -66,3 +66,5 @@ services:
       tsdproxy.name: "invite"
       # HTTPS on 443 -> container port 8056 (HTTP)
       tsdproxy.port.1: "443/https:8056/http, tailscale_funnel"
+    depends_on:
+      - jellyfin
