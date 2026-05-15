@@ -6,7 +6,7 @@ configs:
       "Web":{"$${TS_CERT_DOMAIN}:443":
           {"Handlers":{"/":
           {"Proxy":"http://127.0.0.1:8096"}}}},
-      "AllowFunnel":{"$${TS_CERT_DOMAIN}:443":false}}
+      "AllowFunnel":{"$${TS_CERT_DOMAIN}:443":true}}
 
 services:
 # Make sure you have updated/checked the .env file with the correct variables. 
