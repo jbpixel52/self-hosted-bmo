@@ -16,6 +16,8 @@ services:
     image: tailscale/tailscale:latest # Image to be used
     container_name: tailscale-jellyfin # Name for local container management
     hostname: tailscale-jellyfin # Name used within your Tailscale environment
+    network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
+
     environment:
       - TS_AUTHKEY=${TS_AUTHKEY}
       - TS_STATE_DIR=/var/lib/tailscale
@@ -47,9 +49,6 @@ services:
       retries: 3 # Number of retries before marking as unhealthy
       start_period: 10s # Time to wait before starting health checks
     restart: always
-
-
-
 
   # Jellyfin - Media server for movies, TV shows and music
   jellyfin:
