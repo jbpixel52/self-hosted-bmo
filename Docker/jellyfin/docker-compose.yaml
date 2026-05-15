@@ -53,7 +53,6 @@ services:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
-    hostname: jellyfin
     environment:
       - PUID=99
       - PGID=100
