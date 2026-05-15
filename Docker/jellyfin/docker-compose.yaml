@@ -16,8 +16,6 @@ services:
     image: tailscale/tailscale:latest # Image to be used
     container_name: tailscale-jellyfin # Name for local container management
     hostname: tailscale-jellyfin # Name used within your Tailscale environment
-    network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
-
     environment:
       - TS_AUTHKEY=${TS_AUTHKEY}
       - TS_STATE_DIR=/var/lib/tailscale
@@ -54,6 +52,7 @@ services:
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
+    network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     hostname: jellyfin
     environment:
       - PUID=99
