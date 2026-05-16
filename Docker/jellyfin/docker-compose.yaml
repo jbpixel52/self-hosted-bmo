@@ -19,7 +19,8 @@ services:
       tsdproxy.enable: "true"
       tsdproxy.name: "jellyfin"
       # HTTPS on 443 -> container port 8096 (HTTP)
-      tsdproxy.port.1: "8920/https:8096/http, tailscale_funnel"
+      #tsdproxy.port.1: "8920/https:8096/http, tailscale_funnel"
+      tsdproxy.port.1: "8096/http->https://jellyfin.java-regulus.ts.net"
     restart: unless-stopped
     devices:
         - /dev/dri/card0:/dev/dri/card0
@@ -39,7 +40,7 @@ services:
   #         tsdproxy.enable: "true"
   #         tsdproxy.name: "seerr"
   #         # HTTPS on 443 -> container port 5055 (HTTP)
-  #         tsdproxy.port.1: "443/https:5055/http, tailscale_funnel"
+  #         tsdproxy.port.1: "443/https:/http, tailscale_funnel"
 
   # # Jfa-Go - Docker service
   # jfa-go:
