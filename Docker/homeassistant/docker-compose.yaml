@@ -51,6 +51,11 @@ services:
     devices:
       - /dev/dri/card0:/dev/dri/card0
       - /dev/dri/renderD128:/dev/dri/renderD128
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "frigate"
+      # HTTPS on 443 -> container port 8123 (HTTP)
+      tsdproxy.port.1: "443/https:5500/http"
     deploy: 
       resources:
         limits:
