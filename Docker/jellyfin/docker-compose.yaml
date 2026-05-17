@@ -19,8 +19,7 @@ services:
       tsdproxy.enable: "true"
       tsdproxy.name: "jellyfin"
       # HTTPS on 443 -> container port 8096 (HTTP)
-      #tsdproxy.port.1: "8920/https:8096/http, tailscale_funnel"
-      tsdproxy.port.1: "8096/http->https://jellyfin.java-regulus.ts.net"
+      tsdproxy.port.1: "8920/https:8096/http"
     restart: unless-stopped
     devices:
         - /dev/dri/card0:/dev/dri/card0
