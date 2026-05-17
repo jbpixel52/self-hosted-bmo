@@ -16,13 +16,12 @@ services:
     restart: unless-stopped
     devices:
       - /dev/serial/by-id/usb-Nabu_Casa_ZBT-2_1CDBD45F1FA4-if00:/dev/ttyACM0
+
     labels:
       tsdproxy.enable: "true"
       tsdproxy.name: "homeassistant"
-      # HTTPS on 443 -> container port 8123 (HTTP)
-      tsdproxy.port.1: "443/https:8123/http"
-      # HTTP on 80 -> redirect to HTTPS
-      tsdproxy.port.2: "80/http->https://homeassistant.java-regulus.ts.net"
+      tsdproxy.autodetect: "false"
+      tsdproxy.port.1: "443/https:8123/http, no_autodetect"
   # Frigate - Docker service
   frigate:
     container_name: frigate
