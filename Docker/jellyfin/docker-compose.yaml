@@ -15,6 +15,9 @@ services:
       - /mnt/user/media/:/media
       - "/etc/localtime:/etc/localtime:ro"
       - "/tmp:/transcode"
+    ports:
+      - 8096:8096
+      - 8920:8920
     labels:
       tsdproxy.enable: "true"
       tsdproxy.name: "jellyfin"
