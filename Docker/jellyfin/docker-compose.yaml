@@ -20,7 +20,7 @@ services:
       - 8920:8920
     labels:
       tsdproxy.enable: "true"
-      tsdproxy.name: "media"
+      tsdproxy.name: "jf"
       # HTTPS on 443 -> container port 8096 (HTTP)
       tsdproxy.port.1: "443/https:8096/http, tailscale_funnel"
     restart: unless-stopped
