@@ -23,19 +23,24 @@ services:
                         - driver: nvidia
                           count: all
                           capabilities: [ gpu ]
+        labels:
+          tsdproxy.enable: "true"
+          tsdproxy.name: "ollama"
+          # HTTPS on 443 -> container port 11434 (HTTP)
+          tsdproxy.port.1: "443/https:11434/http"
     # Lobe Chat - Web UI for interacting with Ollama
-    lobe-chat:
-      image: lobehub/lobe-chat
-      container_name: lobe-chat
-      restart: always
-      # Link to Ollama service for LLM backend
-      links:
-        - "ollama:ollama"
-      networks:
-      - ai
-      ports:
-        # Web interface port
-        - '3210:3210'
+    # lobe-chat:
+    #   image: lobehub/lobe-chat
+    #   container_name: lobe-chat
+    #   restart: always
+    #   # Link to Ollama service for LLM backend
+    #   links:
+    #     - "ollama:ollama"
+    #   networks:
+    #   - ai
+    #   ports:
+    #     # Web interface port
+    #     - '3210:3210'
 # Network configuration for AI services
 networks:
   ai:
