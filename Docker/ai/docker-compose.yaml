@@ -28,7 +28,22 @@ services:
           tsdproxy.name: "ollama"
           # HTTPS on 443 -> container port 11434 (HTTP)
           tsdproxy.port.1: "443/https:11434/http"
-
+    vane:
+      image: itzcrazykns1337/vane:latest
+      container_name: vane
+      hostname: vane
+      ports:
+        - '3000:3000'
+      volumes:
+        - /mnt/user/appdata/vane/data:/home/vane/data
+      restart: unless-stopped
+      labels:
+        tsdproxy.enable: "true"
+        tsdproxy.name: "vane"
+        # HTTPS on 443 -> container port 3000 (HTTP)
+        tsdproxy.port.1: "443/https:3000/http"
+      networks:
+        - ai
 
 
 
