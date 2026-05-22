@@ -39,6 +39,7 @@ services:
             - PUID=99
             - PGID=100
         image: binhex/arch-seerr
+        restart: unless-stopped
         labels:
           tsdproxy.enable: "true"
           tsdproxy.name: "seerr"
