@@ -28,21 +28,21 @@ services:
         - /dev/dri/card0:/dev/dri/card0
         - /dev/dri/renderD128:/dev/dri/renderD128
 
-  # arch-seerr:
-  #       container_name: seerr
-  #       volumes:
-  #           - /mnt/user/appdata/seerr/config:/config
-  #           - /etc/localtime:/etc/localtime:ro
-  #       environment:
-  #           - UMASK=000
-  #           - PUID=99
-  #           - PGID=100
-  #       image: binhex/arch-seerr
-  #       labels:
-  #         tsdproxy.enable: "true"
-  #         tsdproxy.name: "seerr"
-  #         # HTTPS on 443 -> container port 5055 (HTTP)
-  #         tsdproxy.port.1: "443/https:/http, tailscale_funnel"
+  arch-seerr:
+        container_name: seerr
+        volumes:
+            - /mnt/user/appdata/seerr/config:/config
+            - /etc/localtime:/etc/localtime:ro
+        environment:
+            - UMASK=000
+            - PUID=99
+            - PGID=100
+        image: binhex/arch-seerr
+        labels:
+          tsdproxy.enable: "true"
+          tsdproxy.name: "seerr"
+          # HTTPS on 443 -> container port 5055 (HTTP)
+          tsdproxy.port.1: "443/https:/http, tailscale_funnel"
 
   # # Jfa-Go - Docker service
   # jfa-go:
