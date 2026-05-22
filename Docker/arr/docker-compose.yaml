@@ -21,6 +21,11 @@ services:
     ports:
       - 7878:7878
     networks: [arr]
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "radarr"
+      # HTTPS on 443 -> container port 7878 (HTTP)
+      tsdproxy.port.1: "443/https:7878/http"
   # Sonarr - TV series collection manager and downloader
   sonarr:
     container_name: sonarr
@@ -39,7 +44,11 @@ services:
     ports:
       - 8990:8989
     networks: [arr]
-
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "sonarr"
+      # HTTPS on 443 -> container port 8990 (HTTP)
+      tsdproxy.port.1: "443/https:8990/http"
   # Bazarr - Subtitle manager for Radarr and Sonarr
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
@@ -56,6 +65,11 @@ services:
     ports:
       - 6767:6767
     networks: [arr]
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "bazarr"
+      # HTTPS on 443 -> container port 6767 (HTTP)
+      tsdproxy.port.1: "443/https:6767/http"
     restart: unless-stopped
 
   # Prowlarr - Indexer manager for arr-stack
@@ -73,6 +87,11 @@ services:
       - 9696:9696
     networks: [arr]
     restart: unless-stopped
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "prowlarr"
+      # HTTPS on 443 -> container port 9696 (HTTP)
+      tsdproxy.port.1: "443/https:9696/http"
   # Flaresolverr - Docker service
   flaresolverr:
     image: "ghcr.io/flaresolverr/flaresolverr:latest"
@@ -86,6 +105,11 @@ services:
     ports:
       - "8191:8191"
     networks: [arr]
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "flaresolverr"
+      # HTTPS on 443 -> container port 8191 (HTTP)
+      tsdproxy.port.1: "443/https:8191/http"
   # Lidarr - Docker service
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
@@ -102,7 +126,11 @@ services:
     ports:
       - 8686:8686
     restart: unless-stopped
-
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "lidarr"
+      # HTTPS on 443 -> container port 8686 (HTTP)
+      tsdproxy.port.1: "443/https:8686/http"
   # Recyclarr - Docker service
   recyclarr:
     image: ghcr.io/recyclarr/recyclarr:latest
