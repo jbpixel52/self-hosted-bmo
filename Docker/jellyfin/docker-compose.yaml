@@ -30,6 +30,7 @@ services:
 
   arch-seerr:
         container_name: seerr
+        hostname: seerr
         volumes:
             - /mnt/user/appdata/seerr/config:/config
             - /etc/localtime:/etc/localtime:ro
