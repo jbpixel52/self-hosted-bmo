@@ -43,7 +43,7 @@ services:
           tsdproxy.enable: "true"
           tsdproxy.name: "seerr"
           # HTTPS on 443 -> container port 5055 (HTTP)
-          tsdproxy.port.1: "443/https:5055/http, tailscale_funnel"
+          tsdproxy.port.1: "443/https:5055/http"
 
   # Jfa-Go - Docker service
   jfa-go:
