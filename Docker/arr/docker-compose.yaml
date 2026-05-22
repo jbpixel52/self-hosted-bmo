@@ -132,52 +132,36 @@ services:
       # HTTPS on 443 -> container port 8686 (HTTP)
       tsdproxy.port.1: "443/https:8686/http"
   # Recyclarr - Docker service
-  recyclarr:
-    image: ghcr.io/recyclarr/recyclarr:latest
-    container_name: recyclarr
-    hostname: recyclarr
-    user: 99:100
-    networks: [arr]
+  profilarr:
+    image: ghcr.io/dictionarry-hub/profilarr:latest
+    container_name: profilarr
+    ports:
+      - '6868:6868'
     volumes:
-      - /mnt/user/appdata/recyclarr:/config
+      - ./config:/config
     environment:
-      - TZ=America/Los_Angeles
-      - RECYLARR_CREATE_CONFIG=true
-  # readarr:
-  #   image: lscr.io/linuxserver/readarr:develop
-  #   hostname: readarr
-  #   container_name: readarr
-  #   environment:
-  #     - PUID=99
-  #     - PGID=100
-  #     - TZ=America/Los_Angeles
-  #   volumes:
-  #     - /mnt/user/appdata/readarr:/config
-  #     - /mnt/user/media/BOOKS:/books #optional
-  #     - /mnt/user/media_cache/downloads:/downloads/
-  #   ports:
-  #     - 8787:8787
-  #   restart: unless-stopped
-  # rflood:
-  #   container_name: rflood
-  #   image: ghcr.io/hotio/rflood
-  #   ports:
-  #     - 3000:3000
-  #     - 5000:5000
-  #   environment:
-  #     - PUID=99
-  #     - PGID=100
-  #     - UMASK=000
-  #     - TZ=America/Los_Angeles
-  #     - FLOOD_AUTH=false
-  #     - ARGS
-  #     - FLOOD_ARGS
-  #   volumes:
-  #     - /mnt/user/appdata/rflood/config:/config
-  #     - /mnt/user/media_cache/downloads:/downloads/
-  #     - /mnt/user/media_cache/downloads:/config/download/
-  #     - /mnt/user/media/:/media
-  # qBittorrent - Torrent client
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      # Uncomment ORIGIN if you use a reverse proxy to access your containers.
+      #- ORIGIN=https://profilarr.yourdomain.com
+      - PARSER_HOST=parser
+      - PARSER_PORT=5000
+    depends_on:
+      parser:
+        condition: service_healthy
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "profilarr"
+      # HTTPS on 443 -> container port 6868 (HTTP)
+      tsdproxy.port.1: "443/https:6868/http"
+
+  # Optional - only needed for CF/QP testing
+  parser:
+    image: ghcr.io/dictionarry-hub/profilarr-parser:latest
+    container_name: profilarr-parser
+    expose:
+      - '5000'
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -201,6 +185,11 @@ services:
       - 6881:6881/udp
     restart: unless-stopped
     networks: [arr]
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "qbittorrent"
+      # HTTPS on 443 -> container port 8888 (HTTP)
+      tsdproxy.port.1: "443/https:8888/http"
 
 
 networks:
