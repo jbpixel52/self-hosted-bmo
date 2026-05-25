@@ -13,6 +13,8 @@ services:
     environment:
       - TZ="America/Los_Angeles"
     restart: unless-stopped
+    ports:
+      - 25600:25600
     deploy:
       resources:
         limits:
