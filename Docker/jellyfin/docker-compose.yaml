@@ -39,12 +39,14 @@ services:
             - PUID=99
             - PGID=100
         image: binhex/arch-seerr
+        ports:
+          - 5055:5055
         restart: unless-stopped
         labels:
           tsdproxy.enable: "true"
           tsdproxy.name: "seerr"
           # HTTPS on 443 -> container port 5055 (HTTP)
-          tsdproxy.port.1: "443/https:5055/http"
+          tsdproxy.port.1: "443/https:5055/http, tailscale_funnel"
 
   # Jfa-Go - Docker service
   jfa-go:
