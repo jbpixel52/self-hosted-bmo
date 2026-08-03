@@ -11,7 +11,7 @@ services:
       - /mnt/user/appdata/hermes:/opt/data
     environment:
       - HERMES_DASHBOARD=1
-
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
     ports:
       - "8642:8642"   # gateway API
       - "9119:9119"   # dashboard (only reached when HERMES_DASHBOARD=1)
