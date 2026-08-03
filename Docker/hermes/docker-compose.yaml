@@ -1,0 +1,41 @@
+services:
+  hermes:
+    image: ghcr.io/nousresearch/hermes-agent:latest
+    container_name: hermes
+    hostname: hermes
+    networks:
+      - ai
+    restart: unless-stopped
+    volumes:
+      - /mnt/user/appdata/hermes:/root/.hermes
+      # - ./env:/root/.hermes/.env:ro
+    environment:
+      HERMES_HOME: /root/.hermes
+      HERMES_LOG_LEVEL: info
+      TZ: America/Los_Angeles
+    ports:
+      - "9119:9119"
+      - "8765:8765"     
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "hermes"
+      # HTTPS on 443 -> container port 8765 (HTTP)
+      tsdproxy.port.1: "443/https:8765/http"  # gateway HTTP for inbound webhooks
+      tsdproxy.port.2: "80/http->https://hermes.java-regulus.ts.net"
+      tsdproxy.port.3: "443/https:9119/http"
+    mem_limit: 4g
+    cpus: 2.0
+    healthcheck:
+      test: ["CMD", "hermes", "doctor", "--quiet"]
+      interval: 60s
+      timeout: 30s
+      retries: 3
+      start_period: 90s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+networks:
+  ai:
+    name: ai
