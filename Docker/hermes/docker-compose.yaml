@@ -1,6 +1,5 @@
 services:
   hermes:
-  hermes:
     image: nousresearch/hermes-agent:latest
     container_name: hermes
     restart: unless-stopped
