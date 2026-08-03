@@ -1,32 +1,35 @@
 services:
   hermes:
+  hermes:
     image: nousresearch/hermes-agent:latest
     container_name: hermes
-    hostname: hermes
+    restart: unless-stopped
+    command: gateway run
     networks:
       - ai
-    restart: unless-stopped
     volumes:
-      - /mnt/user/appdata/hermes:/root/.hermes
-      # - ./env:/root/.hermes/.env:ro
+      - /mnt/user/appdata/hermes:/opt/data
     environment:
-      HERMES_HOME: /root/.hermes
-      HERMES_UID: 99
-      HERMES_GID: 100
-      HERMES_LOG_LEVEL: info
-      TZ: America/Los_Angeles
+      - HERMES_DASHBOARD=1
+
     ports:
-      - "9119:9119"
-      - "8765:8765"     
+      - "8642:8642"   # gateway API
+      - "9119:9119"   # dashboard (only reached when HERMES_DASHBOARD=1)
+
     labels:
       tsdproxy.enable: "true"
       tsdproxy.name: "hermes"
-      # HTTPS on 443 -> container port 8765 (HTTP)
-      tsdproxy.port.1: "443/https:8765/http"  # gateway HTTP for inbound webhooks
+      # HTTPS on 443 -> container port 8642 (HTTP)
+      tsdproxy.port.1: "443/https:8642/http"  # gateway HTTP for inbound webhooks
       tsdproxy.port.2: "80/http->https://hermes.java-regulus.ts.net"
       tsdproxy.port.3: "443/https:9119/http"
-    mem_limit: 4g
-    cpus: 2.0
+
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+          cpus: "2.0"
+
     healthcheck:
       test: ["CMD", "hermes", "doctor", "--quiet"]
       interval: 60s
