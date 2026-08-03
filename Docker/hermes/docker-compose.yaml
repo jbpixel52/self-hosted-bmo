@@ -11,6 +11,8 @@ services:
       # - ./env:/root/.hermes/.env:ro
     environment:
       HERMES_HOME: /root/.hermes
+      HERMES_UID: 99
+      HERMES_GID: 100
       HERMES_LOG_LEVEL: info
       TZ: America/Los_Angeles
     ports:
