@@ -44,7 +44,7 @@ services:
         max-size: "10m"
         max-file: "5"
 
-    chrome:
+  chrome:
     image: zenika/alpine-chrome:latest
     hostname: chrome
     container_name: chrome
