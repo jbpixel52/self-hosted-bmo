@@ -142,7 +142,12 @@ services:
         max-size: "10m"
         max-file: "3"
         compress: "true"
-
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "check_running"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
 
   redis:
     # NOTE: If you want to use Valkey (open source) instead of Redis (source available),
