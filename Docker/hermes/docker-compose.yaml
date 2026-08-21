@@ -200,7 +200,7 @@ services:
     volumes:
       - fdb-cluster-file:/var/fdb
     networks:
-      - backend
+      - ai
     restart: "no"
 
 volumes:
