@@ -53,6 +53,161 @@ services:
       - "9222:9222"
     networks:
       - ai
+
+
+  playwright-service:
+    image: ghcr.io/firecrawl/playwright-service:latest
+    environment:
+      PORT: 3000
+      PROXY_SERVER: ${PROXY_SERVER}
+      PROXY_USERNAME: ${PROXY_USERNAME}
+      PROXY_PASSWORD: ${PROXY_PASSWORD}
+      ALLOW_LOCAL_WEBHOOKS: ${ALLOW_LOCAL_WEBHOOKS}
+      BLOCK_MEDIA: ${BLOCK_MEDIA}
+      # Configure maximum concurrent pages for Playwright browser instances
+      MAX_CONCURRENT_PAGES: ${CRAWL_CONCURRENT_REQUESTS:-10}
+    networks:
+      - ai
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    # Resource limits for Docker Compose (not Swarm)
+    cpus: 2.0
+    mem_limit: 4G
+    memswap_limit: 4G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        compress: "true"
+    tmpfs:
+      - /tmp/.cache:noexec,nosuid,size=1g
+
+
+  api:
+    image: ghcr.io/firecrawl/firecrawl:latest
+    environment:
+        HOST: "0.0.0.0"
+        PORT: ${INTERNAL_PORT:-3002}
+        EXTRACT_WORKER_PORT: ${EXTRACT_WORKER_PORT:-3004}
+        WORKER_PORT: ${WORKER_PORT:-3005}
+        NUQ_RABBITMQ_URL: amqp://rabbitmq:5672
+        HARNESS_STARTUP_TIMEOUT_MS: ${HARNESS_STARTUP_TIMEOUT_MS:-60000}
+        ENV: local
+    depends_on:
+        redis:
+          condition: service_started
+        playwright-service:
+          condition: service_started
+        rabbitmq:
+          condition: service_healthy
+    ports:
+        - "${PORT:-3002}:${INTERNAL_PORT:-3002}"
+    volumes:
+        - fdb-cluster-file:/var/fdb:ro
+    command: node dist/src/harness.js --start-docker
+      # Resource limits for Docker Compose (not Swarm)
+      # Increase if you have more CPU cores/RAM available
+    cpus: 4.0
+    mem_limit: 8G
+    memswap_limit: 8G
+
+
+  nuq-postgres:
+
+    image: ghcr.io/firecrawl/nuq-postgres:latest
+    build: apps/nuq-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+    networks:
+      - ai
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        compress: "true"
+
+
+  redis:
+    # NOTE: If you want to use Valkey (open source) instead of Redis (source available),
+    # uncomment the Valkey statement and comment out the Redis statement.
+    # Using Valkey with Firecrawl is untested and not guaranteed to work. Use with caution.
+    image: redis:alpine
+    # image: valkey/valkey:alpine
+    networks:
+      - ai
+    command: redis-server --bind 0.0.0.0
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "2"
+        compress: "true"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    networks:
+      - ai
+    command: rabbitmq-server
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "check_running"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "2"
+        compress: "true"
+
+
+  # FoundationDB queue backend (experimental). Enable by setting
+  # NUQ_BACKEND=fdb; the api container reads the shared cluster file from the
+  # fdb-cluster-file volume. Replaces nuq-postgres once stable.
+  foundationdb:
+    image: foundationdb/foundationdb:7.3.63
+    environment:
+      FDB_NETWORKING_MODE: container
+      FDB_COORDINATOR_PORT: 4500
+    networks:
+      - ai
+    volumes:
+      - fdb-data:/var/fdb/data
+      - fdb-cluster-file:/var/fdb
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        compress: "true"
+
+  # one-shot: creates the database on first boot (no-op afterwards)
+  foundationdb-init:
+    image: foundationdb/foundationdb:7.3.63
+    depends_on:
+      - foundationdb
+    entrypoint:
+      - /bin/bash
+      - -c
+      - "sleep 5 && out=$(fdbcli -C /var/fdb/fdb.cluster --exec 'configure new single ssd' 2>&1); status=$$?; printf '%s\n' \"$$out\"; if [ \"$$status\" -eq 0 ]; then exit 0; fi; printf '%s\n' \"$$out\" | grep -Eiq 'already.*configured|database.*configured|database.*already exists'"
+    volumes:
+      - fdb-cluster-file:/var/fdb
+    networks:
+      - backend
+    restart: "no"
+
+volumes:
+  fdb-data:
+  fdb-cluster-file:
+
+
 networks:
   ai:
     name: ai
