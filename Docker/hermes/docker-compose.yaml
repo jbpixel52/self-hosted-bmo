@@ -118,7 +118,6 @@ services:
   nuq-postgres:
 
     image: ghcr.io/firecrawl/nuq-postgres:latest
-    build: apps/nuq-postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
