@@ -96,6 +96,14 @@ services:
         NUQ_RABBITMQ_URL: amqp://rabbitmq:5672
         HARNESS_STARTUP_TIMEOUT_MS: ${HARNESS_STARTUP_TIMEOUT_MS:-60000}
         ENV: local
+        USE_DB_AUTHENTICATION: ${USE_DB_AUTHENTICATION:-false}
+        REDIS_URL: redis://redis:6379
+        REDIS_RATE_LIMIT_URL: redis://redis:6379
+        PLAYWRIGHT_MICROSERVICE_URL: http://playwright-service:3000/scrape
+        NUM_WORKERS_PER_QUEUE: ${NUM_WORKERS_PER_QUEUE:4}
+        CRAWL_CONCURRENT_REQUESTS: ${CRAWL_CONCURRENT_REQUESTS:5}
+        BROWSER_POOL_SIZE: ${BROWSER_POOL_SIZE:3}
+        NUQ_DATABASE_URL : postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@nuq-postgres:5432/${POSTGRES_DB:-postgres}
     depends_on:
         redis:
           condition: service_started
@@ -103,6 +111,9 @@ services:
           condition: service_started
         rabbitmq:
           condition: service_healthy
+        nuq-postgres:
+          condition: service_healthy
+        
     ports:
         - "${PORT:-3002}:${INTERNAL_PORT:-3002}"
     volumes:
@@ -116,7 +127,8 @@ services:
 
 
   nuq-postgres:
-
+    hostname: nuq-postgres
+    container_name: nuq-postgres
     image: ghcr.io/firecrawl/nuq-postgres:latest
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
