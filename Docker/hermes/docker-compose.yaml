@@ -23,7 +23,6 @@ services:
       tsdproxy.name: "hermes"
       # HTTPS on 443 -> container port 8642 (HTTP)
       tsdproxy.port.1: "443/https:8642/http"  # gateway HTTP for inbound webhooks
-      tsdproxy.port.2: "80/http->https://hermes.java-regulus.ts.net"
       tsdproxy.port.3: "443/https:9119/http"
 
     deploy:
@@ -48,14 +47,68 @@ services:
     image: zenika/alpine-chrome:latest
     hostname: chrome
     container_name: chrome
-    command: [chromium-browser, "--headless", "--disable-dev-shm-usage",--disable-gpu", "--no-sandbox", "--remote-debugging-address=0.0.0.0", "--remote-debugging-port=9222"]
+    command: [chromium-browser, "--headless", "--disable-dev-shm-usage",--disable-gpu", "--no-sandbox", "--remote-debugging-address=0.0.0.0", "--remote-debugging-port=9229"]
     ports:
-      - "9222:9222"
+      - "9229:9229"
     networks:
       - ai
 
-
-
+  ## CRW API Server 
+  crw:
+    image: ghcr.io/us/crw:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - ai
+    depends_on:
+      lightpanda:
+        condition: service_started
+    environment:
+      - RUST_LOG=info
+      # LightPanda for JS rendering
+      - CRW_RENDERER__LIGHTPANDA__WS_URL=ws://lightpanda:9222
+     # Uncomment to enable Playwright as a second renderer tier:
+      - CRW_RENDERER__PLAYWRIGHT__WS_URL=ws://playwright:9223
+#      - CRW_SERVER__PORT=3000               # default
+      - CRW_CRAWLER__REQUESTS_PER_SECOND=5  # rate-limit crawling
+      - CRW_CRAWLER__USER_AGENT=MyBot/1.0   # custom UA
+      - CRW_AUTH__API_KEYS=["sk-my-key"]    # enable Bearer auth
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: "1.0"
+    restart: unless-stopped
+  ## ─── LightPanda (headless browser for JS rendering) ──────────────
+  lightpanda:
+    image: lightpanda/browser:latest
+    ports:
+      - "9222:9222"
+    restart: unless-stopped
+    networks:
+      - ai
+  # ─── Playwright (optional second renderer) ───────────────────────
+  #Uncomment this block AND the CRW_RENDERER__PLAYWRIGHT__WS_URL
+  # env-var above to enable Playwright as an additional renderer.
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.49.0-noble
+    command: ["npx", "playwright", "run-server", "--port=9223"]
+    networks:
+      - ai
+    ports:
+      - "9223:9223"
+    restart: unless-stopped
 networks:
   ai:
     name: ai
