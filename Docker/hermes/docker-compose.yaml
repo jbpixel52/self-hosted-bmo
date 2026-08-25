@@ -109,7 +109,29 @@ services:
     ports:
       - "9223:9223"
     restart: unless-stopped
-
+  hindsight:
+    image: ghcr.io/vectorize-io/hindsight:latest
+    stdin_open: true
+    tty: true
+    pull_policy: always
+    container_name: hindsight
+    restart: unless-stopped
+    networks:
+      - ai
+    ports:
+        - 8888:8888
+        - 9999:9999
+    environment:
+        - HINDSIGHT_API_LLM_PROVIDER=openrouter
+        - HINDSIGHT_API_EMBEDDINGS_OPENROUTER_MODEL=nvidia/nemotron-3-embed-1b:free
+        - HINDSIGHT_API_LLM_API_KEY=${OPENAI_API_KEY}
+        - HINDSIGHT_API_EMBEDDINGS_PROVIDER=openrouter
+    volumes:
+        - hindsight-data:/home/hindsight/.pg0
+volumes:
+  hindsight-data:
+      external: true
+      name: hindsight-data
   # honcho:
   #   image: ghcr.io/plastic-labs/honcho:latest
   #   container_name: honcho
