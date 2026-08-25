@@ -113,7 +113,7 @@ services:
   ## ─── Mnemosyne (zero-cloud AI memory layer for Hermes) ───────────
   # https://github.com/mnemosyne-oss/mnemosyne
   mnemosyne:
-    image: ghcr.io/axdsan/mnemosyne-mcp:latest
+    image: mnemosyne:latest
     container_name: mnemosyne
     restart: unless-stopped
     command: ["--transport", "sse", "--host", "0.0.0.0", "--port", "8080"]
