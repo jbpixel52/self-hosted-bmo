@@ -125,7 +125,7 @@ services:
         - 9999:9999
     environment:
         - HINDSIGHT_API_LLM_PROVIDER=openrouter
-        - HINDSIGHT_API_EMBEDDINGS_OPENROUTER_MODEL=nvidia/nemotron-3-embed-1b:free
+        #- HINDSIGHT_API_EMBEDDINGS_OPENROUTER_MODEL=nvidia/nemotron-3-embed-1b:free
         - HINDSIGHT_API_LLM_API_KEY=${OPENROUTER_API_KEY}
         - HINDSIGHT_API_EMBEDDINGS_PROVIDER=openrouter
     volumes:
