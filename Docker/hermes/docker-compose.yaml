@@ -113,6 +113,7 @@ services:
   honcho:
     image: ghcr.io/plastic-labs/honcho:latest
     container_name: honcho
+    hostname: honcho
     restart: unless-stopped
     ports:
       - "8989:8000"
@@ -143,6 +144,7 @@ services:
   honcho-deriver:
     image: ghcr.io/plastic-labs/honcho:latest
     container_name: honcho-deriver
+    hostname: honcho-deriver
     restart: unless-stopped
     entrypoint: ["python", "-m", "src.deriver"]
     depends_on:
@@ -169,6 +171,7 @@ services:
   honcho-database:
     image: pgvector/pgvector:pg15
     container_name: honcho-database
+    hostname: honcho-database
     restart: unless-stopped
     command: ["postgres", "-c", "max_connections=200"]
     environment:
@@ -188,6 +191,7 @@ services:
   
   honcho-redis:
     image: redis:8.2
+    hostname: honcho-redis
     container_name: honcho-redis
     restart: unless-stopped
     volumes:
