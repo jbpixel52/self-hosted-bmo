@@ -111,10 +111,10 @@ services:
     restart: unless-stopped
   hindsight:
     image: ghcr.io/vectorize-io/hindsight:latest
+    container_name: hindsight
     stdin_open: true
     tty: true
     pull_policy: always
-    container_name: hindsight
     restart: unless-stopped
     networks:
       - ai
@@ -130,8 +130,7 @@ services:
         - hindsight-data:/home/hindsight/.pg0
 volumes:
   hindsight-data:
-      external: true
-      name: hindsight-data
+    driver: local 
   # honcho:
   #   image: ghcr.io/plastic-labs/honcho:latest
   #   container_name: honcho
