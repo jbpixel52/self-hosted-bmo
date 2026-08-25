@@ -53,7 +53,7 @@ services:
     networks:
       - ai
 
-  ## CRW API Server 
+  ## CRW API Server
   crw:
     image: ghcr.io/us/crw:latest
     ports:
@@ -109,6 +109,32 @@ services:
     ports:
       - "9223:9223"
     restart: unless-stopped
+
+  ## ─── Mnemosyne (zero-cloud AI memory layer for Hermes) ───────────
+  # https://github.com/mnemosyne-oss/mnemosyne
+  mnemosyne:
+    image: ghcr.io/axdsan/mnemosyne-mcp:latest
+    container_name: mnemosyne
+    restart: unless-stopped
+    command: ["--transport", "sse", "--host", "0.0.0.0", "--port", "8080"]
+    networks:
+      - ai
+    ports:
+      - "8888:8080"
+    volumes:
+      - /mnt/user/appdata/mnemosyne:/data
+    environment:
+      - MNEMOSYNE_DATA_DIR=/data
+      - MNEMOSYNE_MCP_TOKEN=${MNEMOSYNE_MCP_TOKEN}
+      # Embeddings fall back to OPENROUTER_API_KEY if unset
+      - MNEMOSYNE_EMBEDDING_API_KEY=${OPENROUTER_API_KEY}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
 networks:
   ai:
     name: ai
