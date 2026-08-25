@@ -137,8 +137,8 @@ services:
       ai:
         aliases:
           - honcho
-    volumes:
-      - /mnt/user/appdata/honcho/entrypoint.sh:/app/docker/entrypoint.sh:ro
+    # volumes:
+    #   - /mnt/user/appdata/honcho/entrypoint.sh:/app/docker/entrypoint.sh:ro
     
   honcho-deriver:
     image: ghcr.io/plastic-labs/honcho:latest
