@@ -110,6 +110,95 @@ services:
       - "9223:9223"
     restart: unless-stopped
 
+  honcho:
+    image: ghcr.io/plastic-labs/honcho:latest
+    container_name: honcho
+    restart: unless-stopped
+    ports:
+      - "8989:8000"
+    depends_on:
+      honcho-database:
+        condition: service_healthy
+      honcho-redis:
+        condition: service_healthy
+    environment:
+      - DB_CONNECTION_URI=postgresql+psycopg://honcho:honcho@honcho-database:5432/honcho
+      - CACHE_URL=redis://honcho-redis:6379/0?suppress=true
+      - CACHE_ENABLED=true
+      - AUTH_USE_AUTH=false
+      - LLM_VLLM_API_KEY=${LLM_VLLM_API_KEY}
+      - LLM_VLLM_BASE_URL=https://openrouter.ai/api/v1
+      - LLM_EMBEDDING_API_KEY=${LLM_EMBEDDING_API_KEY}
+      - LLM_EMBEDDING_BASE_URL=https://openrouter.ai/api/v1
+      - LLM_EMBEDDING_MODEL=nvidia/nemotron-3-embed-1b:free
+      # Needed for client initialization (can be same as primary)
+      - LLM_OPENAI_API_KEY=${LLM_OPENAI_API_KEY}
+    networks:
+      ai:
+        aliases:
+          - honcho
+    volumes:
+      - /mnt/user/appdata/honcho/entrypoint.sh:/app/docker/entrypoint.sh:ro
+    
+  honcho-deriver:
+    image: ghcr.io/plastic-labs/honcho:latest
+    container_name: honcho-deriver
+    restart: unless-stopped
+    entrypoint: ["python", "-m", "src.deriver"]
+    depends_on:
+      honcho-database:
+        condition: service_healthy
+      honcho-redis:
+        condition: service_healthy
+    environment:
+      - DB_CONNECTION_URI=postgresql+psycopg://honcho:honcho@honcho-database:5432/honcho
+      - CACHE_URL=redis://honcho-redis:6379/0?suppress=true
+      - CACHE_ENABLED=true
+      - METRICS_ENABLED=false
+      - AUTH_USE_AUTH=false
+      - LLM_VLLM_API_KEY=${LLM_VLLM_API_KEY}
+      - LLM_VLLM_BASE_URL=https://openrouter.ai/api/v1
+      - LLM_EMBEDDING_API_KEY=${LLM_EMBEDDING_API_KEY}
+      - LLM_EMBEDDING_BASE_URL=https://openrouter.ai/api/v1
+      - LLM_EMBEDDING_MODEL=nvidia/nemotron-3-embed-1b:free
+      # Needed for client initialization (can be same as primary)
+      - LLM_OPENAI_API_KEY=${LLM_OPENAI_API_KEY}
+    networks:
+      - ai
+  
+  honcho-database:
+    image: pgvector/pgvector:pg15
+    container_name: honcho-database
+    restart: unless-stopped
+    command: ["postgres", "-c", "max_connections=200"]
+    environment:
+      - POSTGRES_DB=honcho
+      - POSTGRES_USER=honcho
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - /mnt/user/appdata/honcho/pgdata:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U honcho"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ai
+  
+  honcho-redis:
+    image: redis:8.2
+    container_name: honcho-redis
+    restart: unless-stopped
+    volumes:
+      - /mnt/user/appdata/honcho/redis:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ai
 networks:
   ai:
     name: ai
