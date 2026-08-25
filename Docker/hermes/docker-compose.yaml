@@ -135,9 +135,7 @@ services:
       # Needed for client initialization (can be same as primary)
       - LLM_OPENAI_API_KEY=${LLM_OPENAI_API_KEY}
     networks:
-      ai:
-        aliases:
-          - honcho
+      - ai
     # volumes:
     #   - /mnt/user/appdata/honcho/entrypoint.sh:/app/docker/entrypoint.sh:ro
     
