@@ -120,7 +120,7 @@ services:
     networks:
       - ai
     ports:
-      - "8888:8080"
+      - "8989:8080"
     volumes:
       - /mnt/user/appdata/mnemosyne:/data
     environment:
