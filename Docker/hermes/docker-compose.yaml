@@ -115,7 +115,7 @@ services:
     container_name: hindsight
     stdin_open: true
     tty: true
-    pull_policy: always
+    #pull_policy: always
     restart: unless-stopped
     networks:
       - ai
