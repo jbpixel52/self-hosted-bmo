@@ -38,7 +38,7 @@ services:
             - UMASK=000
             - PUID=99
             - PGID=100
-        image: binhex/arch-seerr
+        image: binhex/arch-seerr:latest
         ports:
           - 5055:5055
         restart: unless-stopped
