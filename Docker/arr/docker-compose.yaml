@@ -18,7 +18,7 @@ services:
       - /mnt/storage/downloads:/downloads
     restart: unless-stopped
     ports:
-     - 7878:7878
+      - 7878:7878
     networks: [arr]
     labels:
       - "docktail.service.enable=true"
@@ -26,7 +26,8 @@ services:
       - "docktail.service.port=7878"
       - "docktail.service.network=arr"
       - "docktail.service.direct=false"
-
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
   # Sonarr - TV series collection manager and downloader
   sonarr:
     container_name: sonarr
@@ -38,13 +39,14 @@ services:
       - /mnt/storage/tvshows:/tvshows
       - /mnt/storage/anime:/anime
       - /mnt/storage/downloads:/downloads
-
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Los_Angeles
     ports:
-    - 8989:8989
+      - 8989:8989
     networks: [arr]
     labels:
       - "docktail.service.enable=true"
@@ -63,7 +65,9 @@ services:
     volumes:
       - /mnt/appdata/prowlarr:/config
     ports:
-    - 9696:9696
+      - 9696:9696
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
     networks: [arr]
     restart: unless-stopped
     labels:
@@ -85,6 +89,8 @@ services:
     ports:
       - "8191:8191"
     networks: [arr]
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
 
   # Lidarr - Docker service
   lidarr:
@@ -100,7 +106,9 @@ services:
       - /mnt/downloads:/downloads #optional
     networks: [arr]
     ports:
-    - 8686:8686
+      - 8686:8686
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
     restart: unless-stopped
     labels:
       - "docktail.service.enable=true"
@@ -113,6 +121,8 @@ services:
   profilarr:
     image: ghcr.io/dictionarry-hub/profilarr:latest
     container_name: profilarr
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
     #ports:
     # - '6868:6868'
     volumes:
@@ -138,7 +148,8 @@ services:
     container_name: profilarr-parser
     expose:
       - "5000"
-
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -160,7 +171,8 @@ services:
       - 8888:8888
       - 6881:6881
       - 6881:6881/udp
-
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
     restart: unless-stopped
     networks: [arr]
     labels:
@@ -169,7 +181,6 @@ services:
       - "docktail.service.port=8888"
       - "docktail.service.network=arr"
       - "docktail.service.direct=false"
-
 
 networks:
   # Arr - Docker service
