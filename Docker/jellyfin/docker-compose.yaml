@@ -19,14 +19,18 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
       - "/tmp:/transcode"
     ports:
-      #- 8096:8096
+      - 8096:8096
       - 8920:8920 #optional
       - 7359:7359/udp #optional
       - 1900:1900/udp #optional
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
     labels:
       - "docktail.service.enable=true"
       - "docktail.service.name=jf"
       - "docktail.service.port=8096"
+      - "docktail.service.direct=false"
+
     #   - "docktail.funnel.enable=true"
     restart: unless-stopped
     devices:
@@ -42,6 +46,8 @@ services:
       - PORT=5055
     # ports:
     #- 5055:5055
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
     labels:
       - "docktail.service.enable=true"
       - "docktail.service.name=requests"
