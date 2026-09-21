@@ -9,7 +9,7 @@ services:
       - /var/run/tailscale:/var/run/tailscale
     environment:
       # Optional but recommended. Enables automatic service creation.
-      - TAILSCALE_OAUTH_CLIENT_ID=${TAILSCALE_OAUTH_CLIENT_ID}
+      - TAILSCALE_OAUTH_CLIENT_ID=${  }
       - TAILSCALE_OAUTH_CLIENT_SECRET=${TAILSCALE_OAUTH_CLIENT_SECRET}
 
   myapp:
