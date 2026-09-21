@@ -11,7 +11,7 @@ services:
       - TZ=America/Los_Angeles
       - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
     volumes:
-      - /mnt/storage/appdata/jellyfin/library:/config
+      - /mnt/appdata/jellyfin/library:/config
       - /mnt/storage/movies:/movies
       - /mnt/storage/tvshows:/tvshows
       - /mnt/storage/music:/music
@@ -48,7 +48,7 @@ services:
         - "docktail.service.port=5055"
        # - "docktail.funnel.enable=true"
       volumes:
-        - /mnt/storage/appdata/seerr:/app/config
+        - /mnt/appdata/seerr:/app/config
       healthcheck:
         test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/settings/public || exit 1
         start_period: 20s
