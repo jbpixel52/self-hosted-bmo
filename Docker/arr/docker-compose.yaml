@@ -24,6 +24,8 @@ services:
       - "docktail.service.enable=true"
       - "docktail.service.name=radarr"
       - "docktail.service.port=7878"
+      - "docktail.service.network=arr"
+
 
   # Sonarr - TV series collection manager and downloader
   sonarr:
@@ -48,6 +50,7 @@ services:
       - "docktail.service.enable=true"
       - "docktail.service.name=sonarr"
       - "docktail.service.port=8989"
+      - "docktail.service.network=arr"
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
@@ -67,6 +70,8 @@ services:
       - "docktail.service.enable=true"
       - "docktail.service.name=prowlarr"
       - "docktail.service.port=9696"
+      - "docktail.service.network=arr"
+
   # Flaresolverr - Docker service
   flaresolverr:
     image: "ghcr.io/flaresolverr/flaresolverr:latest"
@@ -101,6 +106,8 @@ services:
       - "docktail.service.enable=true"
       - "docktail.service.name=lidarr"
       - "docktail.service.port=8686"
+      - "docktail.service.network=arr"
+
   # Recyclarr - Docker service
   profilarr:
     image: ghcr.io/dictionarry-hub/profilarr:latest
@@ -159,6 +166,7 @@ services:
       - "docktail.service.enable=true"
       - "docktail.service.name=qbittorrent"
       - "docktail.service.port=8888"
+      - "docktail.service.network=arr"
 
 networks:
   # Arr - Docker service
