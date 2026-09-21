@@ -156,11 +156,10 @@ services:
       - /mnt/storage/movies:/movies
       - /mnt/storage/tvshows:/tvshows
     ports:
-      #- 8888:8888
+      - 8888:8888
       - 6881:6881
       - 6881:6881/udp
-    expose:
-      - 8888
+
     restart: unless-stopped
     networks: [arr]
     labels:
@@ -168,6 +167,8 @@ services:
       - "docktail.service.name=qbittorrent"
       - "docktail.service.port=8888"
       - "docktail.service.network=arr"
+      - "docktail.service.direct=false"
+
 
 networks:
   # Arr - Docker service
