@@ -17,15 +17,15 @@ services:
       - /mnt/storage/movies:/movies
       - /mnt/storage/downloads:/downloads
     restart: unless-stopped
-    #ports:
-    #  - 7878:7878
+    ports:
+     - 7878:7878
     networks: [arr]
     labels:
       - "docktail.service.enable=true"
       - "docktail.service.name=radarr"
       - "docktail.service.port=7878"
       - "docktail.service.network=arr"
-
+      - "docktail.service.direct=false"
 
   # Sonarr - TV series collection manager and downloader
   sonarr:
@@ -43,15 +43,15 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Los_Angeles
-    #ports:
-    #- 8989:8989
+    ports:
+    - 8989:8989
     networks: [arr]
     labels:
       - "docktail.service.enable=true"
       - "docktail.service.name=sonarr"
       - "docktail.service.port=8989"
       - "docktail.service.network=arr"
-
+      - "docktail.service.direct=false"
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
@@ -62,8 +62,8 @@ services:
       - TZ=America/Los_Angeles
     volumes:
       - /mnt/appdata/prowlarr:/config
-    #ports:
-    # - 9696:9696
+    ports:
+    - 9696:9696
     networks: [arr]
     restart: unless-stopped
     labels:
@@ -71,7 +71,7 @@ services:
       - "docktail.service.name=prowlarr"
       - "docktail.service.port=9696"
       - "docktail.service.network=arr"
-
+      - "docktail.service.direct=false"
   # Flaresolverr - Docker service
   flaresolverr:
     image: "ghcr.io/flaresolverr/flaresolverr:latest"
@@ -99,14 +99,15 @@ services:
       - /mnt/storage/music:/music #optional
       - /mnt/downloads:/downloads #optional
     networks: [arr]
-    #ports:
-    #- 8686:8686
+    ports:
+    - 8686:8686
     restart: unless-stopped
     labels:
       - "docktail.service.enable=true"
       - "docktail.service.name=lidarr"
       - "docktail.service.port=8686"
       - "docktail.service.network=arr"
+      - "docktail.service.direct=false"
 
   # Recyclarr - Docker service
   profilarr:
