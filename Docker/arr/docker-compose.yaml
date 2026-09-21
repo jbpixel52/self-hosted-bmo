@@ -9,23 +9,23 @@ services:
     tty: true
     stdin_open: true
     environment:
-      - PUID=99
-      - PGID=100
+      - PUID=1000
+      - PGID=1000
       - TZ=America/Los_Angeles
     volumes:
-      - /mnt/user/appdata/radarr:/config
-      - /mnt/user/media/:/media
-      - /mnt/user/media/MOVIES/:/movies
-      - /mnt/user/media_cache/downloads:/downloads/
+      - /mnt/appdata/radarr:/config
+      - /mnt/storage/movies:/movies
+      - /mnt/storage/downloads:/downloads
     restart: unless-stopped
     ports:
       - 7878:7878
     networks: [arr]
     labels:
-      tsdproxy.enable: "true"
-      tsdproxy.name: "radarr"
-      # HTTPS on 443 -> container port 7878 (HTTP)
-      tsdproxy.port.1: "443/https:7878/http"
+      - "docktail.service.enable=true"
+      - "docktail.service.name=radarr"
+      - "docktail.service.port=7878"
+
+
   # Sonarr - TV series collection manager and downloader
   sonarr:
     container_name: sonarr
@@ -33,22 +33,23 @@ services:
     image: linuxserver/sonarr:latest
     restart: unless-stopped
     volumes:
-      - /mnt/user/appdata/sonarr:/config
-      - /mnt/user/media/SHOWS:/SHOWS
-      - /mnt/user/media/ANIME:/ANIME
-      - /mnt/user/media_cache/downloads:/downloads/
+      - /mnt/appdata/sonarr:/config
+      - /mnt/storage/tvshows:/tvshows
+      - /mnt/storage/anime:/anime
+      - /mnt/storage/downloads:/downloads
+
     environment:
-      - PUID=99
-      - PGID=100
+      - PUID=1000
+      - PGID=1000
       - TZ=America/Los_Angeles
     ports:
-      - 8990:8989
+      - 8989:8989
     networks: [arr]
     labels:
-      tsdproxy.enable: "true"
-      tsdproxy.name: "sonarr"
-      # HTTPS on 443 -> container port 8990 (HTTP)
-      tsdproxy.port.1: "443/https:8990/http"
+      - "docktail.service.enable=true"
+      - "docktail.service.name=sonarr"
+      - "docktail.service.port=8989"
+
   # Bazarr - Subtitle manager for Radarr and Sonarr
   # bazarr:
   #   image: lscr.io/linuxserver/bazarr:latest
@@ -78,20 +79,19 @@ services:
     container_name: prowlarr
     hostname: prowlarr
     environment:
-      - PUID=99
-      - PGID=100
+      - PUID=1000
+      - PGID=1000
       - TZ=America/Los_Angeles
     volumes:
-      - /mnt/user/appdata/prowlarr:/config
+      - /mnt/appdata/prowlarr:/config
     ports:
       - 9696:9696
     networks: [arr]
     restart: unless-stopped
     labels:
-      tsdproxy.enable: "true"
-      tsdproxy.name: "prowlarr"
-      # HTTPS on 443 -> container port 9696 (HTTP)
-      tsdproxy.port.1: "443/https:9696/http"
+      - "docktail.service.enable=true"
+      - "docktail.service.name=prowlarr"
+      - "docktail.service.port=9696"
   # Flaresolverr - Docker service
   flaresolverr:
     image: "ghcr.io/flaresolverr/flaresolverr:latest"
@@ -100,8 +100,8 @@ services:
     restart: unless-stopped
     environment:
       - LOG_LEVEL=info
-      - PUID=99
-      - PGID=100
+      - PUID=1000
+      - PGID=1000
     ports:
       - "8191:8191"
     networks: [arr]
@@ -111,22 +111,21 @@ services:
     image: lscr.io/linuxserver/lidarr:latest
     container_name: lidarr
     environment:
-      - PUID=99
-      - PGID=100
+      - PUID=1000
+      - PGID=1000
       - TZ=America/Los_Angeles
     volumes:
-      - /mnt/user/appdata/lidarr/config:/config
-      - /mnt/user/media/MUSIC:/music #optional
-      - /mnt/user/media_cache/downloads:/downloads #optional
+      - /mnt/appdata/lidarr/config:/config
+      - /mnt/storage/music:/music #optional
+      - /mnt/downloads:/downloads #optional
     networks: [arr]
     ports:
       - 8686:8686
     restart: unless-stopped
     labels:
-      tsdproxy.enable: "true"
-      tsdproxy.name: "lidarr"
-      # HTTPS on 443 -> container port 8686 (HTTP)
-      tsdproxy.port.1: "443/https:8686/http"
+      - "docktail.service.enable=true"
+      - "docktail.service.name=lidarr"
+      - "docktail.service.port=8686"
   # Recyclarr - Docker service
   profilarr:
     image: ghcr.io/dictionarry-hub/profilarr:latest
@@ -134,7 +133,7 @@ services:
     ports:
       - '6868:6868'
     volumes:
-      - ./config:/config
+      - /mnt/appdata/profilarr:/config
     environment:
       - PUID=1000
       - PGID=1000
@@ -147,11 +146,9 @@ services:
       parser:
         condition: service_healthy
     labels:
-      tsdproxy.enable: "true"
-      tsdproxy.name: "profilarr"
-      # HTTPS on 443 -> container port 6868 (HTTP)
-      tsdproxy.port.1: "443/https:6868/http"
-
+      - "docktail.service.enable=true"
+      - "docktail.service.name=profilarr"
+      - "docktail.service.port=6868"
   # Optional - only needed for CF/QP testing
   parser:
     image: ghcr.io/dictionarry-hub/profilarr-parser:latest
@@ -163,18 +160,19 @@ services:
     container_name: qbittorrent
     hostname: qbittorrent
     environment:
-      - PUID=99
-      - PGID=100
+      - PUID=1000
+      - PGID=1000
       - TZ=America/Los_Angeles
       - WEBUI_PORT=8888
       - DOCKER_MODS=ghcr.io/vuetorrent/vuetorrent-lsio-mod:latest
     volumes:
-      - /mnt/user/appdata/qbittorrent/config:/config/
-      # - /mnt/user/appdata/qbittorrent/downloads:/downloads
-      - /mnt/user/media_cache/downloads:/downloads/
-      - /mnt/user/media/:/media/
-      - /mnt/user/media/MOVIES/:/movies #optional
-      - /mnt/user/media/SHOWS/:/tv #optional
+      - /mnt/appdata/qbittorrent/config:/config/
+      - /mnt/storage/downloads:/downloads
+      - /mnt/storage/anime:/anime
+      - /mnt/storage/music:/music
+
+      - /mnt/storage/movies:/movies
+      - /mnt/storage/tvshows:/tvshows
     ports:
       - 8888:8888
       - 6881:6881
@@ -182,10 +180,9 @@ services:
     restart: unless-stopped
     networks: [arr]
     labels:
-      tsdproxy.enable: "true"
-      tsdproxy.name: "qbittorrent"
-      # HTTPS on 443 -> container port 8888 (HTTP)
-      tsdproxy.port.1: "443/https:8888/http"
+      - "docktail.service.enable=true"
+      - "docktail.service.name=qbittorrent"
+      - "docktail.service.port=8888"
 
 
 networks:
