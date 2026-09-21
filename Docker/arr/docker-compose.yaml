@@ -153,13 +153,14 @@ services:
       - /mnt/storage/downloads:/downloads
       - /mnt/storage/anime:/anime
       - /mnt/storage/music:/music
-
       - /mnt/storage/movies:/movies
       - /mnt/storage/tvshows:/tvshows
     ports:
       #- 8888:8888
       - 6881:6881
       - 6881:6881/udp
+    expose:
+      - 8888
     restart: unless-stopped
     networks: [arr]
     labels:
