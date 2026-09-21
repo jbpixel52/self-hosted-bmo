@@ -1,12 +1,21 @@
 services:
-  tsdproxy:
-    image: almeidapaulopt/tsdproxy:2
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /mnt/user/appdata/tsdproxy/data:/data
-      - /mnt/user/appdata/tsdproxy/config:/config
-    ports:
-      - "8080:8080"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+  docktail:
+    image: ghcr.io/marvinvr/docktail:latest
     restart: unless-stopped
+    container_name: docktail
+    hostname: docktail
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/tailscale:/var/run/tailscale
+    environment:
+      # Optional but recommended. Enables automatic service creation.
+      - TAILSCALE_OAUTH_CLIENT_ID=${TAILSCALE_OAUTH_CLIENT_ID}
+      - TAILSCALE_OAUTH_CLIENT_SECRET=${TAILSCALE_OAUTH_CLIENT_SECRET}
+
+  myapp:
+    image: nginx:latest
+    # No ports needed. DockTail proxies directly to the container IP.
+    labels:
+      - "docktail.service.enable=true"
+      - "docktail.service.name=myapp"
+      - "docktail.service.port=80"
