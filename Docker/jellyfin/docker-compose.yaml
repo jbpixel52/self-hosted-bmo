@@ -6,8 +6,8 @@ services:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
     environment:
-      - PUID=99
-      - PGID=100
+      - PUID=1000
+      - PGID=1000
       - TZ=America/Los_Angeles
       - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
     volumes:
