@@ -17,14 +17,13 @@ services:
       - /mnt/storage/movies:/movies
       - /mnt/storage/downloads:/downloads
     restart: unless-stopped
-    ports:
-      - 7878:7878
+    #ports:
+    #  - 7878:7878
     networks: [arr]
     labels:
       - "docktail.service.enable=true"
       - "docktail.service.name=radarr"
       - "docktail.service.port=7878"
-
 
   # Sonarr - TV series collection manager and downloader
   sonarr:
@@ -42,38 +41,14 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Los_Angeles
-    ports:
-      - 8989:8989
+    #ports:
+    #- 8989:8989
     networks: [arr]
     labels:
       - "docktail.service.enable=true"
       - "docktail.service.name=sonarr"
       - "docktail.service.port=8989"
 
-  # Bazarr - Subtitle manager for Radarr and Sonarr
-  # bazarr:
-  #   image: lscr.io/linuxserver/bazarr:latest
-  #   container_name: bazarr
-  #   hostname: bazarr
-  #   environment:
-  #     - PUID=99
-  #     - PGID=100
-  #     - TZ=Etc/UTC
-  #   volumes:
-  #     - /mnt/user/appdata/bazarr/config:/config
-  #     - /mnt/user/media/MOVIES/:/movies #optional
-  #     - /mnt/user/media/SHOWS/:/tv #optional
-  #   ports:
-  #     - 6767:6767
-  #   networks: [arr]
-  #   labels:
-  #     tsdproxy.enable: "true"
-  #     tsdproxy.name: "bazarr"
-  #     # HTTPS on 443 -> container port 6767 (HTTP)
-  #     tsdproxy.port.1: "443/https:6767/http"
-  #   restart: unless-stopped
-
-  # Prowlarr - Indexer manager for arr-stack
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
@@ -84,8 +59,8 @@ services:
       - TZ=America/Los_Angeles
     volumes:
       - /mnt/appdata/prowlarr:/config
-    ports:
-      - 9696:9696
+    #ports:
+    # - 9696:9696
     networks: [arr]
     restart: unless-stopped
     labels:
@@ -119,8 +94,8 @@ services:
       - /mnt/storage/music:/music #optional
       - /mnt/downloads:/downloads #optional
     networks: [arr]
-    ports:
-      - 8686:8686
+    #ports:
+    #- 8686:8686
     restart: unless-stopped
     labels:
       - "docktail.service.enable=true"
@@ -130,8 +105,8 @@ services:
   profilarr:
     image: ghcr.io/dictionarry-hub/profilarr:latest
     container_name: profilarr
-    ports:
-      - '6868:6868'
+    #ports:
+    # - '6868:6868'
     volumes:
       - /mnt/appdata/profilarr:/config
     environment:
@@ -154,7 +129,8 @@ services:
     image: ghcr.io/dictionarry-hub/profilarr-parser:latest
     container_name: profilarr-parser
     expose:
-      - '5000'
+      - "5000"
+
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -174,7 +150,7 @@ services:
       - /mnt/storage/movies:/movies
       - /mnt/storage/tvshows:/tvshows
     ports:
-      - 8888:8888
+      #- 8888:8888
       - 6881:6881
       - 6881:6881/udp
     restart: unless-stopped
@@ -184,9 +160,7 @@ services:
       - "docktail.service.name=qbittorrent"
       - "docktail.service.port=8888"
 
-
 networks:
   # Arr - Docker service
   arr:
     name: arr
-
