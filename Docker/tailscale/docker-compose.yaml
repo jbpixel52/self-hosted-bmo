@@ -11,7 +11,7 @@ services:
       # Optional but recommended. Enables automatic service creation.
       - TAILSCALE_OAUTH_CLIENT_ID=${TAILSCALE_OAUTH_CLIENT_ID}
       - TAILSCALE_OAUTH_CLIENT_SECRET=${TAILSCALE_OAUTH_CLIENT_SECRET}
-
+      - TAILSCALE_API_KEY=${TAILSCALE_API_KEY}
   myapp:
     image: nginx:latest
     # No ports needed. DockTail proxies directly to the container IP.
