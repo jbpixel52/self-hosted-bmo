@@ -24,11 +24,12 @@ services:
       - 8920:8920 #optional
       - 7359:7359/udp #optional
       - 1900:1900/udp #optional
-    # labels:
-    #   tsdproxy.enable: "true"
-    #   tsdproxy.name: "jf"
-    #   # HTTPS on 443 -> container port 8096 (HTTP)
-    #   tsdproxy.port.1: "443/https:8096/http, tailscale_funnel"
+    labels:
+      - "docktail.service.enable=true"
+      - "docktail.service.name=jf"
+      - "docktail.service.port=8096"
+      - "docktail.funnel.enable=true"
+
     restart: unless-stopped
 
   seerr:
