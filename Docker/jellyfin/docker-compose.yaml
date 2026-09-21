@@ -42,6 +42,11 @@ services:
         - PORT=5055 #optional
       ports:
         - 5055:5055
+      labels:
+        - "docktail.service.enable=true"
+        - "docktail.service.name=requests"
+        - "docktail.service.port=5055"
+        - "docktail.funnel.enable=true"
       volumes:
         - /mnt/storage/appdata/seerr:/app/config
       healthcheck:
