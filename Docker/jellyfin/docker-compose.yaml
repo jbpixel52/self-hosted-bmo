@@ -29,9 +29,9 @@ services:
       - "docktail.service.name=jf"
       - "docktail.service.port=8096"
       - "docktail.funnel.enable=true"
-
     restart: unless-stopped
-
+    devices:
+      - /dev/dri:/dev/dri #optional
   seerr:
       image: ghcr.io/seerr-team/seerr:latest
       init: true
