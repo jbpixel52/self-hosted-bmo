@@ -36,6 +36,7 @@ services:
       image: ghcr.io/seerr-team/seerr:latest
       init: true
       container_name: seerr
+      hostname: seerr
       environment:
         - LOG_LEVEL=debug
         - TZ=America/Los_Angeles
