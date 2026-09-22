@@ -11,6 +11,7 @@ services:
       - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
     volumes:
       - /mnt/appdata/jellyfin/library:/config
+      - /mnt/appdata/jellyfin/jellyfin/config/custom-cont-init.d://custom-cont-init.d
       - /mnt/storage/movies:/movies
       - /mnt/storage/tvshows:/tvshows
       - /mnt/storage/music:/music
