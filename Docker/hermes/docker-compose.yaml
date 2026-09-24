@@ -41,6 +41,7 @@ services:
       HERMES_DASHBOARD_BASIC_AUTH_USERNAME: ${HERMES_DASHBOARD_USER:?set in .env}
       HERMES_DASHBOARD_BASIC_AUTH_PASSWORD: ${HERMES_DASHBOARD_PASSWORD:?set in .env}
       HERMES_DASHBOARD_BASIC_AUTH_SECRET: ${HERMES_DASHBOARD_SECRET:?set in .env}
+      HERMES_DASHBOARD_INSECURE: True
       # OpenAI-compatible API server on 8642. The key is mandatory for auth.
       API_SERVER_ENABLED: "true"
       API_SERVER_HOST: 0.0.0.0
