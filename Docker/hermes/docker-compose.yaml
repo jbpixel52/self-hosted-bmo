@@ -290,7 +290,78 @@ services:
       - "docktail.service.port=3000"
       - "docktail.service.network=hermes-stack"
       - "docktail.service.direct=false"
-
+  # ─── Hindsight — SELF-HOSTED memory backend ──────────────────────────────
+  # PostgreSQL + pgvector: upstream's supported production storage (Hindsight's
+  # embedded `pg0` database is explicitly "not recommended for production").
+  # Lives on the SSD in this box's /mnt/appdata convention, not a docker volume
+  # so it is covered by normal file backups and snapraid-style tooling.
+  hindsight-db:
+    image: pgvector/pgvector:pg${HINDSIGHT_DB_VERSION:-18}
+    container_name: hindsight-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${HINDSIGHT_DB_USER:-hindsight_user}
+      POSTGRES_PASSWORD: ${HINDSIGHT_DB_PASSWORD:?set in .env}
+      POSTGRES_DB: ${HINDSIGHT_DB_NAME:-hindsight_db}
+    volumes:
+      - /mnt/appdata/hindsight/pg:/var/lib/postgresql/${HINDSIGHT_DB_VERSION:-18}/docker
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${HINDSIGHT_DB_USER:-hindsight_user} -d ${HINDSIGHT_DB_NAME:-hindsight_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    mem_limit: 1g
+    networks: [stack]
+  # The full image bundles the local BGE embedder + MiniLM cross-encoder, so
+  # with an `openrouter` LLM it needs no other external credential at all:
+  # embeddings and reranking stay on this box. That is the whole reason to
+  # accept the ~9 GB pull and ~2 GB idle RSS — the `-slim` tag is ~500 MB but
+  # then embeddings AND reranking must come from elsewhere (OpenAI, Cohere, TEI).
+  #
+  # Upstream's external-pg reference compose mounts no app volume, and nothing
+  # here needs one: the models are baked into the image, state lives in Postgres.
+  hindsight:
+    image: ghcr.io/vectorize-io/hindsight:${HINDSIGHT_VERSION:-latest}
+    container_name: hindsight
+    restart: unless-stopped
+    environment:
+      HINDSIGHT_API_DATABASE_URL: postgresql://${HINDSIGHT_DB_USER:-hindsight_user}:${HINDSIGHT_DB_PASSWORD:?set in .env}@hindsight-db:5432/${HINDSIGHT_DB_NAME:-hindsight_db}
+      # Stable worker identity: the default is the container hostname, which
+      # changes on every restart and orphans in-flight retain tasks.
+      HINDSIGHT_API_WORKER_ID: hindsight-mother
+      # LLM for fact extraction, entity resolution and synthesis.
+      # `openrouter` is a first-class provider, so the existing key works.
+      # If you switch to a provider needing a custom endpoint, add
+      # HINDSIGHT_API_LLM_BASE_URL here — do NOT pass it empty, Hindsight's
+      # config layer rejects empty strings for typed fields.
+      HINDSIGHT_API_LLM_PROVIDER: ${HINDSIGHT_LLM_PROVIDER:-openrouter}
+      # Not guarded with :? on purpose — the rest of the stack must still come
+      # up if this is not pasted yet. Hindsight itself cannot work without it
+      # (fact extraction is the whole product), so it will log an error.
+      HINDSIGHT_API_LLM_API_KEY: ${HINDSIGHT_LLM_API_KEY:-}
+      HINDSIGHT_API_LLM_MODEL: ${HINDSIGHT_LLM_MODEL:-openai/gpt-4o-mini}
+      # Auth: the built-in API-key tenant extension. Every request must carry
+      # `Authorization: Bearer <key>` — including the Hermes plugin's.
+      HINDSIGHT_API_TENANT_EXTENSION: hindsight_api.extensions.builtin.tenant:ApiKeyTenantExtension
+      HINDSIGHT_API_TENANT_API_KEY: ${HINDSIGHT_API_KEY:?set in .env}
+    ports:
+      # Control Plane (web UI) only. The API itself is NOT published on the
+      # host: port 8888 is already taken here (qbittorrent's WebUI), and Hermes
+      # reaches it over the compose network at http://hindsight:8888 .
+      # To poke it from the host, add a 127.0.0.1:8889:8888 mapping.
+      - "9999:9999"
+    depends_on:
+      hindsight-db:
+        condition: service_healthy
+    mem_limit: 2.5g
+    networks: [stack]
+    labels:
+      - "docktail.service.enable=true"
+      - "docktail.service.name=hindsight"
+      - "docktail.service.port=9999"
+      - "docktail.service.network=hermes-stack"
+      - "docktail.service.direct=false"
 networks:
   stack:
     name: hermes-stack
