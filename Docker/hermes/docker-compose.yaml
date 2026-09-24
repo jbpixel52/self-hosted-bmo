@@ -38,14 +38,14 @@ services:
       HERMES_DASHBOARD: "1"
       HERMES_DASHBOARD_HOST: 0.0.0.0
       HERMES_DASHBOARD_PORT: "9119"
-      HERMES_DASHBOARD_BASIC_AUTH_USERNAME: ${HERMES_DASHBOARD_USER:?set in .env}
-      HERMES_DASHBOARD_BASIC_AUTH_PASSWORD: ${HERMES_DASHBOARD_PASSWORD:?set in .env}
-      HERMES_DASHBOARD_BASIC_AUTH_SECRET: ${HERMES_DASHBOARD_SECRET:?set in .env}
+      HERMES_DASHBOARD_BASIC_AUTH_USERNAME: ${HERMES_DASHBOARD_USER}
+      HERMES_DASHBOARD_BASIC_AUTH_PASSWORD: ${HERMES_DASHBOARD_PASSWORD}
+      HERMES_DASHBOARD_BASIC_AUTH_SECRET: ${HERMES_DASHBOARD_SECRET}
       HERMES_DASHBOARD_INSECURE: True
       # OpenAI-compatible API server on 8642. The key is mandatory for auth.
       API_SERVER_ENABLED: "true"
       API_SERVER_HOST: 0.0.0.0
-      API_SERVER_KEY: ${HERMES_API_SERVER_KEY:?set in .env}
+      API_SERVER_KEY: ${HERMES_API_SERVER_KEY}
       # Memory: Hindsight provider. The key is read here AND/OR from
       # /mnt/appdata/hermes/.env; the provider itself is enabled once with
       #   docker compose run --rm hermes plugins install hindsight
