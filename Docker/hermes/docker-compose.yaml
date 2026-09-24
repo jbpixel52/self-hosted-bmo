@@ -1,138 +1,296 @@
+# Hermes AI stack for mother
+#
+# Stack dir: /home/jbpixel/self-hosted-bmo/Docker/hermes-stack/
+# Bring up:  cd /home/jbpixel/self-hosted-bmo/Docker/hermes-stack && docker compose up -d
+#
+# Volume convention matches this box's other stacks (arr/, jellyfin/):
+# one bind mount per app under /mnt/appdata/<app>, never named volumes.
+#
+# Services here:
+#   hermes      - Hermes Agent gateway + dashboard (memory via the Hindsight provider)
+#   opencode    - OpenCode headless coding-agent server (HTTP API on 4096)
+#   open-design - Open Design (design-artifact workspace; drives agent CLIs or BYOK)
+#   crw         - fastCRW: Firecrawl-compatible scraper/crawler API
+#   searxng     - meta-search backend for crw's /v1/search (internal only)
+#   lightpanda  - lightweight JS renderer for crw (internal only)
+#   vane        - Vane AI answering engine (bundles its own SearXNG)
+name: hermes-stack
+
 services:
+
+  # ─── Hermes Agent ────────────────────────────────────────────────────────
+  # Image runs as root; HERMES_UID/GID remap the internal `hermes` user to the
+  # host user so everything written into /opt/data stays owned by jbpixel.
+  # HERMES_HOME is /opt/data, so all state (config.yaml, .env, sessions,
+  # memories/, skills/) lives on the bind mount.
   hermes:
     image: nousresearch/hermes-agent:latest
     container_name: hermes
     restart: unless-stopped
-    command: gateway run
-    networks:
-      - ai
+    command: ["gateway", "run"]
+    environment:
+      HERMES_UID: ${PUID:-1000}
+      HERMES_GID: ${PGID:-1000}
+      TZ: ${TZ:-America/Los_Angeles}
+      # Dashboard on 9119 — also what Hermes Desktop's "Remote Gateway" talks to.
+      # A non-loopback bind REQUIRES an auth provider; basic auth is the
+      # zero-infra homelab option.
+      HERMES_DASHBOARD: "1"
+      HERMES_DASHBOARD_HOST: 0.0.0.0
+      HERMES_DASHBOARD_PORT: "9119"
+      HERMES_DASHBOARD_BASIC_AUTH_USERNAME: ${HERMES_DASHBOARD_USER:?set in .env}
+      HERMES_DASHBOARD_BASIC_AUTH_PASSWORD: ${HERMES_DASHBOARD_PASSWORD:?set in .env}
+      HERMES_DASHBOARD_BASIC_AUTH_SECRET: ${HERMES_DASHBOARD_SECRET:?set in .env}
+      # OpenAI-compatible API server on 8642. The key is mandatory for auth.
+      API_SERVER_ENABLED: "true"
+      API_SERVER_HOST: 0.0.0.0
+      API_SERVER_KEY: ${HERMES_API_SERVER_KEY:?set in .env}
+      # Memory: Hindsight provider. The key is read here AND/OR from
+      # /mnt/appdata/hermes/.env; the provider itself is enabled once with
+      #   docker compose run --rm hermes plugins install hindsight
+      #   docker compose run --rm hermes config set memory.provider hindsight
+      HINDSIGHT_API_KEY: ${HINDSIGHT_API_KEY:-}
+      # Model providers (optional here — the mounted .env wins for Hermes)
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    ports:
+      - "8642:8642"   # OpenAI-compatible API server + health endpoint
+      - "9119:9119"   # dashboard
     volumes:
-      - /mnt/user/appdata/hermes:/opt/data
-    environment:
-      - HERMES_UID=99
-      - HERMES_GID=100
-      - HERMES_DASHBOARD=1
-      - HERMES_DASHBOARD_INSECURE= True
-      - HERMES_DASHBOARD_BASIC_AUTH_USERNAME=${HERMES_DASHBOARD_BASIC_AUTH_USERNAME}
-      - HERMES_DASHBOARD_BASIC_AUTH_PASSWORD=${HERMES_DASHBOARD_BASIC_AUTH_PASSWORD}
-      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
-    ports:
-      - "8642:8642"   # gateway API
-      - "9119:9119"   # dashboard (only reached when HERMES_DASHBOARD=1)
-
+      - /mnt/appdata/hermes:/opt/data
+    # 2–4 GB recommended by the docs; 3 GB ceiling leaves room for the rest
+    mem_limit: 3g
+    networks: [stack]
     labels:
-      tsdproxy.enable: "true"
-      tsdproxy.name: "hermes"
-      # HTTPS on 443 -> container port 8642 (HTTP)
-      tsdproxy.port.1: "443/https:8642/http"  # gateway HTTP for inbound webhooks
-      tsdproxy.port.3: "443/https:9119/http"
+      - "docktail.service.enable=true"
+      - "docktail.service.name=hermes"
+      - "docktail.service.port=9119"
+      - "docktail.service.network=hermes-stack"
+      - "docktail.service.direct=false"
 
-    deploy:
-      resources:
-        limits:
-          memory: 8G
-          cpus: "2.0"
-
-    healthcheck:
-      test: ["CMD", "hermes", "doctor", "--quiet"]
-      interval: 60s
-      timeout: 30s
-      retries: 3
-      start_period: 90s
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "5"
-
-  chrome:
-    image: zenika/alpine-chrome:latest
-    hostname: chrome
-    container_name: chrome
-    command: [chromium-browser, "--headless", "--disable-dev-shm-usage",--disable-gpu", "--no-sandbox", "--remote-debugging-address=0.0.0.0", "--remote-debugging-port=9229"]
-    ports:
-      - "9229:9229"
-    networks:
-      - ai
-
-  ## CRW API Server
-  crw:
-    image: ghcr.io/us/crw:latest
-    ports:
-      - "3000:3000"
-    networks:
-      - ai
-    depends_on:
-      lightpanda:
-        condition: service_started
+  # ─── OpenCode headless server ────────────────────────────────────────────
+  # Image ENTRYPOINT is `opencode`, so these args become:
+  #   opencode serve --port 4096 --hostname 0.0.0.0
+  # OpenAPI spec: http://<host>:4096/doc   health: /global/health
+  opencode:
+    image: ghcr.io/anomalyco/opencode:latest
+    container_name: opencode
+    restart: unless-stopped
+    command: ["serve", "--port", "4096", "--hostname", "0.0.0.0"]
+    working_dir: /workspace
     environment:
-      - RUST_LOG=info
-      # LightPanda for JS rendering
-      - CRW_RENDERER__LIGHTPANDA__WS_URL=ws://lightpanda:9222
-     # Uncomment to enable Playwright as a second renderer tier:
-      - CRW_RENDERER__PLAYWRIGHT__WS_URL=ws://playwright:9223
-#      - CRW_SERVER__PORT=3000               # default
-      - CRW_CRAWLER__REQUESTS_PER_SECOND=5  # rate-limit crawling
-      - CRW_CRAWLER__USER_AGENT=MyBot/1.0   # custom UA
-      - CRW_AUTH__API_KEYS=["sk-my-key"]    # enable Bearer auth
+      HOME: /root
+      OPENCODE_SERVER_USERNAME: ${OPENCODE_SERVER_USERNAME:-opencode}
+      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD:?set in .env}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+    ports:
+      - "4096:4096"
+    volumes:
+      # auth.json / opencode.json
+      - /mnt/appdata/opencode/config:/root/.config/opencode
+      # sessions, logs, storage
+      - /mnt/appdata/opencode/share:/root/.local/share/opencode
+      # the code it works on (point this at a repo, or use sshfs/`opencode -c`)
+      - /mnt/appdata/opencode/workspace:/workspace
+    mem_limit: 1g
+    networks: [stack]
+    labels:
+      - "docktail.service.enable=true"
+      - "docktail.service.name=opencode"
+      - "docktail.service.port=4096"
+      - "docktail.service.network=hermes-stack"
+      - "docktail.service.direct=false"
+
+  # ─── Open Design ─────────────────────────────────────────────────────────
+  # Local-first design-artifact workspace (Apache-2.0). Runs as the image's
+  # `open-design` user (uid 1001) — the bind mount must be owned by 1001:1001.
+  # It drives coding-agent CLIs found on PATH, otherwise it uses its BYOK proxy;
+  # agent keys below feed the BYOK path.
+  open-design:
+    image: ghcr.io/nexu-io/od:latest
+    container_name: open-design
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      NODE_OPTIONS: ${NODE_OPTIONS:---max-old-space-size=192}
+      OD_BIND_HOST: 0.0.0.0
+      OD_PORT: "7456"
+      OD_WEB_PORT: "7456"
+      OD_API_TOKEN: ${OD_API_TOKEN:?set in .env}
+      OD_ALLOWED_ORIGINS: ${OPEN_DESIGN_ALLOWED_ORIGINS:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+    ports:
+      - "7456:7456"
+    volumes:
+      - /mnt/appdata/open-design:/app/.od
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    pids_limit: 256
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:7456/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       interval: 30s
       timeout: 5s
       retries: 3
-      start_period: 10s
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "3"
-    deploy:
-      resources:
-        limits:
-          memory: 256M
-          cpus: "1.0"
+      start_period: 20s
+    networks: [stack]
+    labels:
+      - "docktail.service.enable=true"
+      - "docktail.service.name=opendesign"
+      - "docktail.service.port=7456"
+      - "docktail.service.network=hermes-stack"
+      - "docktail.service.direct=false"
+
+  # ─── fastCRW — web scraping / crawling API ───────────────────────────────
+  # Firecrawl-compatible: /v1/scrape, /v1/crawl, /v1/map, /v1/extract, /v1/search
+  # Container port is 3000, published on the host as 3002 (3000 belongs to Vane).
+  # config.docker.toml (mounted below) points the renderer ladder and the search
+  # backend at the lightpanda and searxng service names on this network.
+  crw:
+    image: ghcr.io/us/crw:latest
+    container_name: crw
     restart: unless-stopped
-  ## ─── LightPanda (headless browser for JS rendering) ──────────────
+    environment:
+      RUST_LOG: ${CRW_LOG_LEVEL:-crw_server=info,crw_renderer=warn}
+      CRW_CONFIG: config.docker
+    ports:
+      - "3002:3000"
+    volumes:
+      - ./config.docker.toml:/app/config.docker.toml:ro
+    depends_on:
+      lightpanda:
+        condition: service_started
+      searxng:
+        condition: service_healthy
+      # `chrome` is opt-in (profile "heavy"); listing it here is harmless when
+      # the profile is off and gives deterministic ordering when it is on.
+      chrome:
+        condition: service_started
+        required: false
+    mem_limit: 2g
+    memswap_limit: 2g
+    pids_limit: 512
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    networks: [stack]
+    labels:
+      - "docktail.service.enable=true"
+      - "docktail.service.name=crw"
+      - "docktail.service.port=3002"
+      - "docktail.service.network=hermes-stack"
+      - "docktail.service.direct=false"
+
+  # Meta-search backend for crw's /v1/search. Internal only — no host port.
+  searxng:
+    image: searxng/searxng:2026.5.9-0cba32c15
+    container_name: crw-searxng
+    restart: unless-stopped
+    environment:
+      SEARXNG_BASE_URL: http://searxng:8080/
+      SEARXNG_SECRET_KEY: ${SEARXNG_SECRET_KEY:?set in .env}
+    volumes:
+      - ./config/searxng/settings.yml:/etc/searxng/settings.yml:ro
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    memswap_limit: 512m
+    pids_limit: 256
+    tmpfs:
+      - /tmp:size=64m
+      - /var/cache/searxng:size=128m
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks: [stack]
+
+  # Primary JS renderer for crw (lightweight). restart is load-bearing: it is
+  # known to OOM/segfault on adversarial pages.
   lightpanda:
     image: lightpanda/browser:latest
-    ports:
-      - "9222:9222"
+    container_name: crw-lightpanda
     restart: unless-stopped
-    networks:
-      - ai
-  # ─── Playwright (optional second renderer) ───────────────────────
-  #Uncomment this block AND the CRW_RENDERER__PLAYWRIGHT__WS_URL
-  # env-var above to enable Playwright as an additional renderer.
-  playwright:
-    image: mcr.microsoft.com/playwright:v1.49.0-noble
-    command: ["npx", "playwright", "run-server", "--port=9223"]
-    networks:
-      - ai
-    ports:
-      - "9223:9223"
-    restart: unless-stopped
-  hindsight:
-    image: ghcr.io/vectorize-io/hindsight:latest
-    container_name: hindsight
-    stdin_open: true
-    tty: true
-    #pull_policy: always
-    restart: unless-stopped
-    networks:
-      - ai
-    ports:
-        - 8887:8888
-        - 9999:9999
     environment:
-        - HINDSIGHT_API_LLM_PROVIDER=openrouter
-        - HINDSIGHT_API_EMBEDDINGS_OPENROUTER_MODEL=openai/text-embedding-3-small
-        - HINDSIGHT_API_LLM_API_KEY=${OPENROUTER_API_KEY}
-        - HINDSIGHT_API_EMBEDDINGS_PROVIDER=openrouter
+      LIGHTPANDA_DISABLE_TELEMETRY: "true"
+    command:
+      - "/bin/lightpanda"
+      - "serve"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "9222"
+      - "--log-level"
+      - "info"
+      - "--block-private-networks"
+      - "--block-cidrs"
+      - "0.0.0.0/8,10.0.0.0/8,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16,100.64.0.0/10,224.0.0.0/4,240.0.0.0/4,192.0.0.0/24,192.0.2.0/24,198.18.0.0/15,198.51.100.0/24,203.0.113.0/24,fc00::/7,fe80::/10,fec0::/10,ff00::/8,::/96,64:ff9b:1::/48,2002::/16"
+    mem_limit: 1g
+    memswap_limit: 1g
+    healthcheck:
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/9222"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks: [stack]
+
+  # Fallback full-Chromium renderer for complex SPAs. Opt in only when needed:
+  #   docker compose --profile heavy up -d
+  chrome:
+    image: chromedp/headless-shell:latest
+    container_name: crw-chrome
+    profiles: ["heavy"]
+    restart: unless-stopped
+    shm_size: "2g"
+    command:
+      - "--remote-allow-origins=*"
+      - "--ignore-certificate-errors"
+      - "--disable-http2"
+      - "--disable-blink-features=AutomationControlled"
+    mem_limit: 2g
+    memswap_limit: 2g
+    networks: [stack]
+
+  # ─── Vane — AI answering engine ──────────────────────────────────────────
+  # The image bundles its own SearXNG (port 8080 inside, not published) and is
+  # configured in the UI on first run (provider + model + API key), so no
+  # provider env vars are set here. State lives in /home/vane/data.
+  vane:
+    image: itzcrazykns1337/vane:latest
+    container_name: vane
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
     volumes:
-        - hindsight-data:/home/hindsight/.pg0
-volumes:
-  hindsight-data:
-    driver: local
+      - /mnt/appdata/vane:/home/vane/data
+    mem_limit: 1g
+    networks: [stack]
+    labels:
+      - "docktail.service.enable=true"
+      - "docktail.service.name=vane"
+      - "docktail.service.port=3000"
+      - "docktail.service.network=hermes-stack"
+      - "docktail.service.direct=false"
+
 networks:
-  ai:
-    name: ai
+  stack:
+    name: hermes-stack
