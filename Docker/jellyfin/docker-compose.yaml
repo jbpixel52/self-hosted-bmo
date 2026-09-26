@@ -71,3 +71,21 @@ services:
     cap_drop:
       - ALL
     restart: unless-stopped
+
+  wizarr:
+    container_name: wizarr
+    image: ghcr.io/wizarrrr/wizarr
+    ports:
+      - 5690:5690
+    volumes:
+      - /mnt/appdata/wizarr:/data
+    environment:
+      - PUID=1000 #Set UID
+      - PGID=1000 #Set GID
+      - DISABLE_BUILTIN_AUTH=false #Set to true ONLY if you are using another auth provider (Authelia, Authentik, etc)
+      - TZ=America/Los_Angeles
+    labels:
+      - "docktail.funnel.enable=true"
+      - "docktail.funnel.port=5690"
+      - "docktail.funnel.funnel-port=443"
+      - "docktail.funnel.path=/invite"
