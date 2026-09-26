@@ -87,7 +87,9 @@ services:
       - DISABLE_BUILTIN_AUTH=false #Set to true ONLY if you are using another auth provider (Authelia, Authentik, etc)
       - TZ=America/Los_Angeles
     labels:
+      - "docktail.service.enable=true"
+      - "docktail.service.name=wizarr"
+      - "docktail.service.port=5690"
+      - "docktail.service.service-port=443"
       - "docktail.funnel.enable=true"
       - "docktail.funnel.port=5690"
-      - "docktail.funnel.funnel-port=443"
-      - "docktail.funnel.path=/invite"
