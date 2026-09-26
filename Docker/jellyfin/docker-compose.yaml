@@ -30,7 +30,7 @@ services:
       - "docktail.service.enable=true"
       - "docktail.service.direct=false"
       - "docktail.service.port=8096"
-      - "docktail.service.name=jf"
+      - "docktail.service.name=jellyfin"
 
       - "docktail.funnel.enable=true"
       - "docktail.funnel.port=8096"
@@ -55,11 +55,11 @@ services:
       - "host.docker.internal:172.17.0.1"
     labels:
       - "docktail.service.enable=true"
-      - "docktail.service.name=requests"
+      - "docktail.service.name=seerr"
       - "docktail.service.port=5055"
+      - "docktail.service.service-port=443"
       - "docktail.funnel.enable=true"
       - "docktail.funnel.port=5055"
-      - "docktail.funnel.path=/requests"
     volumes:
       - /mnt/appdata/seerr:/app/config
     healthcheck:
