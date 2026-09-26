@@ -90,6 +90,5 @@ services:
       - "docktail.service.enable=true"
       - "docktail.service.name=wizarr"
       - "docktail.service.port=5690"
-      - "docktail.service.service-port=443"
       - "docktail.funnel.enable=true"
       - "docktail.funnel.port=5690"
