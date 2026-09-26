@@ -31,11 +31,13 @@ services:
       - "docktail.service.name=jf"
       - "docktail.service.port=8096"
       - "docktail.service.direct=false"
-
-    #   - "docktail.funnel.enable=true"
+      - "docktail.service.service-port=443"
+      - "docktail.funnel.enable=true"
+      - "docktail.funnel.path=/jellyfin"
     restart: unless-stopped
     devices:
       - /dev/dri:/dev/dri #optional
+
   seerr:
     image: ghcr.io/seerr-team/seerr:latest
     init: true
@@ -53,7 +55,9 @@ services:
       - "docktail.service.enable=true"
       - "docktail.service.name=requests"
       - "docktail.service.port=5055"
-      # - "docktail.funnel.enable=true"
+      - "docktail.funnel.enable=true"
+      - "docktail.funnel.funnel-port=443"
+      - "docktail.funnel.path=/requests"
     volumes:
       - /mnt/appdata/seerr:/app/config
     healthcheck:
