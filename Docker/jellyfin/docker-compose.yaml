@@ -31,11 +31,11 @@ services:
       - "docktail.service.direct=false"
       - "docktail.service.port=8096"
       - "docktail.service.name=jf"
-      
+
       - "docktail.funnel.enable=true"
       - "docktail.funnel.port=8096"
       - "docktail.funnel.path=/jellyfin"
-      - 
+
     restart: unless-stopped
     devices:
       - /dev/dri:/dev/dri #optional
