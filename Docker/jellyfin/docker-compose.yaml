@@ -75,8 +75,8 @@ services:
   wizarr:
     container_name: wizarr
     image: ghcr.io/wizarrrr/wizarr
-    ports:
-      - 5690:5690
+    #ports:
+      #- 5690:5690
     volumes:
       - /mnt/appdata/wizarr:/data
     environment:
