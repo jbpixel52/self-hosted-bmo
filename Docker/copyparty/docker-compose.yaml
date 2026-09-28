@@ -6,10 +6,15 @@ services:
     user: "99:100"
     image: copyparty/ac
     restart: unless-stopped
+    # The image's stock entrypoint runs `python3 -m copyparty -c /z/initcfg`,
+    # which only serves /cfg and ignores /shares. Point it at our own config.
+    entrypoint: ["/bin/ash", "/z/cpp.sh", "-c", "/cfg/copyparty.conf"]
     ports:
       - '3923:3923'
     volumes:
-      - '/mnt/user/:/shares'
+      # Drop/upload share. The config (which holds the account password) lives
+      # under /cfg and is deliberately not tracked in this repo.
+      - '/mnt/storage/copyparty:/shares'
       - '/mnt/user/appdata/copyparty:/cfg'
     labels:
       # Tailnet-only service: HTTPS on 443 -> container port 3923 (HTTP)
