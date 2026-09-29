@@ -31,6 +31,11 @@ services:
       - "docktail.service.direct=false"
       - "docktail.service.port=8096"
       - "docktail.service.name=jellyfin"
+      # Serve the tailnet service on 443 with TLS terminated by Tailscale, so
+      # it is always https://jellyfin.<tailnet>.ts.net (was http on :80).
+      # The backend stays plain http - that hop never leaves the host.
+      - "docktail.service.service-port=443"
+      - "docktail.service.service-protocol=https"
 
       - "docktail.funnel.enable=true"
       - "docktail.funnel.port=8096"
@@ -57,7 +62,10 @@ services:
       - "docktail.service.enable=true"
       - "docktail.service.name=seerr"
       - "docktail.service.port=5055"
+      # Already https in practice; make it explicit so it cannot drift back to
+      # plain http if docktail's defaults ever change.
       - "docktail.service.service-port=443"
+      - "docktail.service.service-protocol=https"
       - "docktail.funnel.enable=true"
       - "docktail.funnel.port=5055"
     volumes:
