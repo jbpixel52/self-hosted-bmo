@@ -68,6 +68,10 @@ services:
       - "docktail.service.service-protocol=https"
       - "docktail.funnel.enable=true"
       - "docktail.funnel.port=5055"
+      # Seerr's assets are root-absolute (/_next, /api/v1, ...), so it cannot be
+      # served under a sub-path. Give it the root of its own funnel port instead
+      # (443 is shared by jellyfin/copyparty via paths; 8443 is wizarr).
+      - "docktail.funnel.funnel-port=10000"
     volumes:
       - /mnt/appdata/seerr:/app/config
     healthcheck:
