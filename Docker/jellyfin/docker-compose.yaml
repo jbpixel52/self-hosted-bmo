@@ -92,5 +92,10 @@ services:
       - "docktail.service.enable=true"
       - "docktail.service.name=wizarr"
       - "docktail.service.port=5690"
+      - "docktail.service.service-port=443"
+
       - "docktail.funnel.enable=true"
       - "docktail.funnel.port=5690"
+      # Public funnels all share port 443 on the node, so each needs its own
+      # path. "/" is taken by seerr; a duplicate silently fails reconcile.
+      - "docktail.funnel.path=/wizarr"
