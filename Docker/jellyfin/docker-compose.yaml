@@ -68,10 +68,10 @@ services:
       - "docktail.service.service-protocol=https"
       - "docktail.funnel.enable=true"
       - "docktail.funnel.port=5055"
-      # Seerr's assets are root-absolute (/_next, /api/v1, ...), so it cannot be
-      # served under a sub-path. Give it the root of its own funnel port instead
-      # (443 is shared by jellyfin/copyparty via paths; 8443 is wizarr).
-      - "docktail.funnel.funnel-port=10000"
+      # Served at the ROOT of the 443 funnel. Seerr's assets are root-absolute
+      # (/_next, /api/v1, ...) and Next.js bakes basePath in at build time, with
+      # no runtime setting, so seerr can be served at "/" but NOT under a
+      # sub-path (/seerr 404s its own assets) and NOT with a funnel path.
     volumes:
       - /mnt/appdata/seerr:/app/config
     healthcheck:
