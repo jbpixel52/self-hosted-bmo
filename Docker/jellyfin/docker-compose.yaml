@@ -94,8 +94,10 @@ services:
       - "docktail.service.port=5690"
       - "docktail.service.service-port=443"
 
+      # Wizarr does not support being served under a sub-path (its redirects are
+      # root-absolute: /admin, /login), so it needs the root of its own public
+      # funnel port. Funnels only support 443, 8443 and 10000, and 443 is
+      # already shared by seerr/jellyfin/copyparty via distinct paths.
       - "docktail.funnel.enable=true"
       - "docktail.funnel.port=5690"
-      # Public funnels all share port 443 on the node, so each needs its own
-      # path. "/" is taken by seerr; a duplicate silently fails reconcile.
-      - "docktail.funnel.path=/wizarr"
+      - "docktail.funnel.funnel-port=8443"
