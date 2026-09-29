@@ -79,6 +79,8 @@ services:
     image: ghcr.io/wizarrrr/wizarr
     #ports:
       #- 5690:5690
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
     volumes:
       - /mnt/appdata/wizarr:/data
     environment:
