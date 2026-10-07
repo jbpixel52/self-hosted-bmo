@@ -51,9 +51,10 @@ services:
     environment:
       - FRIGATE_RTSP_PASSWORD= "password"
     restart: unless-stopped
+    # Map the whole /dev/dri directory, as the jellyfin stack does on this host:
+    # mother exposes card1 + renderD128 and has no card0.
     devices:
-      - /dev/dri/card0:/dev/dri/card0
-      - /dev/dri/renderD128:/dev/dri/renderD128
+      - /dev/dri:/dev/dri
     labels:
       # Tailnet-only service: HTTPS on 443 -> container port 5000 (the app's
       # port; it is published on the host as 5500).
