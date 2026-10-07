@@ -18,10 +18,14 @@ services:
       - /dev/serial/by-id/usb-Nabu_Casa_ZBT-2_1CDBD45F1FA4-if00:/dev/ttyACM0
 
     labels:
-      tsdproxy.enable: "true"
-      tsdproxy.name: "homeassistant"
-      tsdproxy.autodetect: "false"
-      tsdproxy.port.1: "443/https:8123/http, no_autodetect"
+      # Tailnet-only service: HTTPS on 443 -> container port 8123 (HTTP).
+      # network_mode: host publishes nothing, so docktail uses direct mode (the
+      # default) and reaches it on 127.0.0.1:8123.
+      - "docktail.service.enable=true"
+      - "docktail.service.name=homeassistant"
+      - "docktail.service.port=8123"
+      - "docktail.service.service-port=443"
+      - "docktail.service.service-protocol=https"
   # Frigate - Docker service
   frigate:
     container_name: frigate
@@ -51,10 +55,13 @@ services:
       - /dev/dri/card0:/dev/dri/card0
       - /dev/dri/renderD128:/dev/dri/renderD128
     labels:
-      tsdproxy.enable: "true"
-      tsdproxy.name: "frigate"
-      # HTTPS on 443 -> container port 8123 (HTTP)
-      tsdproxy.port.1: "443/https:5500/http"
+      # Tailnet-only service: HTTPS on 443 -> container port 5000 (the app's
+      # port; it is published on the host as 5500).
+      - "docktail.service.enable=true"
+      - "docktail.service.name=frigate"
+      - "docktail.service.port=5000"
+      - "docktail.service.service-port=443"
+      - "docktail.service.service-protocol=https"
     deploy: 
       resources:
         limits:
