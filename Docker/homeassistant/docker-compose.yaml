@@ -14,7 +14,6 @@ services:
       - TZ=America/Los_Angeles
     volumes:
       - /mnt/user/appdata/homeassistant:/config
-      - /mnt/user/media:/media
     restart: unless-stopped
     devices:
       - /dev/serial/by-id/usb-Nabu_Casa_ZBT-2_1CDBD45F1FA4-if00:/dev/ttyACM0
@@ -31,7 +30,7 @@ services:
   # Frigate - Docker service
   frigate:
     container_name: frigate
-    image: ghcr.io/blakeblackshear/frigate:latest
+    image: ghcr.io/blakeblackshear/frigate:0.17.1
     shm_size: 1gb # update for your cameras based on calculation above
     privileged: true
     cap_add:
@@ -40,8 +39,8 @@ services:
       - "host.docker.internal:172.17.0.1"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /mnt/user/appdata/frigate/config/:/config/
-      - /mnt/user/recordings:/media/frigate
+      - /mnt/appdata/frigate/config/:/config/
+      - /mnt/appdata/frigate/recordings:/media/frigate
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
         tmpfs:
@@ -70,9 +69,7 @@ services:
     deploy: 
       resources:
         limits:
-          memory: 12G
-        reservations:
-          memory: 6G
+          memory: 3G
   # Mosquitto - Docker service
   mosquitto:
     image: eclipse-mosquitto:2
@@ -81,9 +78,9 @@ services:
     extra_hosts:
       - "host.docker.internal:172.17.0.1"
     volumes:
-      - /mnt/user/appdata/mosquitto/config:/mosquitto/config/
-      - /mnt/user/appdata/mosquitto/log/:/mosquitto/log/
-      - /mnt/user/appdata/mosquitto/data/:/mosquitto/data/
+      - /mnt/appdata/mosquitto/config:/mosquitto/config/
+      - /mnt/appdata/mosquitto/log/:/mosquitto/log/
+      - /mnt/appdata/mosquitto/data/:/mosquitto/data/
     ports:
       - 1883:1883
       - 9901:9001
