@@ -6,6 +6,8 @@ services:
     image: lscr.io/linuxserver/homeassistant:latest
     container_name: homeassistant
     network_mode: host
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
     environment:
       - PUID=99
       - PGID=100
@@ -34,6 +36,8 @@ services:
     privileged: true
     cap_add:
       - CAP_PERFMON
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /mnt/user/appdata/frigate/config/:/config/
@@ -74,6 +78,8 @@ services:
     image: eclipse-mosquitto:2
     container_name: mosquitto
     hostname: mosquitto_host
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
     volumes:
       - /mnt/user/appdata/mosquitto/config:/mosquitto/config/
       - /mnt/user/appdata/mosquitto/log/:/mosquitto/log/
