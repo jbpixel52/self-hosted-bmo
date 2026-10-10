@@ -75,6 +75,9 @@ services:
     image: eclipse-mosquitto:2
     container_name: mosquitto
     hostname: mosquitto_host
+    # Broker config lives in /mnt/appdata/mosquitto/config/mosquitto.conf
+    # (auth required; user "mqtt", password file alongside it).
+    restart: unless-stopped
     extra_hosts:
       - "host.docker.internal:172.17.0.1"
     volumes:
